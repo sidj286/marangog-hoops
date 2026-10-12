@@ -54,13 +54,13 @@ export const ProfileSetupModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/40 backdrop-blur-xs animate-fade-in">
+      <div className="w-full max-w-md bg-white border border-gray-200 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="relative px-6 pt-6 pb-4 bg-gradient-to-b from-orange-950/40 via-slate-900 to-slate-900 border-b border-slate-800">
+        <div className="relative px-6 pt-6 pb-4 bg-gray-50 border-b border-gray-200">
           <button
             onClick={() => setIsProfileModalOpen(false)}
-            className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 transition-colors"
+            className="absolute top-5 right-5 p-1.5 rounded-full text-gray-400 hover:text-gray-700 bg-gray-200/60 hover:bg-gray-200 transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -68,25 +68,25 @@ export const ProfileSetupModal: React.FC = () => {
 
           <div className="flex items-center gap-2 mb-1.5">
             <span className="text-xl">🏀</span>
-            <span className="font-bold text-xs uppercase tracking-wider text-orange-400 bg-orange-950/60 px-2.5 py-1 rounded-full border border-orange-800/60">
+            <span className="font-bold text-xs uppercase tracking-wider text-orange-700 bg-orange-100/80 px-2 py-0.5 rounded border border-orange-200">
               Player Identity
             </span>
           </div>
 
-          <h2 className="text-xl font-extrabold text-white font-court">
+          <h2 className="text-xl font-bold text-gray-900">
             I-kumpleto Imong Profile
           </h2>
 
-          <p className="text-xs text-slate-300 mt-1">
-            Aron mailhan ka sa imong mga kaduwa sa Barangay Marangog!
+          <p className="text-xs text-gray-500 mt-1">
+            Aron mailhan ka sa mga kumpas ug kaduwa sa Barangay Marangog!
           </p>
         </div>
 
         {/* Form Body */}
-        <div className="p-6 space-y-4">
+        <div className="p-6 space-y-4 bg-white">
           {errorMsg && (
-            <div className="p-3 bg-red-950/50 border border-red-800/60 rounded-xl flex items-start gap-2.5 text-xs text-red-200">
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2.5 text-xs text-red-700">
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
           )}
@@ -94,36 +94,36 @@ export const ProfileSetupModal: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Display Name */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Ngalan o Alias <span className="text-orange-400">*</span>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Ngalan o Alias <span className="text-orange-600">*</span>
               </label>
               <div className="relative">
-                <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <User className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   required
                   placeholder="e.g. Kobe Bryan, Dondon, Junmar"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-xs sm:text-sm"
+                  className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
                 />
               </div>
             </div>
 
             {/* Purok / Sitio */}
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Purok o Sitio sa Marangog <span className="text-orange-400">*</span>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Purok o Sitio sa Marangog <span className="text-orange-600">*</span>
               </label>
               <div className="relative mb-2">
-                <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   required
                   placeholder="e.g. Purok 3, Sitio Ilaya, Riverside"
                   value={purok}
                   onChange={(e) => setPurok(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-xs sm:text-sm"
+                  className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
                 />
               </div>
 
@@ -134,10 +134,10 @@ export const ProfileSetupModal: React.FC = () => {
                     key={item}
                     type="button"
                     onClick={() => setPurok(item)}
-                    className={`text-[10px] px-2 py-1 rounded-md border transition-all ${
+                    className={`text-[10px] px-2 py-0.5 rounded border transition-all ${
                       purok === item
-                        ? 'bg-orange-500/20 border-orange-500 text-orange-300 font-bold'
-                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                        ? 'bg-orange-50 border-orange-500 text-orange-700 font-bold'
+                        : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
                     }`}
                   >
                     {item}
@@ -149,19 +149,19 @@ export const ProfileSetupModal: React.FC = () => {
             {/* Monicker */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-semibold text-slate-300">
-                  Monicker / Alas <span className="text-slate-500 font-normal">(Optional)</span>
+                <label className="text-xs font-semibold text-gray-700">
+                  Monicker / Alas <span className="text-gray-400 font-normal">(Optional)</span>
                 </label>
-                <span className="text-[10px] text-slate-400">e.g. "The Flash", "Sniper"</span>
+                <span className="text-[10px] text-gray-400">e.g. "The Flash", "Sniper"</span>
               </div>
               <div className="relative">
-                <Sparkles className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <Sparkles className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   placeholder="e.g. Sniper, Spark, Alas sa Court"
                   value={monicker}
                   onChange={(e) => setMonicker(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-xs sm:text-sm"
+                  className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
                 />
               </div>
             </div>
@@ -169,10 +169,10 @@ export const ProfileSetupModal: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 text-sm font-court"
+              className="w-full py-2.5 px-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg shadow-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 text-xs sm:text-sm"
             >
               {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />

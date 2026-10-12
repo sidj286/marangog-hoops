@@ -79,7 +79,6 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
         message: message.trim(),
         players_needed: category === 'Need Player' ? playersNeeded : 0,
       });
-      // Reset form
       setMessage('');
       onClose();
     } catch (err: unknown) {
@@ -95,35 +94,35 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-950/80 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in">
       <div 
         className="fixed inset-0" 
         onClick={onClose} 
       />
 
-      <div className="relative w-full max-w-lg bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col z-10">
+      <div className="relative w-full max-w-lg bg-white border border-gray-200 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col z-10">
         {/* Handle */}
-        <div className="sm:hidden flex justify-center pt-3 pb-1">
-          <div className="w-12 h-1.5 rounded-full bg-slate-700/80" />
+        <div className="sm:hidden flex justify-center pt-2.5 pb-1 bg-gray-50">
+          <div className="w-10 h-1 rounded-full bg-gray-300" />
         </div>
 
         {/* Header */}
-        <div className="px-5 pt-4 pb-3 border-b border-slate-800 bg-slate-950/70 flex items-center justify-between">
+        <div className="px-5 py-3.5 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xl">🏀</span>
-              <h3 className="text-base sm:text-lg font-black text-white font-court">
+              <h3 className="text-base font-bold text-gray-900">
                 I-post sa Marangog Board
               </h3>
             </div>
-            <p className="text-[11px] text-slate-400">
-              Isip <span className="text-orange-400 font-semibold">{profile?.display_name}</span> ({profile?.purok})
+            <p className="text-[11px] text-gray-500">
+              Isip <span className="text-orange-700 font-semibold">{profile?.display_name}</span> ({profile?.purok})
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-full text-gray-400 hover:text-gray-700 bg-gray-200/60 hover:bg-gray-200 transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -131,17 +130,17 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4">
+        <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4 bg-white">
           {errorMsg && (
-            <div className="p-3 bg-red-950/50 border border-red-800/60 rounded-xl flex items-start gap-2.5 text-xs text-red-200">
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2.5 text-xs text-red-700">
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
           )}
 
-          {/* 1. Category Selection (1-tap pills) */}
+          {/* 1. Category Selection */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+            <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
               1. Pilia ang Kategoriya
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -161,16 +160,16 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
                     }}
                     className={`p-2.5 rounded-xl border text-left transition-all active:scale-95 flex items-start gap-2 ${
                       isSelected
-                        ? `${info.badgeBg} border-2 shadow-md shadow-orange-500/10`
-                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                        ? 'bg-orange-50 border-orange-500 text-orange-950 border-2 shadow-xs'
+                        : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
                     }`}
                   >
                     <span className="text-lg shrink-0">{info.emoji}</span>
                     <div className="min-w-0">
-                      <div className={`text-xs font-bold leading-tight ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                      <div className={`text-xs font-bold leading-tight ${isSelected ? 'text-orange-900' : 'text-gray-800'}`}>
                         {info.label}
                       </div>
-                      <div className="text-[10px] text-slate-400 truncate">
+                      <div className="text-[10px] text-gray-500 truncate">
                         {info.sublabel}
                       </div>
                     </div>
@@ -180,10 +179,10 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
             </div>
           </div>
 
-          {/* 2. If 'Need Player', show quick players needed selector */}
+          {/* 2. If 'Need Player', show quick selector */}
           {category === 'Need Player' && (
-            <div className="p-3 bg-amber-950/30 border border-amber-800/40 rounded-xl space-y-1.5 animate-fade-in">
-              <label className="block text-xs font-bold text-amber-300">
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl space-y-1.5 animate-fade-in">
+              <label className="block text-xs font-bold text-amber-900">
                 Pila ka magduduwa ang kulang?
               </label>
               <div className="flex gap-2">
@@ -192,10 +191,10 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
                     key={num}
                     type="button"
                     onClick={() => setPlayersNeeded(num)}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-extrabold border transition-all ${
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold border transition-all ${
                       playersNeeded === num
-                        ? 'bg-amber-500 text-slate-950 border-amber-400'
-                        : 'bg-slate-950 border-slate-800 text-slate-300 hover:bg-slate-800'
+                        ? 'bg-amber-600 text-white border-amber-600'
+                        : 'bg-white border-amber-200 text-amber-900 hover:bg-amber-100'
                     }`}
                   >
                     Kulang {num}
@@ -207,18 +206,18 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
 
           {/* 3. Court Selection */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
               2. Basketball Court
             </label>
             <div className="relative mb-2">
-              <MapPin className="w-4 h-4 text-orange-400 absolute left-3 top-3" />
+              <MapPin className="w-4 h-4 text-orange-600 absolute left-3 top-2.5" />
               <input
                 type="text"
                 required
                 value={courtName}
                 onChange={(e) => setCourtName(e.target.value)}
                 placeholder="Pangalan sa Court..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-9 pr-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-xs sm:text-sm"
+                className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
               />
             </div>
             {/* Quick Court Chips */}
@@ -228,10 +227,10 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
                   key={court}
                   type="button"
                   onClick={() => setCourtName(court)}
-                  className={`text-[10px] px-2.5 py-1 rounded-lg border transition-all ${
+                  className={`text-[10px] px-2.5 py-1 rounded-md border transition-all ${
                     courtName === court
-                      ? 'bg-orange-500/20 border-orange-500 text-orange-300 font-bold'
-                      : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                      ? 'bg-orange-50 border-orange-500 text-orange-700 font-bold'
+                      : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
                   }`}
                 >
                   {court}
@@ -243,11 +242,11 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
           {/* 4. Message / Note (<140 chars) */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-300">
+              <label className="text-xs font-bold uppercase tracking-wider text-gray-700">
                 3. Mensahe / Detalye
               </label>
               <span className={`text-[11px] font-mono font-bold ${
-                message.length > 130 ? 'text-red-400' : 'text-slate-500'
+                message.length > 130 ? 'text-red-600' : 'text-gray-400'
               }`}>
                 {message.length}/140
               </span>
@@ -260,12 +259,12 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
               placeholder="Unsay sabot? Kanus-a sugdan? Dala bola? Pila kabuok ka team?"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-orange-500 text-xs sm:text-sm resize-none"
+              className="w-full bg-white border border-gray-300 rounded-lg p-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm resize-none"
             />
 
             {/* Quick Preset Phrases */}
             <div className="mt-2 space-y-1">
-              <span className="text-[10px] text-slate-500 font-semibold block">
+              <span className="text-[10px] text-gray-500 font-semibold block">
                 Paspas nga mga pulong (1-tap):
               </span>
               <div className="flex flex-wrap gap-1.5">
@@ -274,7 +273,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
                     key={idx}
                     type="button"
                     onClick={() => handlePickPreset(preset)}
-                    className="text-[10px] text-left px-2 py-1 rounded-md bg-slate-950 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800/80 transition-colors"
+                    className="text-[10px] text-left px-2 py-1 rounded-md bg-gray-50 hover:bg-gray-100 text-gray-600 hover:text-gray-900 border border-gray-200 transition-colors"
                   >
                     "{preset.slice(0, 32)}..."
                   </button>
@@ -288,7 +287,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
             <button
               type="submit"
               disabled={submitting || !message.trim()}
-              className="w-full py-3.5 px-4 bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 disabled:opacity-50 text-white font-extrabold rounded-xl shadow-lg shadow-orange-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm font-court"
+              className="w-full py-3 px-4 bg-orange-600 hover:bg-orange-700 disabled:opacity-50 text-white font-bold rounded-lg shadow-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm"
             >
               {submitting ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

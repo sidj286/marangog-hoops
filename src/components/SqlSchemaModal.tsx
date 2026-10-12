@@ -103,19 +103,19 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/40 backdrop-blur-xs animate-fade-in">
+      <div className="w-full max-w-2xl bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center">
               <Database className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-extrabold text-white font-court">
+              <h3 className="text-base font-bold text-gray-900">
                 Supabase SQL & Setup Guide
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-gray-500">
                 Barangay Marangog, Bogo City Basketball Database
               </p>
             </div>
@@ -123,17 +123,17 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 transition-colors"
+            className="p-1.5 rounded-full text-gray-400 hover:text-gray-700 bg-gray-200/60 hover:bg-gray-200 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Status banner */}
-        <div className="px-6 py-3 bg-slate-950/40 border-b border-slate-800/80 flex items-center justify-between gap-3 text-xs">
+        <div className="px-6 py-2.5 bg-gray-50/60 border-b border-gray-200 flex items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
             <span className={`w-2.5 h-2.5 rounded-full ${isConfigured ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
-            <span className="font-semibold text-slate-200">
+            <span className="font-semibold text-gray-800">
               {isConfigured ? 'Supabase Live Connected' : 'Preview Mode (Local Engine Active)'}
             </span>
           </div>
@@ -141,50 +141,50 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
           <button
             type="button"
             onClick={() => setShowConfig(!showConfig)}
-            className="text-[11px] text-orange-400 hover:text-orange-300 font-semibold underline"
+            className="text-[11px] text-orange-700 hover:text-orange-900 font-semibold underline"
           >
             {showConfig ? 'Tago-a ang Config' : 'I-configure ang Keys'}
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto space-y-4 text-xs">
+        <div className="p-6 overflow-y-auto space-y-4 text-xs bg-white">
           {showConfig && (
-            <form onSubmit={handleSaveCredentials} className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
-              <h4 className="font-bold text-slate-200 flex items-center gap-1.5">
-                <Key className="w-3.5 h-3.5 text-orange-400" />
+            <form onSubmit={handleSaveCredentials} className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-3">
+              <h4 className="font-bold text-gray-900 flex items-center gap-1.5">
+                <Key className="w-3.5 h-3.5 text-orange-600" />
                 I-konektar Imong Supabase Project
               </h4>
-              <p className="text-[11px] text-slate-400">
-                Puyde nimo isulod direkta ang imong Supabase URL ug Anon Key (o ibutang sa <code className="text-orange-400">.env</code>):
+              <p className="text-[11px] text-gray-600">
+                Puyde nimo isulod direkta ang imong Supabase URL ug Anon Key (o ibutang sa <code className="text-orange-700 bg-orange-100 px-1 py-0.5 rounded">.env</code>):
               </p>
 
               <div>
-                <label className="block text-[11px] text-slate-400 mb-1">VITE_SUPABASE_URL</label>
+                <label className="block text-[11px] text-gray-700 mb-1">VITE_SUPABASE_URL</label>
                 <input
                   type="text"
                   placeholder="https://your-project.supabase.co"
                   value={inputUrl}
                   onChange={(e) => setInputUrl(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 text-xs focus:border-orange-500 focus:outline-none"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-gray-900 text-xs focus:border-orange-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-400 mb-1">VITE_SUPABASE_ANON_KEY</label>
+                <label className="block text-[11px] text-gray-700 mb-1">VITE_SUPABASE_ANON_KEY</label>
                 <input
                   type="text"
                   placeholder="eyJhbGciOiJIUzI1NiIsIn..."
                   value={inputAnonKey}
                   onChange={(e) => setInputAnonKey(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 text-xs focus:border-orange-500 focus:outline-none"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-gray-900 text-xs focus:border-orange-600 focus:outline-none"
                 />
               </div>
 
               <div className="flex gap-2 pt-1">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl text-xs flex items-center gap-1"
+                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg text-xs flex items-center gap-1 shadow-xs"
                 >
                   <RefreshCw className="w-3 h-3" />
                   I-save & I-konektar
@@ -192,7 +192,7 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
                 <button
                   type="button"
                   onClick={() => clearCustomSupabaseConfig()}
-                  className="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-xl text-xs border border-slate-800"
+                  className="px-3 py-2 bg-white hover:bg-gray-100 text-gray-700 rounded-lg text-xs border border-gray-300"
                 >
                   I-reset sa Demo Mode
                 </button>
@@ -201,9 +201,9 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
           )}
 
           {/* Quick instructions */}
-          <div className="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80 space-y-1.5 leading-relaxed">
-            <span className="font-bold text-orange-400 block text-xs">Instruksyon sa Supabase Setup:</span>
-            <ol className="list-decimal list-inside space-y-1 text-slate-300 text-[11px]">
+          <div className="bg-orange-50/80 p-3.5 rounded-xl border border-orange-200 space-y-1.5 leading-relaxed">
+            <span className="font-bold text-orange-900 block text-xs">Instruksyon sa Supabase Setup:</span>
+            <ol className="list-decimal list-inside space-y-1 text-orange-950 text-[11px]">
               <li>Ablihi ang imong Supabase Dashboard & paghimo og bag-ong proyekto.</li>
               <li>Adto sa <strong>Authentication &rarr; Providers &rarr; Email</strong> ug i-OFF ang <em>"Confirm email"</em>.</li>
               <li>Adto sa <strong>SQL Editor</strong>, i-paste ang script sa ubos, ug i-click ang <strong>Run</strong>.</li>
@@ -213,19 +213,19 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
           {/* Code Viewer with 1-click copy */}
           <div className="relative">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-gray-600">
                 SQL Migration Script:
               </span>
               <button
                 onClick={handleCopy}
-                className="flex items-center gap-1 px-3 py-1 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg transition-colors text-xs"
+                className="flex items-center gap-1 px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition-colors text-xs shadow-xs"
               >
                 {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copied ? 'Kopyado na!' : 'Kopyaha ang SQL'}</span>
               </button>
             </div>
 
-            <pre className="p-4 bg-slate-950 border border-slate-800 rounded-2xl overflow-x-auto text-slate-300 font-mono text-[11px] leading-relaxed max-h-64">
+            <pre className="p-4 bg-gray-900 text-gray-100 rounded-xl overflow-x-auto font-mono text-[11px] leading-relaxed max-h-64 border border-gray-800">
               {SQL_MIGRATION}
             </pre>
           </div>

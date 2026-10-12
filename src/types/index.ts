@@ -64,8 +64,8 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Magduwa Hapon',
     sublabel: 'Pick-up Game Invite',
     emoji: '🏀',
-    badgeBg: 'bg-orange-500/20 text-orange-400 border-orange-500/40',
-    badgeText: 'text-orange-400',
+    badgeBg: 'bg-orange-50 text-orange-700 border-orange-200',
+    badgeText: 'text-orange-700',
     borderColor: 'border-orange-500',
     description: 'Hagit o panawag para mag-abot sa court karong hapon o gabii'
   },
@@ -74,9 +74,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Naa Nanulong',
     sublabel: 'Visitors / Dayo Arrived',
     emoji: '⚔️',
-    badgeBg: 'bg-red-500/20 text-red-400 border-red-500/40',
-    badgeText: 'text-red-400',
-    borderColor: 'border-red-500',
+    badgeBg: 'bg-rose-50 text-rose-700 border-rose-200',
+    badgeText: 'text-rose-700',
+    borderColor: 'border-rose-500',
     description: 'Naay grupo gikan laing barangay o sitio nga gustong moduwa'
   },
   'Need Player': {
@@ -84,8 +84,8 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Need Player',
     sublabel: 'Kulang sa Kontra / Kauban',
     emoji: '🙋‍♂️',
-    badgeBg: 'bg-amber-500/20 text-amber-400 border-amber-500/40',
-    badgeText: 'text-amber-400',
+    badgeBg: 'bg-amber-50 text-amber-800 border-amber-200',
+    badgeText: 'text-amber-800',
     borderColor: 'border-amber-500',
     description: 'Kulang ug 1, 2, o 3 ka magduduwa aron makasugod dayon'
   },
@@ -94,8 +94,8 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Manong sa Court',
     sublabel: 'Current Queue / Rotation',
     emoji: '⏳',
-    badgeBg: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
-    badgeText: 'text-emerald-400',
+    badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    badgeText: 'text-emerald-700',
     borderColor: 'border-emerald-500',
     description: 'Kinsay sunod mosulod o kinsay daog-manong sa court karon'
   }
@@ -119,3 +119,4 @@ export const POPULAR_PUROKS = [
   'Sitio Riverside',
   'Sitio Centro'
 ];
+

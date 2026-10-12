@@ -391,7 +391,7 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 court-pattern flex flex-col font-sans">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
       {/* Top App Header */}
       <Header
         onOpenSqlModal={() => setIsSqlModalOpen(true)}
@@ -420,11 +420,11 @@ export const AppContent: React.FC = () => {
       <div className="fixed bottom-6 right-5 sm:right-8 z-30">
         <button
           onClick={handleOpenCreatePost}
-          className="group flex items-center gap-2.5 px-4 sm:px-5 py-3.5 bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-black text-sm rounded-full shadow-2xl shadow-orange-500/40 border border-orange-400/40 active:scale-95 transition-all font-court cursor-pointer animate-pulse-subtle"
+          className="group flex items-center gap-2 px-4 sm:px-5 py-3.5 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm rounded-full shadow-lg shadow-orange-600/30 active:scale-95 transition-all cursor-pointer"
           aria-label="Magduwa Ta - Create Post"
         >
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <Plus className="w-4 h-4 stroke-[3]" />
+          <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+            <Plus className="w-3.5 h-3.5 stroke-[3]" />
           </div>
           <span className="tracking-wide">Magduwa Ta! 🏀</span>
         </button>

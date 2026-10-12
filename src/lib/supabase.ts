@@ -59,3 +59,4 @@ export function clearCustomSupabaseConfig() {
     window.location.reload();
   }
 }
+

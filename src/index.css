@@ -1,33 +1,13 @@
 @import "tailwindcss";
 
 @layer base {
-  :root {
-    --font-heading: 'Chakra Petch', sans-serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
-  }
-
   body {
-    font-family: var(--font-body);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
-    background-color: #030712;
-    color: #f8fafc;
+    background-color: #ffffff;
+    color: #0f172a;
   }
-
-  h1, h2, h3, .font-court {
-    font-family: var(--font-heading);
-  }
-}
-
-/* Custom court line styling and basketball gradients */
-.court-pattern {
-  background-color: #090d16;
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(234, 88, 12, 0.15) 0%, transparent 60%),
-    radial-gradient(circle at 50% 100%, rgba(249, 115, 22, 0.08) 0%, transparent 50%),
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
 }
 
 /* Safe area insets for mobile standalone PWA */
@@ -39,27 +19,27 @@
   padding-top: max(1rem, env(safe-area-inset-top));
 }
 
-/* Smooth custom scrollbars */
+/* Clean minimal scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(234, 88, 12, 0.4);
+  background: #cbd5e1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(234, 88, 12, 0.7);
+  background: #94a3b8;
 }
 
 @keyframes pulse-subtle {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.02); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 .animate-pulse-subtle {
-  animation: pulse-subtle 2s infinite ease-in-out;
+  animation: pulse-subtle 2.5s infinite ease-in-out;
 }
