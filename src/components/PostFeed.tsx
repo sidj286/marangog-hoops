@@ -63,18 +63,29 @@ export const PostFeed: React.FC<PostFeedProps> = ({
       {/* Category Filter Bar */}
       <div className="space-y-2">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-          <button
-            type="button"
-            onClick={() => setSelectedCategory('ALL')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
-              selectedCategory === 'ALL'
-                ? 'bg-[#F59E0B] text-black font-black shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-            }`}
-          >
-            <BasketballIcon className="w-3.5 h-3.5 shrink-0" />
-            <span>Tanan ({posts.filter(p => !isPostExpired(p.created_at) && !p.is_concluded).length})</span>
-          </button>
+          {/* Tanan Filter Tab */}
+          {(() => {
+            const allActiveCount = posts.filter(p => !isPostExpired(p.created_at) && !p.is_concluded).length;
+            return (
+              <button
+                type="button"
+                onClick={() => setSelectedCategory('ALL')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                  selectedCategory === 'ALL'
+                    ? 'bg-[#F59E0B] text-black font-black shadow-xs'
+                    : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+              >
+                <BasketballIcon className="w-3.5 h-3.5 shrink-0" />
+                <span>Tanan</span>
+                {allActiveCount > 0 && (
+                  <span className="min-w-[18px] h-[18px] px-1.5 flex items-center justify-center text-[10px] font-black text-white bg-red-600 rounded-full shadow-xs leading-none">
+                    {allActiveCount}
+                  </span>
+                )}
+              </button>
+            );
+          })()}
 
           {(Object.keys(CATEGORIES) as PostCategory[]).map((catKey) => {
             const cat = CATEGORIES[catKey];
@@ -95,7 +106,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
                 <CategoryIcon category={catKey} className="w-3.5 h-3.5 shrink-0" />
                 <span>{cat.label}</span>
                 {count > 0 && (
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                  <span className="min-w-[18px] h-[18px] px-1.5 flex items-center justify-center text-[10px] font-black text-white bg-red-600 rounded-full shadow-xs leading-none">
                     {count}
                   </span>
                 )}
