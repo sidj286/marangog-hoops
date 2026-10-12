@@ -165,11 +165,6 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                         <span className="text-[10px] font-semibold bg-white text-orange-700 px-1.5 py-0.2 rounded border border-orange-200">
                           {comment.profile?.purok || 'Marangog'}
                         </span>
-                        {comment.profile?.monicker && (
-                          <span className="text-[9px] text-gray-400 italic">
-                            "{comment.profile.monicker}"
-                          </span>
-                        )}
                       </div>
 
                       <span className="text-[10px] text-gray-400 shrink-0">

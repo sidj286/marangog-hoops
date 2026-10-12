@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { X, Lock, Mail, User, MapPin, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
-import { POPULAR_PUROKS } from '../types';
+import { X, Lock, Mail, User, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export const AuthModal: React.FC = () => {
   const {
@@ -17,8 +16,7 @@ export const AuthModal: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
-  const [purok, setPurok] = useState('Purok 3');
-  const [monicker, setMonicker] = useState('');
+  const [purok, setPurok] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -32,12 +30,12 @@ export const AuthModal: React.FC = () => {
     try {
       if (mode === 'signup') {
         if (!displayName.trim()) {
-          setErrorMsg('Palihug ibutang ang imong Ngalan o Alias.');
+          setErrorMsg('Palihug ibutang ang imong Kumpletong Ngalan (Full Name).');
           setLoading(false);
           return;
         }
         if (!purok.trim()) {
-          setErrorMsg('Palihug ibutang ang imong Purok o Sitio.');
+          setErrorMsg('Palihug ibutang o i-type ang imong Purok o Sitio.');
           setLoading(false);
           return;
         }
@@ -52,7 +50,7 @@ export const AuthModal: React.FC = () => {
           return;
         }
 
-        const res = await signUp(email, password, displayName, purok, monicker);
+        const res = await signUp(email, password, displayName, purok);
         if (res.error) {
           setErrorMsg(res.error);
         }
@@ -146,77 +144,46 @@ export const AuthModal: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-3.5">
             {mode === 'signup' && (
               <>
-                {/* Display Name */}
+                {/* Full Name */}
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1">
-                    Ngalan o Alias <span className="text-orange-600">*</span>
+                    Kumpletong Ngalan (Full Name) <span className="text-orange-600">*</span>
                   </label>
                   <div className="relative">
                     <User className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Kobe Bryan, Junmar, Coach Dondon"
+                      placeholder="e.g. Juan Dela Cruz"
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
                       className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
                     />
                   </div>
+                  <span className="text-[10px] text-gray-400 mt-0.5 block">
+                    Tinuod nga ngalan ang gamiton, dili alias.
+                  </span>
                 </div>
 
-                {/* Purok / Sitio */}
+                {/* Purok / Sitio - Free User Input */}
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1">
                     Imong Purok / Sitio sa Marangog <span className="text-orange-600">*</span>
                   </label>
-                  <div className="relative mb-2">
+                  <div className="relative">
                     <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Purok 3, Sitio Ilaya, Riverside"
+                      placeholder="I-type imong Purok o Sitio (e.g. Purok 1, Purok 3, Sitio Ilaya)"
                       value={purok}
                       onChange={(e) => setPurok(e.target.value)}
                       className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
                     />
                   </div>
-                  {/* Quick Purok Pills */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {POPULAR_PUROKS.map((item) => (
-                      <button
-                        key={item}
-                        type="button"
-                        onClick={() => setPurok(item)}
-                        className={`text-[10px] px-2 py-0.5 rounded border transition-all ${
-                          purok === item
-                            ? 'bg-orange-50 border-orange-500 text-orange-700 font-bold'
-                            : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
-                        }`}
-                      >
-                        {item}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Monicker (Optional) */}
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-semibold text-gray-700">
-                      Alas / Monicker <span className="text-gray-400 font-normal">(Optional)</span>
-                    </label>
-                    <span className="text-[10px] text-gray-400">e.g. "The Hawk", "Sniper"</span>
-                  </div>
-                  <div className="relative">
-                    <Sparkles className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
-                    <input
-                      type="text"
-                      placeholder="e.g. The Sniper, King of Court, Alas"
-                      value={monicker}
-                      onChange={(e) => setMonicker(e.target.value)}
-                      className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
-                    />
-                  </div>
+                  <span className="text-[10px] text-gray-400 mt-0.5 block">
+                    I-type kung asa ka nga purok o sitio nagpuyo.
+                  </span>
                 </div>
               </>
             )}
@@ -297,7 +264,7 @@ export const AuthModal: React.FC = () => {
                 className="p-2 text-left bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors group"
               >
                 <div className="text-xs font-bold text-gray-900 group-hover:text-orange-600">Kobe Bryan</div>
-                <div className="text-[10px] text-gray-500">Purok 3 • The Sniper</div>
+                <div className="text-[10px] text-gray-500">Purok 3</div>
               </button>
               <button
                 type="button"
@@ -305,7 +272,7 @@ export const AuthModal: React.FC = () => {
                 className="p-2 text-left bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors group"
               >
                 <div className="text-xs font-bold text-gray-900 group-hover:text-orange-600">Junmar Fajardo</div>
-                <div className="text-[10px] text-gray-500">Sitio Ilaya • Kraken</div>
+                <div className="text-[10px] text-gray-500">Sitio Ilaya</div>
               </button>
             </div>
           </div>

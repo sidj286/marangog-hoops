@@ -202,11 +202,6 @@ export const PostCard: React.FC<PostCardProps> = ({
                 <span className="text-[10px] font-semibold bg-orange-50 text-orange-700 px-1.5 py-0.2 rounded border border-orange-200 shrink-0">
                   {post.profile?.purok || 'Marangog'}
                 </span>
-                {post.profile?.monicker && (
-                  <span className="text-[10px] text-gray-400 italic hidden sm:inline">
-                    "{post.profile.monicker}"
-                  </span>
-                )}
               </div>
               <span className="text-[10px] text-gray-400">
                 {formatRelativeTime(post.created_at)}

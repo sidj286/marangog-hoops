@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { X, User, MapPin, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
-import { POPULAR_PUROKS } from '../types';
+import { X, User, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export const ProfileSetupModal: React.FC = () => {
   const {
@@ -12,16 +11,14 @@ export const ProfileSetupModal: React.FC = () => {
   } = useAuth();
 
   const [displayName, setDisplayName] = useState(profile?.display_name || '');
-  const [purok, setPurok] = useState(profile?.purok || 'Purok 3');
-  const [monicker, setMonicker] = useState(profile?.monicker || '');
+  const [purok, setPurok] = useState(profile?.purok || '');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     if (profile) {
       setDisplayName(profile.display_name || '');
-      setPurok(profile.purok || 'Purok 3');
-      setMonicker(profile.monicker || '');
+      setPurok(profile.purok || '');
     }
   }, [profile]);
 
@@ -30,11 +27,11 @@ export const ProfileSetupModal: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!displayName.trim()) {
-      setErrorMsg('Palihug isulod ang imong Ngalan o Alias.');
+      setErrorMsg('Palihug isulod ang imong Kumpletong Ngalan (Full Name).');
       return;
     }
     if (!purok.trim()) {
-      setErrorMsg('Palihug ibutang ang imong Purok o Sitio.');
+      setErrorMsg('Palihug ibutang o i-type ang imong Purok o Sitio.');
       return;
     }
 
@@ -44,7 +41,6 @@ export const ProfileSetupModal: React.FC = () => {
     const res = await updateProfile({
       display_name: displayName.trim(),
       purok: purok.trim(),
-      monicker: monicker.trim() || undefined,
     });
 
     setLoading(false);
@@ -78,7 +74,7 @@ export const ProfileSetupModal: React.FC = () => {
           </h2>
 
           <p className="text-xs text-gray-500 mt-1">
-            Aron mailhan ka sa mga kumpas ug kaduwa sa Barangay Marangog!
+            Palihug ibutang ang imong kumpletong ngalan ug purok aron mailhan ka sa Barangay Marangog!
           </p>
         </div>
 
@@ -92,84 +88,52 @@ export const ProfileSetupModal: React.FC = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Display Name */}
+            {/* Full Name */}
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1">
-                Ngalan o Alias <span className="text-orange-600">*</span>
+                Kumpletong Ngalan (Full Name) <span className="text-orange-600">*</span>
               </label>
               <div className="relative">
                 <User className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Kobe Bryan, Dondon, Junmar"
+                  placeholder="e.g. Juan Dela Cruz, Pedro Penduko"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
                 />
               </div>
+              <span className="text-[10px] text-gray-400 mt-0.5 block">
+                Tinuod nga ngalan ang gamiton, dili alias.
+              </span>
             </div>
 
-            {/* Purok / Sitio */}
+            {/* Purok / Sitio - Free User Input */}
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1">
-                Purok o Sitio sa Marangog <span className="text-orange-600">*</span>
+                Imong Purok o Sitio sa Marangog <span className="text-orange-600">*</span>
               </label>
-              <div className="relative mb-2">
+              <div className="relative">
                 <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Purok 3, Sitio Ilaya, Riverside"
+                  placeholder="I-type imong Purok o Sitio (e.g. Purok 1, Purok 3, Sitio Ilaya)"
                   value={purok}
                   onChange={(e) => setPurok(e.target.value)}
                   className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
                 />
               </div>
-
-              {/* Quick suggestion pills */}
-              <div className="flex flex-wrap gap-1.5">
-                {POPULAR_PUROKS.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => setPurok(item)}
-                    className={`text-[10px] px-2 py-0.5 rounded border transition-all ${
-                      purok === item
-                        ? 'bg-orange-50 border-orange-500 text-orange-700 font-bold'
-                        : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Monicker */}
-            <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-semibold text-gray-700">
-                  Monicker / Alas <span className="text-gray-400 font-normal">(Optional)</span>
-                </label>
-                <span className="text-[10px] text-gray-400">e.g. "The Flash", "Sniper"</span>
-              </div>
-              <div className="relative">
-                <Sparkles className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
-                <input
-                  type="text"
-                  placeholder="e.g. Sniper, Spark, Alas sa Court"
-                  value={monicker}
-                  onChange={(e) => setMonicker(e.target.value)}
-                  className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
-                />
-              </div>
+              <span className="text-[10px] text-gray-400 mt-0.5 block">
+                I-type kung asa ka nga purok o sitio nagpuyo sa Barangay Marangog.
+              </span>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg shadow-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 text-xs sm:text-sm"
+              className="w-full py-2.5 px-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg shadow-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 text-xs sm:text-sm mt-2"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
