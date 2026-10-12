@@ -104,7 +104,7 @@ export const PostCard: React.FC<PostCardProps> = ({
 
             {/* Players Needed badge */}
             {post.category === 'Need Player' && post.players_needed > 0 && !post.is_concluded && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#06B6D4]/15 text-[#06B6D4] border border-[#06B6D4]/40">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-cyan-100 text-cyan-800 border border-cyan-300">
                 <span>Kulang:</span>
                 <span className="bg-[#06B6D4] text-black px-1 rounded text-[10px] font-black">
                   {post.players_needed}
@@ -185,7 +185,7 @@ export const PostCard: React.FC<PostCardProps> = ({
                   {post.profile?.display_name || 'Marangog Baller'}
                 </span>
                 {/* Purok Badge */}
-                <span className="text-[10px] font-bold bg-slate-100 text-[#06B6D4] px-1.5 py-0.2 rounded border border-slate-200 shrink-0">
+                <span className="text-[10px] font-bold bg-cyan-50 text-cyan-700 px-1.5 py-0.2 rounded border border-cyan-200 shrink-0">
                   {post.profile?.purok || 'Marangog'}
                 </span>
               </div>
