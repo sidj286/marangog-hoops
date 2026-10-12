@@ -72,13 +72,13 @@ export const AuthModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-xs animate-fade-in">
-      <div className="w-full max-w-md bg-[#1E1E1E] border border-[#2D2D2D] rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col text-[#F3F4F6]">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col text-slate-900">
         {/* Header */}
-        <div className="relative px-6 pt-6 pb-4 bg-[#171717] border-b border-[#2D2D2D]">
+        <div className="relative px-6 pt-6 pb-4 bg-slate-50 border-b border-slate-200">
           <button
             onClick={() => setIsAuthModalOpen(false)}
-            className="absolute top-5 right-5 p-1.5 rounded-full text-[#9CA3AF] hover:text-[#F3F4F6] bg-[#262626] hover:bg-[#333333] border border-[#333333] transition-colors"
+            className="absolute top-5 right-5 p-1.5 rounded-full text-slate-400 hover:text-slate-800 bg-white hover:bg-slate-100 border border-slate-200 transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -86,38 +86,38 @@ export const AuthModal: React.FC = () => {
 
           <div className="flex items-center gap-2 mb-1.5">
             <BasketballIcon className="w-5 h-5 text-[#F59E0B]" />
-            <span className="font-bold text-xs uppercase tracking-wider text-[#9CA3AF] bg-[#262626] px-2 py-0.5 rounded border border-[#333333]">
+            <span className="font-bold text-xs uppercase tracking-wider text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">
               Barangay Marangog • Hoops Pass
             </span>
           </div>
 
-          <h2 className="text-xl font-bold text-[#F3F4F6]">
+          <h2 className="text-xl font-bold text-slate-900">
             {mode === 'signup' ? "Paghimo'g Account" : 'Sign in sa Imong Account'}
           </h2>
 
-          <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
+          <p className="text-xs text-slate-500 mt-1 leading-relaxed">
             {authModalReason || "Kinahanglan og profile aron maka-comment, makapost, o maka-join sa duwa sa court."}
           </p>
 
           {/* Connection Status Banner (only shown if in offline demo mode) */}
           {!isSupabaseLive && (
-            <div className="mt-2.5 p-2.5 rounded-lg bg-amber-950/40 border border-amber-800/60 text-amber-300 text-[11px] leading-relaxed text-left flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+            <div className="mt-2.5 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-[11px] leading-relaxed text-left flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold">Offline / Demo Mode:</span> Wala pa nakonektar sa Supabase database (walay <code className="bg-amber-900/60 px-1 py-0.5 rounded text-[10px] font-mono text-amber-200">.env</code>). Busa bisan unsa nga random credentials mag-simulate lang sa local storage.
+                <span className="font-bold">Offline / Demo Mode:</span> Wala pa nakonektar sa Supabase database (walay <code className="bg-amber-100 px-1 py-0.5 rounded text-[10px] font-mono text-amber-950">.env</code>). Busa bisan unsa nga random credentials mag-simulate lang sa local storage.
               </div>
             </div>
           )}
 
           {/* Mode Tabs */}
-          <div className="flex p-1 mt-3 bg-[#141414] rounded-lg border border-[#2D2D2D]">
+          <div className="flex p-1 mt-3 bg-slate-100 rounded-lg border border-slate-200">
             <button
               type="button"
               onClick={() => { setMode('signup'); setErrorMsg(null); }}
               className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all ${
                 mode === 'signup'
-                  ? 'bg-[#1E1E1E] text-[#F3F4F6] shadow-xs border border-[#333333]'
-                  : 'text-[#9CA3AF] hover:text-[#F3F4F6]'
+                  ? 'bg-white text-slate-900 shadow-xs border border-slate-200'
+                  : 'text-slate-500 hover:text-slate-900'
               }`}
             >
               Sign Up (Bag-ong Player)
@@ -127,8 +127,8 @@ export const AuthModal: React.FC = () => {
               onClick={() => { setMode('login'); setErrorMsg(null); }}
               className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all ${
                 mode === 'login'
-                  ? 'bg-[#1E1E1E] text-[#F3F4F6] shadow-xs border border-[#333333]'
-                  : 'text-[#9CA3AF] hover:text-[#F3F4F6]'
+                  ? 'bg-white text-slate-900 shadow-xs border border-slate-200'
+                  : 'text-slate-500 hover:text-slate-900'
               }`}
             >
               Log In (Naay Account)
@@ -137,9 +137,9 @@ export const AuthModal: React.FC = () => {
         </div>
 
         {/* Content Body */}
-        <div className="p-6 overflow-y-auto space-y-4 text-sm bg-[#1E1E1E]">
+        <div className="p-6 overflow-y-auto space-y-4 text-sm bg-white">
           {errorMsg && (
-            <div className="p-3 bg-rose-950/40 border border-rose-800/60 rounded-lg flex items-start gap-2.5 text-xs text-rose-300">
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg flex items-start gap-2.5 text-xs text-rose-700">
               <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
@@ -150,7 +150,7 @@ export const AuthModal: React.FC = () => {
               <>
                 {/* Full Name */}
                 <div>
-                  <label className="block text-xs font-semibold text-[#9CA3AF] mb-1">
+                  <label className="block text-xs font-semibold text-slate-600 mb-1">
                     Kumpletong Ngalan (Full Name) <span className="text-[#F59E0B]">*</span>
                   </label>
                   <div className="relative">
@@ -161,17 +161,17 @@ export const AuthModal: React.FC = () => {
                       placeholder="e.g. Juan Dela Cruz"
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
-                      className="w-full bg-[#262626] focus:bg-[#1E1E1E] border border-[#333333] rounded-lg py-2 pl-9 pr-3 text-[#F3F4F6] placeholder:text-[#9CA3AF]/60 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
+                      className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-2 pl-9 pr-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
                     />
                   </div>
-                  <span className="text-[10px] text-[#9CA3AF] mt-0.5 block">
+                  <span className="text-[10px] text-slate-400 mt-0.5 block">
                     Tinuod nga ngalan ang gamiton, dili alias.
                   </span>
                 </div>
 
                 {/* Purok / Sitio - Free User Input */}
                 <div>
-                  <label className="block text-xs font-semibold text-[#9CA3AF] mb-1">
+                  <label className="block text-xs font-semibold text-slate-600 mb-1">
                     Imong Purok / Sitio sa Marangog <span className="text-[#F59E0B]">*</span>
                   </label>
                   <div className="relative">
@@ -182,10 +182,10 @@ export const AuthModal: React.FC = () => {
                       placeholder="I-type imong Purok o Sitio (e.g. Purok 1, Purok 3, Sitio Ilaya)"
                       value={purok}
                       onChange={(e) => setPurok(e.target.value)}
-                      className="w-full bg-[#262626] focus:bg-[#1E1E1E] border border-[#333333] rounded-lg py-2 pl-9 pr-3 text-[#F3F4F6] placeholder:text-[#9CA3AF]/60 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
+                      className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-2 pl-9 pr-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
                     />
                   </div>
-                  <span className="text-[10px] text-[#9CA3AF] mt-0.5 block">
+                  <span className="text-[10px] text-slate-400 mt-0.5 block">
                     I-type kung asa ka nga purok o sitio nagpuyo.
                   </span>
                 </div>
@@ -194,7 +194,7 @@ export const AuthModal: React.FC = () => {
 
             {/* Email */}
             <div>
-              <label className="block text-xs font-semibold text-[#9CA3AF] mb-1">
+              <label className="block text-xs font-semibold text-slate-600 mb-1">
                 Email Address <span className="text-[#F59E0B]">*</span>
               </label>
               <div className="relative">
@@ -205,7 +205,7 @@ export const AuthModal: React.FC = () => {
                   placeholder="imong.email@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-[#262626] focus:bg-[#1E1E1E] border border-[#333333] rounded-lg py-2 pl-9 pr-3 text-[#F3F4F6] placeholder:text-[#9CA3AF]/60 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
+                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-2 pl-9 pr-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
                 />
               </div>
             </div>
@@ -213,10 +213,10 @@ export const AuthModal: React.FC = () => {
             {/* Password */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-semibold text-[#9CA3AF]">
+                <label className="text-xs font-semibold text-slate-600">
                   Password <span className="text-[#F59E0B]">*</span>
                 </label>
-                <span className="text-[10px] text-[#9CA3AF]">Min. 6 characters</span>
+                <span className="text-[10px] text-slate-400">Min. 6 characters</span>
               </div>
               <div className="relative">
                 <Lock className="w-4 h-4 text-[#F59E0B] absolute left-3 top-2.5" />
@@ -226,7 +226,7 @@ export const AuthModal: React.FC = () => {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-[#262626] focus:bg-[#1E1E1E] border border-[#333333] rounded-lg py-2 pl-9 pr-3 text-[#F3F4F6] placeholder:text-[#9CA3AF]/60 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
+                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-2 pl-9 pr-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
                 />
               </div>
             </div>
