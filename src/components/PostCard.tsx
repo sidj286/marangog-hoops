@@ -93,7 +93,7 @@ export const PostCard: React.FC<PostCardProps> = ({
             {post.is_concluded && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-stone-100 text-stone-600 border border-stone-200">
                 <Check className="w-3 h-3 text-emerald-600" />
-                Human Na
+                Concluded
               </span>
             )}
 
@@ -151,19 +151,19 @@ export const PostCard: React.FC<PostCardProps> = ({
                     className="w-full px-3 py-2 text-left text-stone-700 hover:bg-stone-50 flex items-center gap-2"
                   >
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>{post.is_concluded ? 'I-balik Aktibo' : 'I-mark Human Na'}</span>
+                    <span>{post.is_concluded ? 'Mark as Active' : 'Mark as Concluded'}</span>
                   </button>
                   <button
                     onClick={() => {
                       setShowMenu(false);
-                      if (confirm('Sigurado ka nga papason kini nga post?')) {
+                      if (confirm('Are you sure you want to delete this post?')) {
                         onDeletePost(post.id);
                       }
                     }}
                     className="w-full px-3 py-2 text-left text-rose-600 hover:bg-rose-50 flex items-center gap-2"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
-                    <span>Papasa ang Post</span>
+                    <span>Delete Post</span>
                   </button>
                 </div>
               </>

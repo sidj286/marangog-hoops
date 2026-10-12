@@ -32,3 +32,4 @@ export const BasketballIcon: React.FC<BasketballIconProps> = ({
     </svg>
   );
 };
+

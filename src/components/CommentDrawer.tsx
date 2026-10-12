@@ -184,12 +184,12 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                   {isCommentAuthor && (
                     <button
                       onClick={() => {
-                        if (confirm('Sigurado ka nga papason kini nga comment?')) {
+                        if (confirm('Are you sure you want to delete this comment?')) {
                           onDeleteComment(comment.id);
                         }
                       }}
                       className="p-1 text-stone-400 hover:text-rose-600 rounded transition-colors self-center shrink-0"
-                      title="Papasa ang comment"
+                      title="Delete comment"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
