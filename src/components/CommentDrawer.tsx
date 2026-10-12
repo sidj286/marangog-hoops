@@ -92,36 +92,36 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
         onClick={onClose} 
       />
 
-      <div className="relative w-full max-w-lg bg-white border border-slate-200 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col z-10 text-[#24282d]">
+      <div className="relative w-full max-w-lg bg-white border border-[#d2cbcb] rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col z-10 text-[#1e1c1c]">
         {/* Top Handle for mobile */}
-        <div className="sm:hidden flex justify-center pt-2.5 pb-1 bg-[#eff9ff] border-b border-slate-200">
-          <div className="w-10 h-1 rounded-full bg-slate-300" />
+        <div className="sm:hidden flex justify-center pt-2.5 pb-1 bg-[#eae6e6] border-b border-[#d2cbcb]">
+          <div className="w-10 h-1 rounded-full bg-[#ada8a8]" />
         </div>
 
         {/* Header */}
-        <div className="p-4 border-b border-slate-200 bg-[#eff9ff] flex items-start justify-between gap-3">
+        <div className="p-4 border-b border-[#d2cbcb] bg-[#eae6e6] flex items-start justify-between gap-3">
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <span className={`inline-flex items-center gap-1.5 text-xs px-2 py-0.5 rounded-md border font-bold ${categoryMeta.badgeBg}`}>
                 <CategoryIcon category={post.category} className="w-3.5 h-3.5" />
                 <span>{categoryMeta.label}</span>
               </span>
-              <span className="text-[#3e474e] text-xs flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-[#62babc]" />
+              <span className="text-[#807d7d] text-xs flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-[#45b2f0]" />
                 {post.court_name}
               </span>
             </div>
-            <h3 className="text-sm font-bold text-[#24282d] truncate">
+            <h3 className="text-sm font-bold text-[#1e1c1c] truncate">
               "{post.message}"
             </h3>
-            <p className="text-[11px] text-[#3e474e]">
-              Gipost ni <span className="text-[#24282d] font-semibold">{post.profile?.display_name}</span> ({post.profile?.purok})
+            <p className="text-[11px] text-[#807d7d]">
+              Gipost ni <span className="text-[#1e1c1c] font-semibold">{post.profile?.display_name}</span> ({post.profile?.purok})
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#3e474e] hover:text-[#24282d] bg-white hover:bg-slate-100 border border-slate-200 transition-colors shrink-0"
+            className="p-1.5 rounded-full text-[#807d7d] hover:text-[#1e1c1c] bg-white hover:bg-[#eae6e6] border border-[#d2cbcb] transition-colors shrink-0"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -132,11 +132,11 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
         <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[220px] bg-white">
           {comments.length === 0 ? (
             <div className="py-10 text-center space-y-2">
-              <div className="w-12 h-12 rounded-xl bg-[#eff9ff] border border-[#82dde1] text-[#62babc] flex items-center justify-center mx-auto">
-                <MessageSquare className="w-6 h-6 text-[#62babc]" />
+              <div className="w-12 h-12 rounded-xl bg-[#eae6e6] border border-[#d2cbcb] text-[#45b2f0] flex items-center justify-center mx-auto">
+                <MessageSquare className="w-6 h-6 text-[#45b2f0]" />
               </div>
-              <p className="text-sm font-bold text-[#24282d]">Wala pa'y comment sa kini nga duwa.</p>
-              <p className="text-xs text-[#3e474e] max-w-xs mx-auto">
+              <p className="text-sm font-bold text-[#1e1c1c]">Wala pa'y comment sa kini nga duwa.</p>
+              <p className="text-xs text-[#807d7d] max-w-xs mx-auto">
                 Mahimong una nga mo-comment! Isulti kung padung naka o magdala ug bola.
               </p>
             </div>
@@ -149,12 +149,12 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                   key={comment.id}
                   className={`flex items-start gap-2.5 p-3 rounded-xl border transition-all ${
                     isCommentAuthor
-                      ? 'bg-[#eff9ff] border-[#62babc]/30 ml-4'
-                      : 'bg-slate-50 border-slate-200 mr-4'
+                      ? 'bg-[#45b2f0]/10 border-[#45b2f0]/30 ml-4'
+                      : 'bg-[#eae6e6] border-[#d2cbcb] mr-4'
                   }`}
                 >
                   {/* Avatar */}
-                  <div className="w-7 h-7 rounded-full bg-[#eff9ff] border border-[#62babc]/30 text-[#62babc] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-[#45b2f0]/15 border border-[#45b2f0]/30 text-[#0284c7] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                     {comment.profile?.display_name?.charAt(0).toUpperCase() || 'P'}
                   </div>
 
@@ -162,20 +162,20 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-1 mb-1">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="text-xs font-bold text-[#24282d]">
+                        <span className="text-xs font-bold text-[#1e1c1c]">
                           {comment.profile?.display_name || 'Marangog Baller'}
                         </span>
-                        <span className="text-[10px] font-semibold bg-[#eff9ff] text-[#24282d] px-1.5 py-0.2 rounded border border-[#82dde1]">
+                        <span className="text-[10px] font-semibold bg-white text-[#1e1c1c] px-1.5 py-0.2 rounded border border-[#d2cbcb]">
                           {comment.profile?.purok || 'Marangog'}
                         </span>
                       </div>
 
-                      <span className="text-[10px] text-[#3e474e] shrink-0">
+                      <span className="text-[10px] text-[#807d7d] shrink-0">
                         {formatRelativeTime(comment.created_at)}
                       </span>
                     </div>
 
-                    <p className="text-xs text-[#24282d] whitespace-pre-wrap leading-relaxed font-normal">
+                    <p className="text-xs text-[#1e1c1c] whitespace-pre-wrap leading-relaxed font-normal">
                       {comment.comment_text}
                     </p>
                   </div>
@@ -188,7 +188,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                           onDeleteComment(comment.id);
                         }
                       }}
-                      className="p-1 text-slate-400 hover:text-rose-500 rounded transition-colors self-center shrink-0"
+                      className="p-1 text-[#807d7d] hover:text-rose-500 rounded transition-colors self-center shrink-0"
                       title="Delete comment"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -202,13 +202,13 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
         </div>
 
         {/* Quick Response Chips */}
-        <div className="px-4 py-2 border-t border-slate-200 bg-[#eff9ff] overflow-x-auto flex gap-1.5 no-scrollbar">
+        <div className="px-4 py-2 border-t border-[#d2cbcb] bg-[#eae6e6] overflow-x-auto flex gap-1.5 no-scrollbar">
           {QUICK_RESPONSES.map((chip, idx) => (
             <button
               key={idx}
               type="button"
               onClick={() => handleQuickChip(chip)}
-              className="text-[11px] whitespace-nowrap bg-white hover:bg-[#82dde1]/30 border border-slate-200 text-[#3e474e] hover:text-[#24282d] px-2.5 py-1 rounded-full transition-all active:scale-95 shrink-0"
+              className="text-[11px] whitespace-nowrap bg-white hover:bg-[#eae6e6] border border-[#d2cbcb] text-[#807d7d] hover:text-[#1e1c1c] px-2.5 py-1 rounded-full transition-all active:scale-95 shrink-0"
             >
               {chip}
             </button>
@@ -216,18 +216,18 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
         </div>
 
         {/* Comment Input Footer / Auth Banner */}
-        <div className="p-3 sm:p-4 border-t border-slate-200 bg-white">
+        <div className="p-3 sm:p-4 border-t border-[#d2cbcb] bg-white">
           {isGuest ? (
-            <div className="p-3 rounded-xl bg-[#eff9ff] border border-slate-200 flex items-center justify-between gap-3">
+            <div className="p-3 rounded-xl bg-[#eae6e6] border border-[#d2cbcb] flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-8 h-8 rounded-lg bg-white text-[#62babc] border border-[#82dde1] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-white text-[#45b2f0] border border-[#d2cbcb] flex items-center justify-center shrink-0">
                   <Lock className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs font-bold text-[#24282d] leading-tight truncate">
+                  <p className="text-xs font-bold text-[#1e1c1c] leading-tight truncate">
                     Bisita Mode (Read-Only)
                   </p>
-                  <p className="text-[10px] text-[#3e474e] leading-tight truncate">
+                  <p className="text-[10px] text-[#807d7d] leading-tight truncate">
                     Log in o Sign up aron maka-reply sa court chat
                   </p>
                 </div>
@@ -236,7 +236,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
               <button
                 type="button"
                 onClick={() => requireAuth(() => {}, "Paghimo'g account o log in aron maka-comment sa duwa!")}
-                className="px-3 py-2 bg-[#62babc] hover:bg-[#52a6a8] text-white font-bold rounded-lg text-xs shadow-sm shadow-[#62babc]/25 active:scale-95 transition-all shrink-0"
+                className="px-3 py-2 bg-[#45b2f0] hover:bg-[#32a1e0] text-white font-bold rounded-lg text-xs shadow-sm shadow-[#45b2f0]/25 active:scale-95 transition-all shrink-0"
               >
                 Sign in / Sign Up
               </button>
@@ -251,14 +251,14 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                   disabled={submitting}
-                  className="w-full bg-[#eff9ff] focus:bg-white border border-slate-200 rounded-lg py-2 pl-3.5 pr-3 text-[#24282d] placeholder:text-[#3e474e]/60 focus:outline-none focus:border-[#62babc] focus:ring-1 focus:ring-[#62babc] text-xs sm:text-sm"
+                  className="w-full bg-[#eae6e6] focus:bg-white border border-[#d2cbcb] rounded-lg py-2 pl-3.5 pr-3 text-[#1e1c1c] placeholder:text-[#807d7d] focus:outline-none focus:border-[#45b2f0] focus:ring-1 focus:ring-[#45b2f0] text-xs sm:text-sm"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={submitting || !commentText.trim()}
-                className="p-2.5 bg-[#62babc] hover:bg-[#52a6a8] disabled:opacity-40 text-white rounded-lg shadow-sm shadow-[#62babc]/25 active:scale-95 transition-all shrink-0"
+                className="p-2.5 bg-[#45b2f0] hover:bg-[#32a1e0] disabled:opacity-40 text-white rounded-lg shadow-sm shadow-[#45b2f0]/25 active:scale-95 transition-all shrink-0"
                 aria-label="Send comment"
               >
                 {submitting ? (

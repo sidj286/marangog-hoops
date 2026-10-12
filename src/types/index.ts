@@ -62,9 +62,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     id: 'Magduwa Hapon',
     label: 'Magduwa Hapon',
     sublabel: 'Pick-up Game Invite',
-    badgeBg: 'bg-[#eff9ff] text-[#24282d] border-[#62babc]/40',
-    badgeText: 'text-[#62babc]',
-    borderColor: 'border-[#62babc]',
+    badgeBg: 'bg-[#45b2f0]/10 text-[#1e1c1c] border-[#45b2f0]/40',
+    badgeText: 'text-[#45b2f0]',
+    borderColor: 'border-[#45b2f0]',
     description: 'Hagit o panawag para mag-abot sa court karong hapon o gabii'
   },
   'Naa Nanulong': {
@@ -80,9 +80,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     id: 'Need Player',
     label: 'Need Player',
     sublabel: 'Kulang sa Kontra / Kauban',
-    badgeBg: 'bg-[#eff9ff] text-[#24282d] border-[#82dde1]',
-    badgeText: 'text-[#62babc]',
-    borderColor: 'border-[#82dde1]',
+    badgeBg: 'bg-[#45b2f0]/15 text-[#1e1c1c] border-[#45b2f0]/50',
+    badgeText: 'text-[#45b2f0]',
+    borderColor: 'border-[#45b2f0]',
     description: 'Kulang ug 1, 2, o 3 ka magduduwa aron makasugod dayon'
   },
   'Manong sa Court': {

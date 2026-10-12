@@ -48,7 +48,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           particleCount: 45,
           spread: 60,
           origin: { y: 0.8 },
-          colors: ['#62babc', '#82dde1', '#eff9ff', '#3e474e']
+          colors: ['#45b2f0', '#807d7d', '#d2cbcb', '#eae6e6']
         });
       }
     }, "Paghimo'g account o log in aron maka-join sa duwa!");
@@ -74,8 +74,8 @@ export const PostCard: React.FC<PostCardProps> = ({
     <article
       className={`relative rounded-xl border transition-all duration-150 overflow-hidden shadow-xs ${
         post.is_concluded 
-          ? 'border-slate-200 opacity-70 bg-slate-50' 
-          : 'border-slate-200 hover:border-[#62babc]/60 hover:shadow-md bg-white'
+          ? 'border-[#d2cbcb] opacity-70 bg-[#eae6e6]' 
+          : 'border-[#d2cbcb] hover:border-[#45b2f0] hover:shadow-md bg-white'
       }`}
     >
       <div className="p-4 space-y-3">
@@ -91,22 +91,22 @@ export const PostCard: React.FC<PostCardProps> = ({
             </span>
 
             {post.is_concluded && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-[#3e474e] border border-slate-200">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#eae6e6] text-[#807d7d] border border-[#d2cbcb]">
                 <Check className="w-3 h-3 text-emerald-500" />
                 Concluded
               </span>
             )}
 
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-[#eff9ff] text-[#3e474e] border border-slate-200">
-              <Clock className="w-3 h-3 text-[#3e474e]" />
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-[#eae6e6] text-[#807d7d] border border-[#d2cbcb]">
+              <Clock className="w-3 h-3 text-[#807d7d]" />
               {formatTimeAgo(post.created_at)}
             </span>
 
             {/* Players Needed badge */}
             {post.category === 'Need Player' && post.players_needed > 0 && !post.is_concluded && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#eff9ff] text-[#24282d] border border-[#82dde1]">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#eae6e6] text-[#1e1c1c] border border-[#d2cbcb]">
                 <span>Kulang:</span>
-                <span className="bg-[#62babc] text-white px-1 rounded text-[10px] font-bold">
+                <span className="bg-[#45b2f0] text-white px-1 rounded text-[10px] font-bold">
                   {post.players_needed}
                 </span>
               </span>
@@ -118,7 +118,7 @@ export const PostCard: React.FC<PostCardProps> = ({
             <div className="flex items-center gap-1">
               <button
                 onClick={handleShareClick}
-                className="p-1.5 text-[#3e474e] hover:text-[#24282d] rounded-lg hover:bg-[#eff9ff] transition-colors"
+                className="p-1.5 text-[#807d7d] hover:text-[#1e1c1c] rounded-lg hover:bg-[#eae6e6] transition-colors"
                 title="Share post"
               >
                 {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
@@ -127,7 +127,7 @@ export const PostCard: React.FC<PostCardProps> = ({
               {isAuthor && (
                 <button
                   onClick={() => setShowMenu(!showMenu)}
-                  className="p-1.5 text-[#3e474e] hover:text-[#24282d] rounded-lg hover:bg-[#eff9ff] transition-colors"
+                  className="p-1.5 text-[#807d7d] hover:text-[#1e1c1c] rounded-lg hover:bg-[#eae6e6] transition-colors"
                   title="Author settings"
                 >
                   <MoreVertical className="w-4 h-4" />
@@ -142,13 +142,13 @@ export const PostCard: React.FC<PostCardProps> = ({
                   className="fixed inset-0 z-30" 
                   onClick={() => setShowMenu(false)} 
                 />
-                <div className="absolute right-0 top-8 z-40 w-44 bg-white border border-slate-200 rounded-xl shadow-xl py-1 text-xs text-[#24282d]">
+                <div className="absolute right-0 top-8 z-40 w-44 bg-white border border-[#d2cbcb] rounded-xl shadow-xl py-1 text-xs text-[#1e1c1c]">
                   <button
                     onClick={() => {
                       setShowMenu(false);
                       onToggleConcluded(post.id);
                     }}
-                    className="w-full px-3 py-2 text-left text-[#24282d] hover:bg-[#eff9ff] flex items-center gap-2"
+                    className="w-full px-3 py-2 text-left text-[#1e1c1c] hover:bg-[#eae6e6] flex items-center gap-2"
                   >
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
                     <span>{post.is_concluded ? 'Mark as Active' : 'Mark as Concluded'}</span>
@@ -175,17 +175,17 @@ export const PostCard: React.FC<PostCardProps> = ({
         <div className="flex items-center justify-between gap-2 flex-wrap text-xs pt-0.5">
           <div className="flex items-center gap-2 min-w-0">
             {/* Author Avatar Badge */}
-            <div className="w-7 h-7 rounded-full bg-[#eff9ff] border border-[#62babc]/30 text-[#62babc] flex items-center justify-center font-bold text-xs shrink-0">
+            <div className="w-7 h-7 rounded-full bg-[#45b2f0]/15 border border-[#45b2f0]/30 text-[#0284c7] flex items-center justify-center font-bold text-xs shrink-0">
               {post.profile?.display_name?.charAt(0).toUpperCase() || 'P'}
             </div>
 
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="font-bold text-[#24282d] truncate max-w-[150px] sm:max-w-xs">
+                <span className="font-bold text-[#1e1c1c] truncate max-w-[150px] sm:max-w-xs">
                   {post.profile?.display_name || 'Marangog Baller'}
                 </span>
                 {/* Purok Badge */}
-                <span className="text-[10px] font-semibold bg-[#eff9ff] text-[#24282d] px-1.5 py-0.2 rounded border border-[#82dde1] shrink-0">
+                <span className="text-[10px] font-semibold bg-[#eae6e6] text-[#1e1c1c] px-1.5 py-0.2 rounded border border-[#d2cbcb] shrink-0">
                   {post.profile?.purok || 'Marangog'}
                 </span>
               </div>
@@ -193,33 +193,33 @@ export const PostCard: React.FC<PostCardProps> = ({
           </div>
 
           {/* Court Name with Pin */}
-          <div className="flex items-center gap-1 text-[11px] font-medium text-[#3e474e] bg-[#eff9ff] px-2 py-1 rounded-lg border border-slate-200 shrink-0 max-w-full sm:max-w-none truncate">
-            <MapPin className="w-3 h-3 text-[#62babc] shrink-0" />
+          <div className="flex items-center gap-1 text-[11px] font-medium text-[#807d7d] bg-[#eae6e6] px-2 py-1 rounded-lg border border-[#d2cbcb] shrink-0 max-w-full sm:max-w-none truncate">
+            <MapPin className="w-3 h-3 text-[#45b2f0] shrink-0" />
             <span className="truncate">{post.court_name}</span>
           </div>
         </div>
 
         {/* Post Message Body */}
-        <div className="text-[#24282d] text-sm leading-relaxed whitespace-pre-wrap font-medium">
+        <div className="text-[#1e1c1c] text-sm leading-relaxed whitespace-pre-wrap font-medium">
           {post.message}
         </div>
 
         {/* Headcount Attendees Roster Preview if available */}
         {post.headcount_roster && post.headcount_roster.length > 0 && (
-          <div className="flex items-center gap-1.5 p-2 rounded-lg bg-[#eff9ff] border border-slate-200 text-[11px] text-[#3e474e]">
-            <UserCheck className="w-3.5 h-3.5 text-[#62babc] shrink-0" />
-            <span className="text-[#3e474e] text-[10px]">Joined:</span>
+          <div className="flex items-center gap-1.5 p-2 rounded-lg bg-[#eae6e6] border border-[#d2cbcb] text-[11px] text-[#807d7d]">
+            <UserCheck className="w-3.5 h-3.5 text-[#45b2f0] shrink-0" />
+            <span className="text-[#807d7d] text-[10px]">Joined:</span>
             <div className="flex items-center gap-1 flex-wrap">
               {post.headcount_roster.slice(0, 4).map((player, idx) => (
                 <span 
                   key={player.id || idx}
-                  className="bg-white border border-slate-200 px-1.5 py-0.5 rounded text-[10px] text-[#24282d]"
+                  className="bg-white border border-[#d2cbcb] px-1.5 py-0.5 rounded text-[10px] text-[#1e1c1c]"
                 >
-                  {player.display_name} <span className="text-[#62babc] text-[9px]">({player.purok})</span>
+                  {player.display_name} <span className="text-[#45b2f0] text-[9px]">({player.purok})</span>
                 </span>
               ))}
               {post.headcount_roster.length > 4 && (
-                <span className="text-[#3e474e] text-[10px]">
+                <span className="text-[#807d7d] text-[10px]">
                   +{post.headcount_roster.length - 4} pa
                 </span>
               )}
@@ -228,18 +228,18 @@ export const PostCard: React.FC<PostCardProps> = ({
         )}
 
         {/* Bottom Interactive Action Buttons */}
-        <div className="pt-2 border-t border-slate-200 flex items-center justify-between gap-2">
+        <div className="pt-2 border-t border-[#d2cbcb] flex items-center justify-between gap-2">
           {/* Join / Headcount Button */}
           <button
             onClick={handleHeadcountClick}
             disabled={post.is_concluded}
             className={`flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg font-bold text-xs transition-all active:scale-95 flex-1 sm:flex-initial ${
               post.user_has_joined
-                ? 'bg-[#62babc] text-white border border-[#62babc]'
-                : 'bg-[#eff9ff] hover:bg-[#82dde1]/30 border border-slate-200 text-[#24282d]'
+                ? 'bg-[#45b2f0] text-white border border-[#45b2f0]'
+                : 'bg-[#eae6e6] hover:bg-[#d2cbcb] border border-[#d2cbcb] text-[#1e1c1c]'
             }`}
           >
-            <Users className={`w-3.5 h-3.5 ${post.user_has_joined ? 'text-white' : 'text-[#62babc]'}`} />
+            <Users className={`w-3.5 h-3.5 ${post.user_has_joined ? 'text-white' : 'text-[#45b2f0]'}`} />
             {post.user_has_joined ? (
               <span className="inline-flex items-center gap-1 text-white">
                 <Check className="w-3.5 h-3.5" />
@@ -251,7 +251,7 @@ export const PostCard: React.FC<PostCardProps> = ({
             <span className={`ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-semibold ${
               post.user_has_joined 
                 ? 'bg-white/20 text-white' 
-                : 'bg-white border border-slate-200 text-[#24282d]'
+                : 'bg-white border border-[#d2cbcb] text-[#1e1c1c]'
             }`}>
               {post.headcounts_count || 0}
             </span>
@@ -260,9 +260,9 @@ export const PostCard: React.FC<PostCardProps> = ({
           {/* Expand Comments ("Comment") Button */}
           <button
             onClick={() => onOpenComments(post)}
-            className="flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg bg-[#eff9ff] hover:bg-[#82dde1]/30 text-[#24282d] border border-[#82dde1]/60 text-xs font-bold transition-all active:scale-95 flex-1 sm:flex-initial"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg bg-[#eae6e6] hover:bg-[#d2cbcb] text-[#1e1c1c] border border-[#d2cbcb] text-xs font-bold transition-all active:scale-95 flex-1 sm:flex-initial"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-[#62babc]" />
+            <MessageSquare className="w-3.5 h-3.5 text-[#45b2f0]" />
             <span>
               {post.comments_count && post.comments_count > 0 
                 ? `${post.comments_count} ${post.comments_count === 1 ? 'Comment' : 'Comments'}` 
