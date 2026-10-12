@@ -247,12 +247,12 @@ export const AuthModal: React.FC = () => {
               ) : mode === 'signup' ? (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  Kumpirmaha ug Apil sa Duwa
+                  Create Account
                 </>
               ) : (
                 <>
                   <Lock className="w-4 h-4" />
-                  Sulod sa Board
+                  Log in to your Account
                 </>
               )}
             </button>
