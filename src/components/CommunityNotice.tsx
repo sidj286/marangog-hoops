@@ -32,7 +32,11 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
         {/* 1. Aktibong Duwa */}
         <div className="bg-[#151E32] border-2 border-[#22304E] hover:border-[#FF5500] rounded-2xl p-3 sm:p-4 flex flex-col justify-between shadow-xs hover:shadow-md transition-all">
           <div className="flex items-center justify-between w-full">
-            <div className="p-2 sm:p-2.5 rounded-xl bg-[#FF5500]/15 text-[#FF5500] border border-[#FF5500]/30 shrink-0">
+            <div className={`p-2 sm:p-2.5 rounded-xl border shrink-0 ${
+              activeCount > 0
+                ? 'bg-[#FF5500]/15 text-[#FF5500] border-[#FF5500]/30'
+                : 'bg-[#22304E]/50 text-[#94A3B8] border-[#22304E]'
+            }`}>
               <BasketballIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             {activeCount > 0 && (
@@ -59,7 +63,11 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
         {/* 2. Nanulong */}
         <div className="bg-[#151E32] border-2 border-[#22304E] hover:border-red-500 rounded-2xl p-3 sm:p-4 flex flex-col justify-between shadow-xs hover:shadow-md transition-all">
           <div className="flex items-center justify-between w-full">
-            <div className="p-2 sm:p-2.5 rounded-xl bg-red-500/15 text-red-400 border border-red-500/30 shrink-0">
+            <div className={`p-2 sm:p-2.5 rounded-xl border shrink-0 ${
+              nanulongCount > 0
+                ? 'bg-red-500/15 text-red-400 border border-red-500/30'
+                : 'bg-[#22304E]/50 text-[#94A3B8] border-[#22304E]'
+            }`}>
               <Swords className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             {nanulongCount > 0 && (
@@ -74,16 +82,12 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
             <div className={`flex flex-wrap items-baseline gap-1 text-base sm:text-2xl font-black tracking-tight leading-tight ${
               nanulongCount > 0 ? 'text-red-400' : 'text-[#F1F5F9]'
             }`}>
-              {nanulongCount > 0 ? (
-                <>
-                  <span>{nanulongCount}</span>
-                  <span className="text-xs sm:text-sm font-bold text-red-400/80">
-                    grupo
-                  </span>
-                </>
-              ) : (
-                <span>Wala pa</span>
-              )}
+              <span>{nanulongCount}</span>
+              <span className={`text-xs sm:text-sm font-bold ${
+                nanulongCount > 0 ? 'text-red-400/80' : 'text-[#94A3B8]'
+              }`}>
+                {nanulongCount > 0 ? 'grupo' : 'ka post'}
+              </span>
             </div>
             <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#94A3B8] mt-0.5 truncate">
               Nanulong
@@ -97,36 +101,28 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
             <div className={`p-2 sm:p-2.5 rounded-xl border shrink-0 ${
               needPlayerCount > 0
                 ? 'bg-[#00D2FF]/15 text-[#00D2FF] border-[#00D2FF]/30'
-                : 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                : 'bg-[#22304E]/50 text-[#94A3B8] border-[#22304E]'
             }`}>
               <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            {needPlayerCount > 0 ? (
+            {needPlayerCount > 0 && (
               <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-[#00D2FF]/20 text-[#00D2FF] text-[10px] font-bold">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00D2FF] animate-pulse" />
                 <span className="hidden min-[420px]:inline">Kulang</span>
-              </span>
-            ) : (
-              <span className="hidden min-[420px]:inline px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">
-                OK
               </span>
             )}
           </div>
 
           <div className="mt-3">
             <div className={`flex flex-wrap items-baseline gap-1 text-base sm:text-2xl font-black tracking-tight leading-tight ${
-              needPlayerCount > 0 ? 'text-[#00D2FF]' : 'text-emerald-400'
+              needPlayerCount > 0 ? 'text-[#00D2FF]' : 'text-[#F1F5F9]'
             }`}>
-              {needPlayerCount > 0 ? (
-                <>
-                  <span>{needPlayerCount}</span>
-                  <span className="text-xs sm:text-sm font-bold text-[#00D2FF]/80">
-                    court
-                  </span>
-                </>
-              ) : (
-                <span>Kompleto</span>
-              )}
+              <span>{needPlayerCount}</span>
+              <span className={`text-xs sm:text-sm font-bold ${
+                needPlayerCount > 0 ? 'text-[#00D2FF]/80' : 'text-[#94A3B8]'
+              }`}>
+                {needPlayerCount > 0 ? 'court' : 'ka post'}
+              </span>
             </div>
             <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#94A3B8] mt-0.5 truncate">
               Kulang Player
