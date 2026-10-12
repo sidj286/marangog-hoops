@@ -138,7 +138,7 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
         </div>
         <div className="text-xs sm:text-sm text-slate-600 leading-snug min-w-0">
           <span className="font-bold text-slate-900">12-Hour Daily Board:</span>{' '}
-          Ang tanang post awtomatikong mo-expire human sa 12 ka oras aron lab-as pirmi ang updates sa Barangay Marangog basketball courts.
+          Ang tanang post ma-expire human sa 12 ka oras aron pirmi updated ang mga manulaay sa MARANGOG HOOPS.
         </div>
       </div>
     </div>
