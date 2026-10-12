@@ -238,7 +238,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                 onClick={() => requireAuth(() => {}, "Paghimo'g account o log in aron maka-comment sa duwa!")}
                 className="px-3 py-2 bg-[#EA580C] hover:bg-[#C2410C] text-white font-bold rounded-lg text-xs shadow-sm shadow-orange-600/20 active:scale-95 transition-all shrink-0"
               >
-                Sulod / Sign Up
+                Sign in / Sign Up
               </button>
             </div>
           ) : (

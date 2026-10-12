@@ -92,25 +92,20 @@ export const AuthModal: React.FC = () => {
           </div>
 
           <h2 className="text-xl font-bold text-slate-900">
-            {mode === 'signup' ? "Paghimo'g Account" : 'Sulod sa Imong Account'}
+            {mode === 'signup' ? "Paghimo'g Account" : 'Sign in sa Imong Account'}
           </h2>
 
           <p className="text-xs text-slate-500 mt-1 leading-relaxed">
             {authModalReason || "Kinahanglan og profile aron maka-comment, makapost, o maka-join sa duwa sa court."}
           </p>
 
-          {/* Connection Status Banner */}
-          {!isSupabaseLive ? (
+          {/* Connection Status Banner (only shown if in offline demo mode) */}
+          {!isSupabaseLive && (
             <div className="mt-2.5 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-[11px] leading-relaxed text-left flex items-start gap-2">
               <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold">Offline / Demo Mode:</span> Wala pa nakonektar sa Supabase database (walay <code className="bg-amber-100 px-1 py-0.5 rounded text-[10px] font-mono text-amber-900">.env</code>). Busa bisan unsa nga random credentials mag-simulate lang sa local storage.
               </div>
-            </div>
-          ) : (
-            <div className="mt-2.5 p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-              <span className="font-semibold">Connected sa Live Supabase Database</span>
             </div>
           )}
 

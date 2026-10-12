@@ -96,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-[#EA580C] hover:bg-[#C2410C] text-white font-bold text-xs shadow-sm shadow-orange-600/20 active:scale-95 transition-all"
             >
               <LogIn className="w-3.5 h-3.5" />
-              <span>Sulod</span>
+              <span>Sign in</span>
             </button>
           ) : (
             <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-0.5 sm:p-1 pl-1.5 sm:pl-2">
