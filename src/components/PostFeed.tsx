@@ -103,16 +103,16 @@ export const PostFeed: React.FC<PostFeedProps> = ({
         </div>
 
         {/* Search & Active 12h Toggle Strip */}
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-2">
           {/* Search Input */}
-          <div className="relative flex-1">
+          <div className="relative flex-1 min-w-0">
             <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
             <input
               type="text"
-              placeholder="Pangitaa ang Court, Purok, o Player..."
+              placeholder="Pangitaa ang Court, Purok..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-gray-300 rounded-lg py-1.5 pl-8 pr-3 text-xs text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600"
+              className="w-full bg-white border border-gray-300 rounded-lg py-1.5 pl-8 pr-3 text-xs text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 truncate"
             />
             {searchQuery && (
               <button
@@ -128,13 +128,13 @@ export const PostFeed: React.FC<PostFeedProps> = ({
           <button
             type="button"
             onClick={() => setShowOnlyActive(!showOnlyActive)}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-medium border flex items-center gap-1.5 whitespace-nowrap transition-colors ${
+            className={`px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-medium border flex items-center gap-1 sm:gap-1.5 whitespace-nowrap transition-colors shrink-0 ${
               showOnlyActive
                 ? 'bg-orange-50 border-orange-200 text-orange-800'
                 : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
             }`}
           >
-            <Clock className="w-3 h-3 text-orange-600" />
+            <Clock className="w-3 h-3 text-orange-600 shrink-0" />
             <span>{showOnlyActive ? 'Aktibo (<12h)' : 'Apil Human Na'}</span>
           </button>
         </div>

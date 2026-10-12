@@ -148,7 +148,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
             <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">
               1. Pilia ang Kategoriya
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-2">
               {(Object.keys(CATEGORIES) as PostCategory[]).map((catKey) => {
                 const info = CATEGORIES[catKey];
                 const isSelected = category === catKey;
@@ -190,19 +190,19 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
               <label className="block text-xs font-bold text-amber-900">
                 Pila ka magduduwa ang kulang?
               </label>
-              <div className="flex gap-2">
+              <div className="flex gap-1.5 sm:gap-2">
                 {[1, 2, 3, 4, 5].map((num) => (
                   <button
                     key={num}
                     type="button"
                     onClick={() => setPlayersNeeded(num)}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold border transition-all ${
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold border transition-all text-center ${
                       playersNeeded === num
                         ? 'bg-amber-600 text-white border-amber-600'
                         : 'bg-white border-amber-200 text-amber-900 hover:bg-amber-100'
                     }`}
                   >
-                    Kulang {num}
+                    <span className="hidden min-[380px]:inline">Kulang </span>{num}
                   </button>
                 ))}
               </div>

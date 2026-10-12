@@ -397,7 +397,7 @@ export const AppContent: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-4 pb-24">
+      <main className="flex-1 max-w-2xl w-full mx-auto px-3 sm:px-4 py-3 sm:py-4 pb-24">
         {/* Barangay Notice Banner & Stats */}
         <CommunityNotice posts={posts} />
 
@@ -414,10 +414,10 @@ export const AppContent: React.FC = () => {
       </main>
 
       {/* Floating Action Button (FAB) for Logged-in & Guest Players */}
-      <div className="fixed bottom-6 right-5 sm:right-8 z-30">
+      <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-8 z-30">
         <button
           onClick={handleOpenCreatePost}
-          className="group flex items-center gap-2 px-4 sm:px-5 py-3.5 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm rounded-full shadow-lg shadow-orange-600/30 active:scale-95 transition-all cursor-pointer"
+          className="group flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-3 sm:py-3.5 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs sm:text-sm rounded-full shadow-lg shadow-orange-600/30 active:scale-95 transition-all cursor-pointer"
           aria-label="Magduwa Ta - Create Post"
         >
           <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">

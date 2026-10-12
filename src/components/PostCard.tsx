@@ -171,7 +171,7 @@ export const PostCard: React.FC<PostCardProps> = ({
         </div>
 
         {/* Author & Court details */}
-        <div className="flex items-center justify-between text-xs pt-0.5">
+        <div className="flex items-center justify-between gap-2 flex-wrap text-xs pt-0.5">
           <div className="flex items-center gap-2 min-w-0">
             {/* Author Avatar Badge */}
             <div className="w-7 h-7 rounded-full bg-orange-100 border border-orange-200 text-orange-700 flex items-center justify-center font-bold text-xs shrink-0">
@@ -180,7 +180,7 @@ export const PostCard: React.FC<PostCardProps> = ({
 
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="font-bold text-gray-900 truncate">
+                <span className="font-bold text-gray-900 truncate max-w-[150px] sm:max-w-xs">
                   {post.profile?.display_name || 'Marangog Baller'}
                 </span>
                 {/* Purok Badge */}
@@ -192,7 +192,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           </div>
 
           {/* Court Name with Pin */}
-          <div className="flex items-center gap-1 text-[11px] font-medium text-gray-700 bg-gray-50 px-2 py-1 rounded-lg border border-gray-200 shrink-0 max-w-[140px] sm:max-w-none truncate">
+          <div className="flex items-center gap-1 text-[11px] font-medium text-gray-700 bg-gray-50 px-2 py-1 rounded-lg border border-gray-200 shrink-0 max-w-full sm:max-w-none truncate">
             <MapPin className="w-3 h-3 text-orange-600 shrink-0" />
             <span className="truncate">{post.court_name}</span>
           </div>
@@ -232,7 +232,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           <button
             onClick={handleHeadcountClick}
             disabled={post.is_concluded}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-xs transition-all active:scale-95 ${
+            className={`flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg font-bold text-xs transition-all active:scale-95 flex-1 sm:flex-initial ${
               post.user_has_joined
                 ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
                 : 'bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700'
@@ -248,7 +248,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           {/* Expand Comments ("Comment") Button */}
           <button
             onClick={() => onOpenComments(post)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 text-xs font-bold transition-all active:scale-95"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 text-xs font-bold transition-all active:scale-95 flex-1 sm:flex-initial"
           >
             <MessageSquare className="w-3.5 h-3.5 text-orange-600" />
             <span>
