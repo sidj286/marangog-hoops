@@ -14,8 +14,8 @@
     letter-spacing: -0.011em;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
-    background-color: #121212;
-    color: #F3F4F6;
+    background-color: #FFFFFF;
+    color: #0F172A;
   }
 
   button, input, textarea, select {
@@ -39,7 +39,7 @@
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #121212;
+  background: #FFFFFF;
 }
 ::-webkit-scrollbar-thumb {
   background: #2D2D2D;

@@ -18,11 +18,11 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-[#06B6D4] animate-pulse" />
-          <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#F3F4F6]">
+          <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900">
             Live Court Dashboard
           </h2>
         </div>
-        <span className="text-[11px] font-semibold text-[#9CA3AF]">
+        <span className="text-[11px] font-semibold text-slate-600">
           Barangay Marangog
         </span>
       </div>

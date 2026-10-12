@@ -390,7 +390,7 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-[#F3F4F6] flex flex-col font-sans">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans">
       {/* Top App Header */}
       <Header
         onRefreshFeed={handleManualRefresh}

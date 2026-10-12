@@ -16,7 +16,7 @@ export default defineConfig({
         short_name: 'Marangog Hoops',
         description: 'Real-time daily basketball communication board and interactive coordination hub for Barangay Marangog, Bogo City, Cebu',
         theme_color: '#1E1E1E',
-        background_color: '#121212',
+        background_color: '#FFFFFF',
         display: 'standalone',
         orientation: 'portrait',
         scope: '/',
