@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { LogIn, LogOut, RefreshCw, Download } from 'lucide-react';
+import { LogIn, LogOut, RefreshCw, Download, Flame } from 'lucide-react';
 
 interface HeaderProps {
   onRefreshFeed: () => void;
@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand & Barangay */}
         <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
           <div className="relative shrink-0 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#ee6730] text-white shadow-sm shadow-[#ee6730]/20">
-            <span className="text-lg sm:text-xl select-none">🏀</span>
+            <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-[2.5]" />
             <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 border-2 border-white"></span>

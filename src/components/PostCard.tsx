@@ -3,6 +3,7 @@ import type { Post } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { formatTimeAgo } from '../lib/time';
+import { CategoryIcon } from './CategoryIcon';
 import confetti from 'canvas-confetti';
 import { 
   MapPin, 
@@ -83,9 +84,9 @@ export const PostCard: React.FC<PostCardProps> = ({
           {/* Category & Status Badges */}
           <div className="flex items-center gap-1.5 flex-wrap">
             <span
-              className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-bold border ${categoryMeta.badgeBg}`}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-bold border ${categoryMeta.badgeBg}`}
             >
-              <span>{categoryMeta.emoji}</span>
+              <CategoryIcon category={post.category} className="w-3.5 h-3.5 shrink-0" />
               <span>{categoryMeta.label}</span>
             </span>
 
@@ -239,7 +240,14 @@ export const PostCard: React.FC<PostCardProps> = ({
             }`}
           >
             <Users className={`w-3.5 h-3.5 ${post.user_has_joined ? 'text-emerald-600' : 'text-[#ee6730]'}`} />
-            <span>{post.user_has_joined ? 'Joined ✓' : 'Join'}</span>
+            {post.user_has_joined ? (
+              <span className="inline-flex items-center gap-1 text-emerald-700">
+                <Check className="w-3.5 h-3.5" />
+                <span>Joined</span>
+              </span>
+            ) : (
+              <span>Join</span>
+            )}
             <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-white border border-stone-200 text-stone-700 font-semibold">
               {post.headcounts_count || 0}
             </span>
@@ -253,7 +261,7 @@ export const PostCard: React.FC<PostCardProps> = ({
             <MessageSquare className="w-3.5 h-3.5 text-[#ee6730]" />
             <span>
               {post.comments_count && post.comments_count > 0 
-                ? `💬 ${post.comments_count} ${post.comments_count === 1 ? 'Comment' : 'Comments'}` 
+                ? `${post.comments_count} ${post.comments_count === 1 ? 'Comment' : 'Comments'}` 
                 : 'Comment'}
             </span>
           </button>

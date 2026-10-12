@@ -63,7 +63,7 @@ export const ProfileSetupModal: React.FC = () => {
           </button>
 
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xl">🏀</span>
+            <User className="w-5 h-5 text-[#ee6730]" />
             <span className="font-bold text-xs uppercase tracking-wider text-[#ee6730] bg-[#fce1d6] px-2 py-0.5 rounded border border-[#f8c2ac]">
               Player Identity
             </span>
@@ -140,7 +140,7 @@ export const ProfileSetupModal: React.FC = () => {
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  I-save ug Padayon sa Duwa 🏀
+                  I-save ug Padayon sa Duwa
                 </>
               )}
             </button>

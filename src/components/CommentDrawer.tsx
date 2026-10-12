@@ -3,12 +3,14 @@ import type { Post, Comment } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { formatRelativeTime } from '../lib/time';
+import { CategoryIcon } from './CategoryIcon';
 import { 
   X, 
   Send, 
   Trash2, 
   Lock, 
-  MapPin 
+  MapPin,
+  MessageSquare 
 } from 'lucide-react';
 
 interface CommentDrawerProps {
@@ -21,11 +23,11 @@ interface CommentDrawerProps {
 }
 
 const QUICK_RESPONSES = [
-  'Padung nako! 🏃‍♂️',
-  'Mo-apas ko after trabaho ⏰',
-  'Dala kog bola! 🏀',
-  'Naa nay referee? ⚖️',
-  'Kinsa inyong manong? ⚔️'
+  'Padung nako!',
+  'Mo-apas ko after trabaho',
+  'Dala kog bola!',
+  'Naa nay referee?',
+  'Kinsa inyong manong?'
 ];
 
 export const CommentDrawer: React.FC<CommentDrawerProps> = ({
@@ -100,8 +102,9 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
         <div className="p-4 border-b border-[#f8c2ac]/40 bg-[#FAF7F5] flex items-start justify-between gap-3">
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <span className={`text-xs px-2 py-0.5 rounded-md border font-bold ${categoryMeta.badgeBg}`}>
-                {categoryMeta.emoji} {categoryMeta.label}
+              <span className={`inline-flex items-center gap-1.5 text-xs px-2 py-0.5 rounded-md border font-bold ${categoryMeta.badgeBg}`}>
+                <CategoryIcon category={post.category} className="w-3.5 h-3.5" />
+                <span>{categoryMeta.label}</span>
               </span>
               <span className="text-stone-500 text-xs flex items-center gap-1">
                 <MapPin className="w-3 h-3 text-[#ee6730]" />
@@ -129,8 +132,8 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
         <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[220px] bg-white">
           {comments.length === 0 ? (
             <div className="py-10 text-center space-y-2">
-              <div className="w-12 h-12 rounded-xl bg-[#fce1d6] border border-[#f8c2ac] text-[#ee6730] flex items-center justify-center mx-auto text-xl">
-                💬
+              <div className="w-12 h-12 rounded-xl bg-[#fce1d6] border border-[#f8c2ac] text-[#ee6730] flex items-center justify-center mx-auto">
+                <MessageSquare className="w-6 h-6 text-[#ee6730]" />
               </div>
               <p className="text-sm font-bold text-stone-800">Wala pa'y comment sa kini nga duwa.</p>
               <p className="text-xs text-stone-500 max-w-xs mx-auto">

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import type { PostCategory } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
+import { CategoryIcon } from './CategoryIcon';
 import { 
   X, 
   MapPin, 
   Send, 
-  AlertCircle 
+  AlertCircle,
+  Flame
 } from 'lucide-react';
 
 interface CreatePostDrawerProps {
@@ -115,7 +117,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
         <div className="px-5 py-3.5 border-b border-[#f8c2ac]/40 bg-[#FAF7F5] flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xl">🏀</span>
+              <Flame className="w-5 h-5 text-[#ee6730]" />
               <h3 className="text-base font-bold text-stone-900">
                 I-post sa Marangog Board
               </h3>
@@ -163,13 +165,15 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
                         setMessage(PRESET_MESSAGES[catKey][0]);
                       }
                     }}
-                    className={`p-2.5 rounded-xl border text-left transition-all active:scale-95 flex items-start gap-2 ${
+                    className={`p-2.5 rounded-xl border text-left transition-all active:scale-95 flex items-start gap-2.5 ${
                       isSelected
                         ? 'bg-[#fce1d6] border-[#ee6730] text-[#ee6730] border-2 shadow-xs'
                         : 'bg-[#FAF7F5] border-[#f8c2ac]/60 text-stone-700 hover:bg-[#fce1d6]/40'
                     }`}
                   >
-                    <span className="text-lg shrink-0">{info.emoji}</span>
+                    <div className="mt-0.5 shrink-0">
+                      <CategoryIcon category={catKey} className={`w-4 h-4 ${isSelected ? 'text-[#ee6730]' : 'text-stone-600'}`} />
+                    </div>
                     <div className="min-w-0">
                       <div className={`text-xs font-bold leading-tight ${isSelected ? 'text-[#ee6730]' : 'text-stone-900'}`}>
                         {info.label}
@@ -285,7 +289,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
               ) : (
                 <>
                   <Send className="w-4 h-4" />
-                  I-post sa Marangog Board 🏀
+                  I-post sa Marangog Board
                 </>
               )}
             </button>

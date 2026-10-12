@@ -51,7 +51,6 @@ export interface CategoryInfo {
   id: PostCategory;
   label: string;
   sublabel: string;
-  emoji: string;
   badgeBg: string;
   badgeText: string;
   borderColor: string;
@@ -63,7 +62,6 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     id: 'Magduwa Hapon',
     label: 'Magduwa Hapon',
     sublabel: 'Pick-up Game Invite',
-    emoji: '🏀',
     badgeBg: 'bg-[#fce1d6] text-[#ee6730] border-[#f8c2ac]',
     badgeText: 'text-[#ee6730]',
     borderColor: 'border-[#ee6730]',
@@ -73,7 +71,6 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     id: 'Naa Nanulong',
     label: 'Naa Nanulong',
     sublabel: 'Visitors / Dayo Arrived',
-    emoji: '⚔️',
     badgeBg: 'bg-rose-50 text-rose-700 border-rose-200',
     badgeText: 'text-rose-700',
     borderColor: 'border-rose-500',
@@ -83,7 +80,6 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     id: 'Need Player',
     label: 'Need Player',
     sublabel: 'Kulang sa Kontra / Kauban',
-    emoji: '🙋‍♂️',
     badgeBg: 'bg-blue-50 text-blue-700 border-blue-200',
     badgeText: 'text-blue-700',
     borderColor: 'border-blue-500',
@@ -93,7 +89,6 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     id: 'Manong sa Court',
     label: 'Manong sa Court',
     sublabel: 'Current Queue / Rotation',
-    emoji: '⏳',
     badgeBg: 'bg-amber-50 text-amber-800 border-amber-200',
     badgeText: 'text-amber-800',
     borderColor: 'border-amber-500',

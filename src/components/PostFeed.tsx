@@ -2,8 +2,9 @@ import React, { useState, useMemo } from 'react';
 import type { Post, PostCategory } from '../types';
 import { CATEGORIES } from '../types';
 import { PostCard } from './PostCard';
+import { CategoryIcon } from './CategoryIcon';
 import { isPostExpired } from '../lib/time';
-import { Search, Clock, Sparkles } from 'lucide-react';
+import { Search, Clock, Sparkles, Layers, Flame } from 'lucide-react';
 
 interface PostFeedProps {
   posts: Post[];
@@ -70,7 +71,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
                 : 'bg-white border border-stone-200 text-stone-700 hover:bg-[#fce1d6]/50'
             }`}
           >
-            <span>🏀</span>
+            <Layers className="w-3.5 h-3.5 shrink-0" />
             <span>Tanan ({posts.filter(p => !isPostExpired(p.created_at) && !p.is_concluded).length})</span>
           </button>
 
@@ -90,7 +91,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
                     : 'bg-white border border-stone-200 text-stone-700 hover:bg-[#fce1d6]/50'
                 }`}
               >
-                <span>{cat.emoji}</span>
+                <CategoryIcon category={catKey} className="w-3.5 h-3.5 shrink-0" />
                 <span>{cat.label}</span>
                 {count > 0 && (
                   <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#FAF7F5] text-stone-600 border border-stone-200">
@@ -148,8 +149,8 @@ export const PostFeed: React.FC<PostFeedProps> = ({
         </div>
       ) : filteredPosts.length === 0 ? (
         <div className="py-12 px-4 text-center bg-white rounded-2xl border border-[#f8c2ac]/40 space-y-3 shadow-xs">
-          <div className="w-12 h-12 rounded-xl bg-[#fce1d6] text-[#ee6730] flex items-center justify-center mx-auto text-xl">
-            🏀
+          <div className="w-12 h-12 rounded-xl bg-[#fce1d6] text-[#ee6730] border border-[#f8c2ac] flex items-center justify-center mx-auto">
+            <Flame className="w-6 h-6 text-[#ee6730]" />
           </div>
           <div>
             <h4 className="text-sm font-bold text-stone-900">
@@ -167,7 +168,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
             className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#ee6730] hover:bg-[#d85620] text-white font-bold text-xs rounded-lg shadow-sm shadow-[#ee6730]/20 active:scale-95 transition-all"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Pag-post ug Bag-ong Duwa 🏀</span>
+            <span>Pag-post ug Bag-ong Duwa</span>
           </button>
         </div>
       ) : (

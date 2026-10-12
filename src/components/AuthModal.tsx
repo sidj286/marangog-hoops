@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { X, Lock, Mail, User, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, Lock, Mail, User, MapPin, CheckCircle2, AlertCircle, Flame } from 'lucide-react';
 
 export const AuthModal: React.FC = () => {
   const {
@@ -84,7 +84,7 @@ export const AuthModal: React.FC = () => {
           </button>
 
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xl">🏀</span>
+            <Flame className="w-5 h-5 text-[#ee6730]" />
             <span className="font-bold text-xs uppercase tracking-wider text-[#ee6730] bg-[#fce1d6] px-2 py-0.5 rounded border border-[#f8c2ac]">
               Barangay Marangog • Hoops Pass
             </span>
@@ -246,12 +246,12 @@ export const AuthModal: React.FC = () => {
               ) : mode === 'signup' ? (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  Kumpirmaha ug Apil sa Duwa 🏀
+                  Kumpirmaha ug Apil sa Duwa
                 </>
               ) : (
                 <>
                   <Lock className="w-4 h-4" />
-                  Sulod sa Board ⚡
+                  Sulod sa Board
                 </>
               )}
             </button>
