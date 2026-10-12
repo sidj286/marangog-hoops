@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { PostCategory } from '../types';
-import { CATEGORIES, COMMON_COURTS } from '../types';
+import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { 
   X, 
@@ -50,7 +50,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
 }) => {
   const { profile } = useAuth();
   const [category, setCategory] = useState<PostCategory>('Magduwa Hapon');
-  const [courtName, setCourtName] = useState('Marangog Main Court');
+  const [courtName, setCourtName] = useState('');
   const [message, setMessage] = useState('');
   const [playersNeeded, setPlayersNeeded] = useState(1);
   const [submitting, setSubmitting] = useState(false);
@@ -60,6 +60,10 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!courtName.trim()) {
+      setErrorMsg('Palihug ibutang o i-type ang pangalan sa basketball court.');
+      return;
+    }
     if (!message.trim()) {
       setErrorMsg('Palihug pagbutang ug mensahe o pahibalo kabahin sa duwa.');
       return;
@@ -75,11 +79,12 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
     try {
       await onSubmitPost({
         category,
-        court_name: courtName.trim() || 'Marangog Main Court',
+        court_name: courtName.trim(),
         message: message.trim(),
         players_needed: category === 'Need Player' ? playersNeeded : 0,
       });
       setMessage('');
+      setCourtName('');
       onClose();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Sayop sa pag-post.';
@@ -204,42 +209,28 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
             </div>
           )}
 
-          {/* 3. Court Selection */}
+          {/* 2. Basketball Court (Free User Input, No Auto-Suggest) */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">
-              2. Basketball Court
+              2. Basketball Court <span className="text-orange-600">*</span>
             </label>
-            <div className="relative mb-2">
+            <div className="relative">
               <MapPin className="w-4 h-4 text-orange-600 absolute left-3 top-2.5" />
               <input
                 type="text"
                 required
                 value={courtName}
                 onChange={(e) => setCourtName(e.target.value)}
-                placeholder="Pangalan sa Court..."
+                placeholder="I-type ang Pangalan sa Court (e.g. Marangog Main Court)"
                 className="w-full bg-white border border-gray-300 rounded-lg py-2 pl-9 pr-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 text-xs sm:text-sm"
               />
             </div>
-            {/* Quick Court Chips */}
-            <div className="flex flex-wrap gap-1.5">
-              {COMMON_COURTS.map((court) => (
-                <button
-                  key={court}
-                  type="button"
-                  onClick={() => setCourtName(court)}
-                  className={`text-[10px] px-2.5 py-1 rounded-md border transition-all ${
-                    courtName === court
-                      ? 'bg-orange-50 border-orange-500 text-orange-700 font-bold'
-                      : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
-                  }`}
-                >
-                  {court}
-                </button>
-              ))}
-            </div>
+            <span className="text-[10px] text-gray-400 mt-1 block">
+              I-type kung asa nga basketball court mag-abot o moduwa.
+            </span>
           </div>
 
-          {/* 4. Message / Note (<140 chars) */}
+          {/* 3. Message / Note (<140 chars) */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-xs font-bold uppercase tracking-wider text-gray-700">
@@ -286,7 +277,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
           <div className="pt-2">
             <button
               type="submit"
-              disabled={submitting || !message.trim()}
+              disabled={submitting || !courtName.trim() || !message.trim()}
               className="w-full py-3 px-4 bg-orange-600 hover:bg-orange-700 disabled:opacity-50 text-white font-bold rounded-lg shadow-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm"
             >
               {submitting ? (

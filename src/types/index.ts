@@ -101,22 +101,3 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
   }
 };
 
-export const COMMON_COURTS = [
-  'Marangog Main Court',
-  'Sitio Ilaya Covered Court',
-  'Sitio Riverside Half-Court',
-  'Purok Mangga Court',
-  'Marangog Elementary Court'
-];
-
-export const POPULAR_PUROKS = [
-  'Purok 1',
-  'Purok 2',
-  'Purok 3',
-  'Purok 4',
-  'Purok 5',
-  'Sitio Ilaya',
-  'Sitio Riverside',
-  'Sitio Centro'
-];
-
