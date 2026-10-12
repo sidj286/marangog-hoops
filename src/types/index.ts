@@ -62,35 +62,35 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     id: 'Magduwa Hapon',
     label: 'Magduwa Hapon',
     sublabel: 'Pick-up Game Invite',
-    badgeBg: 'bg-[#FF5500]/15 text-[#FF5500] border-[#FF5500]/30',
-    badgeText: 'text-[#FF5500]',
-    borderColor: 'border-[#FF5500]',
+    badgeBg: 'bg-[#eff9ff] text-[#24282d] border-[#62babc]/40',
+    badgeText: 'text-[#62babc]',
+    borderColor: 'border-[#62babc]',
     description: 'Hagit o panawag para mag-abot sa court karong hapon o gabii'
   },
   'Naa Nanulong': {
     id: 'Naa Nanulong',
     label: 'Naa Nanulong',
     sublabel: 'Visitors / Dayo Arrived',
-    badgeBg: 'bg-red-500/15 text-red-400 border-red-500/30',
-    badgeText: 'text-red-400',
-    borderColor: 'border-red-500',
+    badgeBg: 'bg-rose-50 text-rose-700 border-rose-200',
+    badgeText: 'text-rose-600',
+    borderColor: 'border-rose-500',
     description: 'Naay grupo gikan laing barangay o sitio nga gustong moduwa'
   },
   'Need Player': {
     id: 'Need Player',
     label: 'Need Player',
     sublabel: 'Kulang sa Kontra / Kauban',
-    badgeBg: 'bg-[#00D2FF]/15 text-[#00D2FF] border-[#00D2FF]/30',
-    badgeText: 'text-[#00D2FF]',
-    borderColor: 'border-[#00D2FF]',
+    badgeBg: 'bg-[#eff9ff] text-[#24282d] border-[#82dde1]',
+    badgeText: 'text-[#62babc]',
+    borderColor: 'border-[#82dde1]',
     description: 'Kulang ug 1, 2, o 3 ka magduduwa aron makasugod dayon'
   },
   'Manong sa Court': {
     id: 'Manong sa Court',
     label: 'Manong sa Court',
     sublabel: 'Current Queue / Rotation',
-    badgeBg: 'bg-amber-400/15 text-amber-300 border-amber-400/30',
-    badgeText: 'text-amber-300',
+    badgeBg: 'bg-amber-50 text-amber-800 border-amber-200',
+    badgeText: 'text-amber-700',
     borderColor: 'border-amber-400',
     description: 'Kinsay sunod mosulod o kinsay daog-manong sa court karon'
   }
