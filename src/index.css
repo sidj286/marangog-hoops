@@ -5,8 +5,8 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
-    background-color: #FAF7F5;
-    color: #1C1917;
+    background-color: #F8FAFC;
+    color: #0F172A;
   }
 }
 
@@ -25,14 +25,14 @@
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF7F5;
+  background: #F8FAFC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #f8c2ac;
+  background: #CBD5E1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f5a483;
+  background: #94A3B8;
 }
 
 @keyframes pulse-subtle {

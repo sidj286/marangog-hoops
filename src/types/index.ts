@@ -62,9 +62,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     id: 'Magduwa Hapon',
     label: 'Magduwa Hapon',
     sublabel: 'Pick-up Game Invite',
-    badgeBg: 'bg-[#fce1d6] text-[#ee6730] border-[#f8c2ac]',
-    badgeText: 'text-[#ee6730]',
-    borderColor: 'border-[#ee6730]',
+    badgeBg: 'bg-orange-50 text-orange-700 border-orange-200',
+    badgeText: 'text-orange-700',
+    borderColor: 'border-[#EA580C]',
     description: 'Hagit o panawag para mag-abot sa court karong hapon o gabii'
   },
   'Naa Nanulong': {
