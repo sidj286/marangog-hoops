@@ -94,7 +94,7 @@ export const AuthModal: React.FC = () => {
           </h2>
 
           <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-            {authModalReason || "Kinahanglan og profile aron makatubag, makapost, o maka-apil ('Mo-apil Ko') sa duwa sa court."}
+            {authModalReason || "Kinahanglan og profile aron maka-comment, makapost, o maka-join sa duwa sa court."}
           </p>
 
           {/* Mode Tabs */}

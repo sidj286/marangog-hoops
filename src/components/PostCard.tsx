@@ -50,7 +50,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           colors: ['#ea580c', '#f97316', '#fbbf24', '#ffffff']
         });
       }
-    }, "Paghimo'g account o log in aron maka-apil sa headcount ('Mo-apil Ko') sa duwa!");
+    }, "Paghimo'g account o log in aron maka-join sa duwa!");
   };
 
   const handleShareClick = () => {
@@ -207,7 +207,7 @@ export const PostCard: React.FC<PostCardProps> = ({
         {post.headcount_roster && post.headcount_roster.length > 0 && (
           <div className="flex items-center gap-1.5 p-2 rounded-lg bg-gray-50 border border-gray-200 text-[11px] text-gray-700">
             <UserCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-            <span className="text-gray-500 text-[10px]">Mga Ni-apil:</span>
+            <span className="text-gray-500 text-[10px]">Joined:</span>
             <div className="flex items-center gap-1 flex-wrap">
               {post.headcount_roster.slice(0, 4).map((player, idx) => (
                 <span 
@@ -228,7 +228,7 @@ export const PostCard: React.FC<PostCardProps> = ({
 
         {/* Bottom Interactive Action Buttons */}
         <div className="pt-2 border-t border-gray-100 flex items-center justify-between gap-2">
-          {/* "Mo-apil Ko" (I'm In / Headcount) Button */}
+          {/* Join / Headcount Button */}
           <button
             onClick={handleHeadcountClick}
             disabled={post.is_concluded}
@@ -239,13 +239,13 @@ export const PostCard: React.FC<PostCardProps> = ({
             }`}
           >
             <Users className={`w-3.5 h-3.5 ${post.user_has_joined ? 'text-emerald-600' : 'text-orange-600'}`} />
-            <span>{post.user_has_joined ? 'Ni-apil Naka! ✓' : 'Mo-apil Ko'}</span>
+            <span>{post.user_has_joined ? 'Joined ✓' : 'Join'}</span>
             <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-white border border-gray-200 text-gray-700 font-semibold">
               {post.headcounts_count || 0}
             </span>
           </button>
 
-          {/* Expand Comments ("Tubag dinhi...") Button */}
+          {/* Expand Comments ("Comment") Button */}
           <button
             onClick={() => onOpenComments(post)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 text-xs font-bold transition-all active:scale-95"
@@ -253,8 +253,8 @@ export const PostCard: React.FC<PostCardProps> = ({
             <MessageSquare className="w-3.5 h-3.5 text-orange-600" />
             <span>
               {post.comments_count && post.comments_count > 0 
-                ? `💬 ${post.comments_count} tubag` 
-                : 'Tubag dinhi...'}
+                ? `💬 ${post.comments_count} ${post.comments_count === 1 ? 'Comment' : 'Comments'}` 
+                : 'Comment'}
             </span>
           </button>
         </div>

@@ -69,7 +69,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
       } finally {
         setSubmitting(false);
       }
-    }, "Paghimo'g account o log in aron makatubag sa comments!");
+    }, "Paghimo'g account o log in aron maka-comment!");
   };
 
   const handleQuickChip = (text: string) => {
@@ -80,7 +80,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
       } finally {
         setSubmitting(false);
       }
-    }, "Paghimo'g account o log in aron makatubag sa comments!");
+    }, "Paghimo'g account o log in aron maka-comment!");
   };
 
   return (
@@ -132,9 +132,9 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
               <div className="w-12 h-12 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center mx-auto text-xl">
                 💬
               </div>
-              <p className="text-sm font-bold text-gray-800">Wala pa'y tubag sa kini nga duwa.</p>
+              <p className="text-sm font-bold text-gray-800">Wala pa'y comment sa kini nga duwa.</p>
               <p className="text-xs text-gray-500 max-w-xs mx-auto">
-                Mahimong una nga motubag! Isulti kung padung naka o magdala ug bola.
+                Mahimong una nga mo-comment! Isulti kung padung naka o magdala ug bola.
               </p>
             </div>
           ) : (
@@ -181,12 +181,12 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                   {isCommentAuthor && (
                     <button
                       onClick={() => {
-                        if (confirm('Sigurado ka nga papason kini nga tubag?')) {
+                        if (confirm('Sigurado ka nga papason kini nga comment?')) {
                           onDeleteComment(comment.id);
                         }
                       }}
                       className="p-1 text-gray-400 hover:text-red-600 rounded transition-colors self-center shrink-0"
-                      title="Papasa ang tubag"
+                      title="Papasa ang comment"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -232,7 +232,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
 
               <button
                 type="button"
-                onClick={() => requireAuth(() => {}, "Paghimo'g account o log in aron makatubag sa duwa!")}
+                onClick={() => requireAuth(() => {}, "Paghimo'g account o log in aron maka-comment sa duwa!")}
                 className="px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg text-xs shadow-sm active:scale-95 transition-all shrink-0"
               >
                 Sulod / Sign Up
@@ -244,7 +244,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder={`Tubag isip ${profile?.display_name} (${profile?.purok})...`}
+                  placeholder={`Comment isip ${profile?.display_name} (${profile?.purok})...`}
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                   disabled={submitting}

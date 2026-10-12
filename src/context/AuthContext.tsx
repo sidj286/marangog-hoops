@@ -147,7 +147,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user) {
       // Step 1: User not logged in -> Open Auth Modal
       pendingActionRef.current = actionCallback;
-      setAuthModalReason(modalReason || 'Paghimo\'g account o log in aron makatubag, makapost, o maka-apil sa duwa!');
+      setAuthModalReason(modalReason || 'Paghimo\'g account o log in aron maka-comment, makapost, o maka-join sa duwa!');
       setIsAuthModalOpen(true);
       return;
     }

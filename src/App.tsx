@@ -241,7 +241,7 @@ export const AppContent: React.FC = () => {
 
       if (error) {
         console.error('Error adding comment:', error);
-        alert('Sayop sa pag-padala sa tubag: ' + error.message);
+        alert('Sayop sa pag-padala sa comment: ' + error.message);
         return;
       }
       await fetchCommentsForPost(postId);
@@ -266,7 +266,7 @@ export const AppContent: React.FC = () => {
 
       if (error) {
         console.error('Delete comment error:', error);
-        alert('Sayop sa pag-papas sa tubag: ' + error.message);
+        alert('Sayop sa pag-papas sa comment: ' + error.message);
         return;
       }
       if (selectedPost) {
@@ -317,7 +317,7 @@ export const AppContent: React.FC = () => {
     }
   };
 
-  // Toggle Headcount ("Mo-apil Ko")
+  // Toggle Headcount ("Join")
   const handleToggleHeadcount = async (postId: string) => {
     if (!user) return;
 
