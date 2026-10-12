@@ -9,31 +9,27 @@ const STORAGE_KEY_CURRENT_USER = 'marangog_mock_current_user';
 // Initial authentic mock profiles for Barangay Marangog, Bogo City
 const INITIAL_PROFILES: Profile[] = [
   {
-    id: 'user-kobe-123',
-    display_name: 'Kobe Bryan',
+    id: 'user-mark-123',
+    display_name: 'Mark Anthony Rosales',
     purok: 'Purok 3',
-    monicker: 'The Sniper',
     created_at: new Date(Date.now() - 3600000 * 24).toISOString()
   },
   {
-    id: 'user-junmar-456',
-    display_name: 'Junmar Fajardo',
+    id: 'user-christian-456',
+    display_name: 'Christian Jay Mendoza',
     purok: 'Sitio Ilaya',
-    monicker: 'Kraken sa Marangog',
     created_at: new Date(Date.now() - 3600000 * 24).toISOString()
   },
   {
-    id: 'user-dondon-789',
-    display_name: 'Dondon Hontiveros',
+    id: 'user-arnel-789',
+    display_name: 'Arnel Fernandez',
     purok: 'Purok 2',
-    monicker: 'Cebuano Hots',
     created_at: new Date(Date.now() - 3600000 * 24).toISOString()
   },
   {
-    id: 'user-mark-101',
-    display_name: 'Mark Caguioa',
+    id: 'user-jeric-101',
+    display_name: 'Jeric Dela Peña',
     purok: 'Purok 1',
-    monicker: 'Spark',
     created_at: new Date(Date.now() - 3600000 * 24).toISOString()
   }
 ];
@@ -42,7 +38,7 @@ const INITIAL_PROFILES: Profile[] = [
 const INITIAL_POSTS: Post[] = [
   {
     id: 'post-1',
-    user_id: 'user-kobe-123',
+    user_id: 'user-mark-123',
     category: 'Magduwa Hapon',
     court_name: 'Marangog Main Court',
     message: 'Abot ta ninyo mga 4:30 PM! Dala lang mo ug bola ug bugnaw nga tubig. Naay 3 ka team nag sabot.',
@@ -52,7 +48,7 @@ const INITIAL_POSTS: Post[] = [
   },
   {
     id: 'post-2',
-    user_id: 'user-junmar-456',
+    user_id: 'user-christian-456',
     category: 'Naa Nanulong',
     court_name: 'Sitio Ilaya Covered Court',
     message: 'Naay grupo gikan San Roque nanulong! 5v5 daw pustaanay ug softdrinks o dula-dula lang. Kinsa puyde mag-lineup karong 5 PM?',
@@ -62,7 +58,7 @@ const INITIAL_POSTS: Post[] = [
   },
   {
     id: 'post-3',
-    user_id: 'user-mark-101',
+    user_id: 'user-jeric-101',
     category: 'Need Player',
     court_name: 'Marangog Main Court',
     message: 'Kulang 1 para 4v4 half-court! Duwa nata dayon, naa nay bola ug referee. Kinsa puyde mosalida?',
@@ -72,7 +68,7 @@ const INITIAL_POSTS: Post[] = [
   },
   {
     id: 'post-4',
-    user_id: 'user-dondon-789',
+    user_id: 'user-arnel-789',
     category: 'Manong sa Court',
     court_name: 'Marangog Main Court',
     message: 'Team Purok 2 daog 2 games straight. Team Ilaya sunod mosulod! Pag-lista na daan sa inyong rotation aron hapsay.',
@@ -86,28 +82,28 @@ const INITIAL_COMMENTS: Comment[] = [
   {
     id: 'comm-1',
     post_id: 'post-1',
-    user_id: 'user-junmar-456',
+    user_id: 'user-christian-456',
     comment_text: 'Padung nako bai, dala kog Molten GG7X!',
     created_at: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
   },
   {
     id: 'comm-2',
     post_id: 'post-1',
-    user_id: 'user-dondon-789',
+    user_id: 'user-arnel-789',
     comment_text: 'Mo-apas ko around 5 PM human sa trabaho sa Purok 2.',
     created_at: new Date(Date.now() - 1000 * 60 * 18).toISOString(),
   },
   {
     id: 'comm-3',
     post_id: 'post-2',
-    user_id: 'user-kobe-123',
-    comment_text: 'Salida ko ana bai Junmar! Andama ang softdrinks!',
+    user_id: 'user-mark-123',
+    comment_text: 'Salida ko ana bai Christian! Andama ang softdrinks!',
     created_at: new Date(Date.now() - 1000 * 60 * 80).toISOString(),
   },
   {
     id: 'comm-4',
     post_id: 'post-3',
-    user_id: 'user-junmar-456',
+    user_id: 'user-christian-456',
     comment_text: 'Naa koy kauban padung diha, 5 mins na lang!',
     created_at: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
   }
@@ -117,19 +113,19 @@ const INITIAL_HEADCOUNTS: Headcount[] = [
   {
     id: 'head-1',
     post_id: 'post-1',
-    user_id: 'user-junmar-456',
+    user_id: 'user-christian-456',
     created_at: new Date(Date.now() - 1000 * 60 * 35).toISOString()
   },
   {
     id: 'head-2',
     post_id: 'post-1',
-    user_id: 'user-dondon-789',
+    user_id: 'user-arnel-789',
     created_at: new Date(Date.now() - 1000 * 60 * 20).toISOString()
   },
   {
     id: 'head-3',
     post_id: 'post-2',
-    user_id: 'user-kobe-123',
+    user_id: 'user-mark-123',
     created_at: new Date(Date.now() - 1000 * 60 * 75).toISOString()
   }
 ];

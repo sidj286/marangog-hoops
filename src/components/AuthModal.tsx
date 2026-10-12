@@ -9,7 +9,6 @@ export const AuthModal: React.FC = () => {
     authModalReason,
     signUp,
     signIn,
-    isSupabaseLive,
   } = useAuth();
 
   const [mode, setMode] = useState<'signup' | 'login'>('signup');
@@ -68,13 +67,6 @@ export const AuthModal: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleQuickDemoUser = (emailPrefix: string) => {
-    setMode('login');
-    setEmail(`${emailPrefix}@marangog.ph`);
-    setPassword('password123');
-    signIn(`${emailPrefix}@marangog.ph`, 'password123');
   };
 
   return (
@@ -248,34 +240,6 @@ export const AuthModal: React.FC = () => {
               )}
             </button>
           </form>
-
-          {/* Quick 1-tap testing accounts */}
-          <div className="pt-2 border-t border-gray-200">
-            <div className="text-[11px] font-semibold text-gray-500 mb-2 flex items-center justify-between">
-              <span>Paspas nga Test Accounts (1-Tap):</span>
-              <span className="text-[10px] text-orange-600 font-medium">
-                {isSupabaseLive ? 'Supabase Live' : 'Demo Mode'}
-              </span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickDemoUser('kobe')}
-                className="p-2 text-left bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors group"
-              >
-                <div className="text-xs font-bold text-gray-900 group-hover:text-orange-600">Kobe Bryan</div>
-                <div className="text-[10px] text-gray-500">Purok 3</div>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickDemoUser('junmar')}
-                className="p-2 text-left bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors group"
-              >
-                <div className="text-xs font-bold text-gray-900 group-hover:text-orange-600">Junmar Fajardo</div>
-                <div className="text-[10px] text-gray-500">Sitio Ilaya</div>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@ Marangog Hoops PWA serves the basketball community of Barangay Marangog, Bogo Ci
    - Expandable slide-up drawer (`CommentDrawer.tsx`).
    - Live comment count badge (`💬 3 tubag`).
    - Real-time updates pinaagi sa `supabase.channel('public:comments')`.
-   - Nagpakita sa Player Name ug ilang Purok badge (e.g. `Kobe • Purok 3`).
+   - Nagpakita sa Player Name ug ilang Purok badge (e.g. `Juan Dela Cruz • Purok 3`).
 
 3. **"Mo-apil Ko" (I'm In / Headcount):**
    - 1-tap participation tracker nga naay live headcount tally, avatar roster, ug confetti burst.
