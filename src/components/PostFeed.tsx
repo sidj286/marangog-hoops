@@ -68,8 +68,8 @@ export const PostFeed: React.FC<PostFeedProps> = ({
             onClick={() => setSelectedCategory('ALL')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
               selectedCategory === 'ALL'
-                ? 'bg-[#45b2f0] text-white shadow-xs'
-                : 'bg-white border border-[#d2cbcb] text-[#807d7d] hover:text-[#1e1c1c] hover:bg-[#eae6e6]'
+                ? 'bg-[#F59E0B] text-black font-black shadow-xs'
+                : 'bg-[#1E1E1E] border border-[#2D2D2D] text-[#9CA3AF] hover:text-[#F3F4F6] hover:bg-[#262626]'
             }`}
           >
             <BasketballIcon className="w-3.5 h-3.5 shrink-0" />
@@ -88,14 +88,14 @@ export const PostFeed: React.FC<PostFeedProps> = ({
                 onClick={() => setSelectedCategory(catKey)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 border ${
                   isSelected
-                    ? 'bg-white border-2 border-[#45b2f0] text-[#0284c7] font-bold shadow-xs'
-                    : 'bg-white border-[#d2cbcb] text-[#807d7d] hover:text-[#1e1c1c] hover:bg-[#eae6e6]'
+                    ? 'bg-[#1E1E1E] border-2 border-[#06B6D4] text-[#06B6D4] font-bold shadow-xs'
+                    : 'bg-[#1E1E1E] border-[#2D2D2D] text-[#9CA3AF] hover:text-[#F3F4F6] hover:bg-[#262626]'
                 }`}
               >
                 <CategoryIcon category={catKey} className="w-3.5 h-3.5 shrink-0" />
                 <span>{cat.label}</span>
                 {count > 0 && (
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#eae6e6] text-[#1e1c1c] border border-[#d2cbcb]">
+                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#262626] text-[#F3F4F6] border border-[#333333]">
                     {count}
                   </span>
                 )}
@@ -108,18 +108,18 @@ export const PostFeed: React.FC<PostFeedProps> = ({
         <div className="flex items-center justify-between gap-1.5 sm:gap-2">
           {/* Search Input */}
           <div className="relative flex-1 min-w-0">
-            <Search className="w-3.5 h-3.5 text-[#807d7d] absolute left-3 top-2.5" />
+            <Search className="w-3.5 h-3.5 text-[#9CA3AF] absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Pangitaa ang Court, Purok..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-[#d2cbcb] rounded-lg py-1.5 pl-8 pr-3 text-xs text-[#1e1c1c] placeholder:text-[#807d7d] focus:outline-none focus:border-[#45b2f0] focus:ring-1 focus:ring-[#45b2f0] truncate"
+              className="w-full bg-[#1E1E1E] border border-[#2D2D2D] rounded-lg py-1.5 pl-8 pr-3 text-xs text-[#F3F4F6] placeholder:text-[#9CA3AF]/60 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] truncate"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1.5 text-[#807d7d] hover:text-[#1e1c1c] text-xs p-0.5"
+                className="absolute right-2.5 top-1.5 text-[#9CA3AF] hover:text-[#F3F4F6] text-xs p-0.5"
               >
                 ×
               </button>
@@ -132,11 +132,11 @@ export const PostFeed: React.FC<PostFeedProps> = ({
             onClick={() => setShowOnlyActive(!showOnlyActive)}
             className={`px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-medium border flex items-center gap-1 sm:gap-1.5 whitespace-nowrap transition-colors shrink-0 ${
               showOnlyActive
-                ? 'bg-white border border-[#45b2f0] text-[#0284c7] font-semibold shadow-xs'
-                : 'bg-white border border-[#d2cbcb] text-[#807d7d] hover:bg-[#eae6e6]'
+                ? 'bg-[#1E1E1E] border border-[#06B6D4] text-[#06B6D4] font-semibold shadow-xs'
+                : 'bg-[#1E1E1E] border border-[#2D2D2D] text-[#9CA3AF] hover:bg-[#262626]'
             }`}
           >
-            <Clock className="w-3 h-3 text-[#45b2f0] shrink-0" />
+            <Clock className="w-3 h-3 text-[#06B6D4] shrink-0" />
             <span>{showOnlyActive ? 'Aktibo (<12h)' : 'Apil Human Na'}</span>
           </button>
         </div>
@@ -145,28 +145,28 @@ export const PostFeed: React.FC<PostFeedProps> = ({
       {/* Posts List */}
       {loading ? (
         <div className="py-16 text-center space-y-3">
-          <div className="w-8 h-8 border-2 border-[#d2cbcb] border-t-[#45b2f0] rounded-full animate-spin mx-auto" />
-          <p className="text-xs text-[#807d7d]">Gikuha ang real-time court updates sa Marangog...</p>
+          <div className="w-8 h-8 border-2 border-[#2D2D2D] border-t-[#F59E0B] rounded-full animate-spin mx-auto" />
+          <p className="text-xs text-[#9CA3AF]">Gikuha ang real-time court updates sa Marangog...</p>
         </div>
       ) : filteredPosts.length === 0 ? (
-        <div className="py-12 px-4 text-center bg-white rounded-2xl border border-[#d2cbcb] space-y-3 shadow-xs">
-          <div className="w-12 h-12 rounded-xl bg-[#eae6e6] text-[#45b2f0] border border-[#d2cbcb] flex items-center justify-center mx-auto">
-            <BasketballIcon className="w-6 h-6 text-[#45b2f0]" />
+        <div className="py-12 px-4 text-center bg-[#1E1E1E] rounded-2xl border border-[#2D2D2D] space-y-3 shadow-xs">
+          <div className="w-12 h-12 rounded-xl bg-[#262626] text-[#F59E0B] border border-[#333333] flex items-center justify-center mx-auto">
+            <BasketballIcon className="w-6 h-6 text-[#F59E0B]" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-[#1e1c1c]">
+            <h4 className="text-sm font-bold text-[#F3F4F6]">
               {showOnlyActive 
                 ? 'Walay aktibong duwa sa board karon.' 
                 : 'Walay nakit-an nga post.'}
             </h4>
-            <p className="text-xs text-[#807d7d] max-w-sm mx-auto mt-1 leading-relaxed">
+            <p className="text-xs text-[#9CA3AF] max-w-sm mx-auto mt-1 leading-relaxed">
               Ang mga post awtomatikong mo-expire human sa 12 ka oras. Mahimo kang mag-post karon aron magka-tapok ang mga magduduwa!
             </p>
           </div>
           <button
             type="button"
             onClick={onTriggerCreatePost}
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#45b2f0] hover:bg-[#32a1e0] text-white font-bold text-xs rounded-lg shadow-sm shadow-[#45b2f0]/25 active:scale-95 transition-all"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#F59E0B] hover:bg-[#D97706] text-black font-extrabold text-xs rounded-lg shadow-sm shadow-[#F59E0B]/25 active:scale-95 transition-all"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Pag-post ug Bag-ong Duwa</span>

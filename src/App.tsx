@@ -390,7 +390,7 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#eae6e6] text-[#1e1c1c] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#121212] text-[#F3F4F6] flex flex-col font-sans">
       {/* Top App Header */}
       <Header
         onRefreshFeed={handleManualRefresh}
@@ -418,15 +418,15 @@ export const AppContent: React.FC = () => {
       <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-8 z-30">
         <button
           onClick={handleOpenCreatePost}
-          className="group flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-3 sm:py-3.5 bg-[#45b2f0] hover:bg-[#32a1e0] text-white font-bold text-xs sm:text-sm rounded-full shadow-lg shadow-[#45b2f0]/30 active:scale-95 transition-all cursor-pointer"
+          className="group flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-3 sm:py-3.5 bg-[#F59E0B] hover:bg-[#D97706] text-black font-black text-xs sm:text-sm rounded-full shadow-lg shadow-[#F59E0B]/30 active:scale-95 transition-all cursor-pointer"
           aria-label="Magduwa Ta - Create Post"
         >
-          <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <Plus className="w-3.5 h-3.5 stroke-[3]" />
+          <div className="w-5 h-5 rounded-full bg-black/20 flex items-center justify-center shrink-0">
+            <Plus className="w-3.5 h-3.5 stroke-[3] text-black" />
           </div>
-          <span className="tracking-wide flex items-center gap-1.5">
+          <span className="tracking-wide flex items-center gap-1.5 text-black">
             <span>Maglima Ta!</span>
-            <BasketballIcon className="w-4 h-4 text-white shrink-0" />
+            <BasketballIcon className="w-4 h-4 text-black shrink-0" />
           </span>
         </button>
       </div>

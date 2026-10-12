@@ -14,8 +14,8 @@
     letter-spacing: -0.011em;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
-    background-color: #eae6e6;
-    color: #1e1c1c;
+    background-color: #121212;
+    color: #F3F4F6;
   }
 
   button, input, textarea, select {
@@ -39,14 +39,14 @@
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #eae6e6;
+  background: #121212;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d2cbcb;
+  background: #2D2D2D;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #45b2f0;
+  background: #F59E0B;
 }
 
 @keyframes pulse-subtle {
