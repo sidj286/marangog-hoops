@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { Post } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
-import { formatRelativeTime, getRemainingTimeText } from '../lib/time';
+import { formatMinsAgo } from '../lib/time';
 import confetti from 'canvas-confetti';
 import { 
   MapPin, 
@@ -37,7 +37,6 @@ export const PostCard: React.FC<PostCardProps> = ({
   const [copiedLink, setCopiedLink] = useState(false);
 
   const categoryMeta = CATEGORIES[post.category] || CATEGORIES['Magduwa Hapon'];
-  const remainingTime = getRemainingTimeText(post.created_at);
   const isAuthor = user?.id === post.user_id;
 
   const handleHeadcountClick = () => {
@@ -78,20 +77,6 @@ export const PostCard: React.FC<PostCardProps> = ({
           : 'border-gray-200 hover:border-gray-300 hover:shadow'
       }`}
     >
-      {/* Expiration Progress Bar */}
-      <div className="w-full bg-gray-100 h-1 overflow-hidden">
-        <div 
-          className={`h-full transition-all duration-500 ${
-            remainingTime.isExpired 
-              ? 'bg-gray-400' 
-              : remainingTime.percentLeft < 20 
-              ? 'bg-red-500' 
-              : 'bg-orange-500'
-          }`}
-          style={{ width: `${remainingTime.percentLeft}%` }}
-        />
-      </div>
-
       <div className="p-4 space-y-3">
         {/* Top Meta Bar */}
         <div className="flex items-start justify-between gap-2">
@@ -104,17 +89,17 @@ export const PostCard: React.FC<PostCardProps> = ({
               <span>{categoryMeta.label}</span>
             </span>
 
-            {post.is_concluded ? (
+            {post.is_concluded && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-gray-100 text-gray-600 border border-gray-200">
                 <Check className="w-3 h-3 text-emerald-600" />
                 Human Na
               </span>
-            ) : (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-200">
-                <Clock className="w-3 h-3 text-orange-600" />
-                {remainingTime.text}
-              </span>
             )}
+
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-200">
+              <Clock className="w-3 h-3 text-gray-500" />
+              {formatMinsAgo(post.created_at)}
+            </span>
 
             {/* Players Needed badge */}
             {post.category === 'Need Player' && post.players_needed > 0 && !post.is_concluded && (
@@ -203,9 +188,6 @@ export const PostCard: React.FC<PostCardProps> = ({
                   {post.profile?.purok || 'Marangog'}
                 </span>
               </div>
-              <span className="text-[10px] text-gray-400">
-                {formatRelativeTime(post.created_at)}
-              </span>
             </div>
           </div>
 
