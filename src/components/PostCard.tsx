@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { Post } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
-import { formatMinsAgo } from '../lib/time';
+import { formatTimeAgo } from '../lib/time';
 import confetti from 'canvas-confetti';
 import { 
   MapPin, 
@@ -98,7 +98,7 @@ export const PostCard: React.FC<PostCardProps> = ({
 
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-200">
               <Clock className="w-3 h-3 text-gray-500" />
-              {formatMinsAgo(post.created_at)}
+              {formatTimeAgo(post.created_at)}
             </span>
 
             {/* Players Needed badge */}
