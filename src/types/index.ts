@@ -64,9 +64,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Magduwa Hapon',
     sublabel: 'Pick-up Game Invite',
     emoji: '🏀',
-    badgeBg: 'bg-orange-500/15 text-orange-400 border-orange-500/30',
-    badgeText: 'text-orange-400',
-    borderColor: 'border-orange-500',
+    badgeBg: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+    badgeText: 'text-amber-400',
+    borderColor: 'border-amber-500',
     description: 'Hagit o panawag para mag-abot sa court karong hapon o gabii'
   },
   'Naa Nanulong': {
@@ -74,9 +74,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Naa Nanulong',
     sublabel: 'Visitors / Dayo Arrived',
     emoji: '⚔️',
-    badgeBg: 'bg-red-500/15 text-red-400 border-red-500/30',
-    badgeText: 'text-red-400',
-    borderColor: 'border-red-500',
+    badgeBg: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
+    badgeText: 'text-rose-400',
+    borderColor: 'border-rose-500',
     description: 'Naay grupo gikan laing barangay o sitio nga gustong moduwa'
   },
   'Need Player': {
@@ -84,9 +84,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Need Player',
     sublabel: 'Kulang sa Kontra / Kauban',
     emoji: '🙋‍♂️',
-    badgeBg: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
-    badgeText: 'text-blue-400',
-    borderColor: 'border-blue-500',
+    badgeBg: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
+    badgeText: 'text-cyan-400',
+    borderColor: 'border-cyan-500',
     description: 'Kulang ug 1, 2, o 3 ka magduduwa aron makasugod dayon'
   },
   'Manong sa Court': {
