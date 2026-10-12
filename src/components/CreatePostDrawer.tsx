@@ -3,12 +3,12 @@ import type { PostCategory } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { CategoryIcon } from './CategoryIcon';
+import { BasketballIcon } from './BasketballIcon';
 import { 
   X, 
   MapPin, 
   Send, 
-  AlertCircle,
-  Flame
+  AlertCircle 
 } from 'lucide-react';
 
 interface CreatePostDrawerProps {
@@ -117,7 +117,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
         <div className="px-5 py-3.5 border-b border-[#f8c2ac]/40 bg-[#FAF7F5] flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <Flame className="w-5 h-5 text-[#ee6730]" />
+              <BasketballIcon className="w-5 h-5 text-[#ee6730]" />
               <h3 className="text-base font-bold text-stone-900">
                 I-post sa Marangog Board
               </h3>

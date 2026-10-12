@@ -1,5 +1,6 @@
 import React from 'react';
-import { Clock, Flame, Swords, UserPlus } from 'lucide-react';
+import { Clock, Swords, UserPlus } from 'lucide-react';
+import { BasketballIcon } from './BasketballIcon';
 import type { Post } from '../types';
 
 interface CommunityNoticeProps {
@@ -32,7 +33,7 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
         <div className="bg-white border-2 border-[#f8c2ac]/70 hover:border-[#ee6730] rounded-2xl p-3 sm:p-4 flex flex-col justify-between shadow-xs hover:shadow-md transition-all">
           <div className="flex items-center justify-between w-full">
             <div className="p-2 sm:p-2.5 rounded-xl bg-[#fce1d6] text-[#ee6730] border border-[#f8c2ac] shrink-0">
-              <Flame className="w-4 h-4 sm:w-5 sm:h-5" />
+              <BasketballIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             {activeCount > 0 && (
               <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-[#ee6730]/10 text-[#ee6730] text-[10px] font-bold">

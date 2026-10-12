@@ -10,6 +10,7 @@ import { CommentDrawer } from './components/CommentDrawer';
 import { CreatePostDrawer } from './components/CreatePostDrawer';
 import { AuthModal } from './components/AuthModal';
 import { ProfileSetupModal } from './components/ProfileSetupModal';
+import { BasketballIcon } from './components/BasketballIcon';
 import { Plus } from 'lucide-react';
 
 export const AppContent: React.FC = () => {
@@ -423,7 +424,10 @@ export const AppContent: React.FC = () => {
           <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
             <Plus className="w-3.5 h-3.5 stroke-[3]" />
           </div>
-          <span className="tracking-wide">Maglima Ta!</span>
+          <span className="tracking-wide flex items-center gap-1.5">
+            <span>Maglima Ta!</span>
+            <BasketballIcon className="w-4 h-4 text-white shrink-0" />
+          </span>
         </button>
       </div>
 

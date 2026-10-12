@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flame, Swords, UserPlus, Timer } from 'lucide-react';
+import { Swords, UserPlus, Timer } from 'lucide-react';
+import { BasketballIcon } from './BasketballIcon';
 import type { PostCategory } from '../types';
 
 interface CategoryIconProps {
@@ -13,7 +14,7 @@ export const CategoryIcon: React.FC<CategoryIconProps> = ({
 }) => {
   switch (category) {
     case 'Magduwa Hapon':
-      return <Flame className={className} />;
+      return <BasketballIcon className={className} />;
     case 'Naa Nanulong':
       return <Swords className={className} />;
     case 'Need Player':
@@ -21,6 +22,6 @@ export const CategoryIcon: React.FC<CategoryIconProps> = ({
     case 'Manong sa Court':
       return <Timer className={className} />;
     default:
-      return <Flame className={className} />;
+      return <BasketballIcon className={className} />;
   }
 };
