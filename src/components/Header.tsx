@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { LogIn, LogOut, Database, RefreshCw, Download } from 'lucide-react';
+import { LogIn, LogOut, RefreshCw, Download } from 'lucide-react';
 
 interface HeaderProps {
-  onOpenSqlModal: () => void;
   onRefreshFeed: () => void;
   isRefreshing?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  onOpenSqlModal,
   onRefreshFeed,
   isRefreshing,
 }) => {
-  const { profile, isGuest, isSupabaseLive, signOut, setIsAuthModalOpen, setIsProfileModalOpen } = useAuth();
+  const { profile, isGuest, signOut, setIsAuthModalOpen, setIsProfileModalOpen } = useAuth();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstallable, setIsInstallable] = useState(false);
 
@@ -89,20 +87,6 @@ export const Header: React.FC<HeaderProps> = ({
             aria-label="Refresh game board"
           >
             <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-orange-600' : ''}`} />
-          </button>
-
-          {/* Supabase Schema / Config Modal button */}
-          <button
-            onClick={onOpenSqlModal}
-            className={`p-2 rounded-lg border transition-all text-xs flex items-center gap-1 ${
-              isSupabaseLive
-                ? 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100'
-                : 'bg-amber-50 border-amber-200 text-amber-800 hover:bg-amber-100'
-            }`}
-            title="Database Schema & Setup"
-            aria-label="Database Schema & Setup"
-          >
-            <Database className="w-4 h-4" />
           </button>
 
           {/* User Account or Guest Action */}
