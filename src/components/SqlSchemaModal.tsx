@@ -55,7 +55,26 @@ alter table public.headcounts enable row level security;
 -- Profiles Policies
 create policy "Public can view profiles" on public.profiles for select using (true);
 create policy "Users can insert own profile" on public.profiles for insert with check (auth.uid() = id);
-create policy "Users can update own profile" on public.profiles for update using (auth.uid() = id);
+create policy "Users can update own profile" on public.profiles for update using (auth.uid() = id) with check (auth.uid() = id);
+
+-- Automatic Profile Creation Trigger on auth.users
+create or replace function public.handle_new_user()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.profiles (id, display_name, purok)
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'display_name', 'Player'),
+    coalesce(new.raw_user_meta_data->>'purok', 'Marangog')
+  )
+  on conflict (id) do update set
+    display_name = excluded.display_name,
+    purok = excluded.purok;
+  return new;
+end;
+$$;
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created after insert on auth.users for each row execute procedure public.handle_new_user();
 
 -- Posts Policies
 create policy "Public can view posts" on public.posts for select using (true);

@@ -173,10 +173,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ): Promise<{ error?: string }> => {
     try {
       if (isSupabaseLive) {
-        // Auto-confirm enabled in Supabase as per prompt instructions
+        // Pass metadata to Supabase so PostgreSQL triggers can access display_name and purok
         const { data: authData, error: authError } = await supabase.auth.signUp({
           email: email.trim(),
           password: pass,
+          options: {
+            data: {
+              display_name: displayName.trim(),
+              purok: purok.trim(),
+            },
+          },
         });
 
         if (authError) {
@@ -188,7 +194,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           return { error: 'Walay user ID nga nadawat gikan sa server.' };
         }
 
-        // Insert into public.profiles
+        // Verify if session was returned. If not, auto-confirm is not disabled in Supabase!
+        let activeSession = authData.session;
+        if (!activeSession) {
+          const { data: loginData } = await supabase.auth.signInWithPassword({
+            email: email.trim(),
+            password: pass,
+          });
+          activeSession = loginData.session;
+        }
+
+        if (!activeSession) {
+          return {
+            error: 'Naka-enable ang "Confirm email" sa Supabase project. Palihug i-disable ang "Confirm email" sa Supabase Dashboard (Authentication -> Providers -> Email) aron makasulod dayon.',
+          };
+        }
+
+        // Insert or Upsert into public.profiles
         const newProfile: Profile = {
           id: newUser.id,
           display_name: displayName.trim(),
@@ -198,15 +220,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         const { error: profileError } = await supabase
           .from('profiles')
-          .insert(newProfile);
+          .upsert(newProfile);
 
         if (profileError) {
           console.error('Profile insertion error:', profileError);
-          // Still set user & let them complete profile
-          setUser({ id: newUser.id, email: newUser.email });
-          setIsAuthModalOpen(false);
-          setIsProfileModalOpen(true);
-          return { error: 'Na-create ang account, palihug kumpirmaha ang imong Purok.' };
+          return { error: profileError.message };
         }
 
         setUser({ id: newUser.id, email: newUser.email });
@@ -311,6 +329,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
 
       if (isSupabaseLive) {
+        const { data: { session: currentSession } } = await supabase.auth.getSession();
+        if (!currentSession) {
+          return {
+            error: 'Walay aktibong session sa Supabase. Palihug i-disable ang "Confirm email" sa Supabase Dashboard (Authentication -> Providers -> Email) ug pag-login og balik.',
+          };
+        }
+
         const { error } = await supabase
           .from('profiles')
           .upsert(updatedData);
