@@ -50,13 +50,13 @@ export const ProfileSetupModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-xs animate-fade-in">
-      <div className="w-full max-w-md bg-[#1E1E1E] border border-[#2e2e2e] rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col text-white">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+      <div className="w-full max-w-md bg-white border border-[#f8c2ac]/60 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col text-stone-900">
         {/* Header */}
-        <div className="relative px-6 pt-6 pb-4 bg-[#121212] border-b border-[#2e2e2e]">
+        <div className="relative px-6 pt-6 pb-4 bg-[#FAF7F5] border-b border-[#f8c2ac]/40">
           <button
             onClick={() => setIsProfileModalOpen(false)}
-            className="absolute top-5 right-5 p-1.5 rounded-full text-neutral-400 hover:text-white bg-[#1E1E1E] hover:bg-neutral-800 border border-[#2e2e2e] transition-colors"
+            className="absolute top-5 right-5 p-1.5 rounded-full text-stone-400 hover:text-stone-700 bg-white hover:bg-stone-100 border border-[#f8c2ac]/50 transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -64,25 +64,25 @@ export const ProfileSetupModal: React.FC = () => {
 
           <div className="flex items-center gap-2 mb-1.5">
             <span className="text-xl">🏀</span>
-            <span className="font-bold text-xs uppercase tracking-wider text-amber-400 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30">
+            <span className="font-bold text-xs uppercase tracking-wider text-[#ee6730] bg-[#fce1d6] px-2 py-0.5 rounded border border-[#f8c2ac]">
               Player Identity
             </span>
           </div>
 
-          <h2 className="text-xl font-bold text-white">
+          <h2 className="text-xl font-bold text-stone-900">
             I-kumpleto Imong Profile
           </h2>
 
-          <p className="text-xs text-neutral-400 mt-1">
+          <p className="text-xs text-stone-500 mt-1">
             Palihug ibutang ang imong kumpletong ngalan ug purok aron mailhan ka sa Barangay Marangog!
           </p>
         </div>
 
         {/* Form Body */}
-        <div className="p-6 space-y-4 bg-[#1E1E1E]">
+        <div className="p-6 space-y-4 bg-white">
           {errorMsg && (
-            <div className="p-3 bg-rose-950/40 border border-rose-500/40 rounded-lg flex items-start gap-2.5 text-xs text-rose-300">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg flex items-start gap-2.5 text-xs text-rose-700">
+              <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
           )}
@@ -90,42 +90,42 @@ export const ProfileSetupModal: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Full Name */}
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                Kumpletong Ngalan (Full Name) <span className="text-amber-500">*</span>
+              <label className="block text-xs font-semibold text-stone-700 mb-1">
+                Kumpletong Ngalan (Full Name) <span className="text-[#ee6730]">*</span>
               </label>
               <div className="relative">
-                <User className="w-4 h-4 text-neutral-500 absolute left-3 top-2.5" />
+                <User className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   required
                   placeholder="e.g. Juan Dela Cruz, Pedro Penduko"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className="w-full bg-[#121212] border border-[#2e2e2e] rounded-lg py-2 pl-9 pr-3 text-white placeholder:text-neutral-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-xs sm:text-sm"
+                  className="w-full bg-[#FAF7F5] border border-[#f8c2ac] rounded-lg py-2 pl-9 pr-3 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-[#ee6730] focus:ring-1 focus:ring-[#ee6730] text-xs sm:text-sm"
                 />
               </div>
-              <span className="text-[10px] text-neutral-400 mt-0.5 block">
+              <span className="text-[10px] text-stone-500 mt-0.5 block">
                 Tinuod nga ngalan ang gamiton, dili alias.
               </span>
             </div>
 
             {/* Purok / Sitio - Free User Input */}
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                Imong Purok o Sitio sa Marangog <span className="text-amber-500">*</span>
+              <label className="block text-xs font-semibold text-stone-700 mb-1">
+                Imong Purok o Sitio sa Marangog <span className="text-[#ee6730]">*</span>
               </label>
               <div className="relative">
-                <MapPin className="w-4 h-4 text-neutral-500 absolute left-3 top-2.5" />
+                <MapPin className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   required
                   placeholder="I-type imong Purok o Sitio (e.g. Purok 1, Purok 3, Sitio Ilaya)"
                   value={purok}
                   onChange={(e) => setPurok(e.target.value)}
-                  className="w-full bg-[#121212] border border-[#2e2e2e] rounded-lg py-2 pl-9 pr-3 text-white placeholder:text-neutral-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-xs sm:text-sm"
+                  className="w-full bg-[#FAF7F5] border border-[#f8c2ac] rounded-lg py-2 pl-9 pr-3 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-[#ee6730] focus:ring-1 focus:ring-[#ee6730] text-xs sm:text-sm"
                 />
               </div>
-              <span className="text-[10px] text-neutral-400 mt-0.5 block">
+              <span className="text-[10px] text-stone-500 mt-0.5 block">
                 I-type kung asa ka nga purok o sitio nagpuyo sa Barangay Marangog.
               </span>
             </div>
@@ -133,10 +133,10 @@ export const ProfileSetupModal: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-extrabold rounded-lg shadow-sm shadow-amber-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 text-xs sm:text-sm mt-2"
+              className="w-full py-2.5 px-4 bg-[#ee6730] hover:bg-[#f18559] text-white font-extrabold rounded-lg shadow-sm shadow-[#ee6730]/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 text-xs sm:text-sm mt-2"
             >
               {loading ? (
-                <div className="w-4 h-4 border-2 border-neutral-950/30 border-t-neutral-950 rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />

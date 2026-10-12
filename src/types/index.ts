@@ -64,9 +64,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Magduwa Hapon',
     sublabel: 'Pick-up Game Invite',
     emoji: '🏀',
-    badgeBg: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-    badgeText: 'text-amber-400',
-    borderColor: 'border-amber-500',
+    badgeBg: 'bg-[#fce1d6] text-[#ee6730] border-[#f8c2ac]',
+    badgeText: 'text-[#ee6730]',
+    borderColor: 'border-[#ee6730]',
     description: 'Hagit o panawag para mag-abot sa court karong hapon o gabii'
   },
   'Naa Nanulong': {
@@ -74,8 +74,8 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Naa Nanulong',
     sublabel: 'Visitors / Dayo Arrived',
     emoji: '⚔️',
-    badgeBg: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-    badgeText: 'text-rose-400',
+    badgeBg: 'bg-rose-50 text-rose-700 border-rose-200',
+    badgeText: 'text-rose-700',
     borderColor: 'border-rose-500',
     description: 'Naay grupo gikan laing barangay o sitio nga gustong moduwa'
   },
@@ -84,9 +84,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Need Player',
     sublabel: 'Kulang sa Kontra / Kauban',
     emoji: '🙋‍♂️',
-    badgeBg: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
-    badgeText: 'text-cyan-400',
-    borderColor: 'border-cyan-500',
+    badgeBg: 'bg-blue-50 text-blue-700 border-blue-200',
+    badgeText: 'text-blue-700',
+    borderColor: 'border-blue-500',
     description: 'Kulang ug 1, 2, o 3 ka magduduwa aron makasugod dayon'
   },
   'Manong sa Court': {
@@ -94,9 +94,9 @@ export const CATEGORIES: Record<PostCategory, CategoryInfo> = {
     label: 'Manong sa Court',
     sublabel: 'Current Queue / Rotation',
     emoji: '⏳',
-    badgeBg: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
-    badgeText: 'text-yellow-400',
-    borderColor: 'border-yellow-500',
+    badgeBg: 'bg-amber-50 text-amber-800 border-amber-200',
+    badgeText: 'text-amber-800',
+    borderColor: 'border-amber-500',
     description: 'Kinsay sunod mosulod o kinsay daog-manong sa court karon'
   }
 };

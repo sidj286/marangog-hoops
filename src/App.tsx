@@ -389,7 +389,7 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF7F5] text-stone-900 flex flex-col font-sans">
       {/* Top App Header */}
       <Header
         onRefreshFeed={handleManualRefresh}
@@ -417,10 +417,10 @@ export const AppContent: React.FC = () => {
       <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-8 z-30">
         <button
           onClick={handleOpenCreatePost}
-          className="group flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-3 sm:py-3.5 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-extrabold text-xs sm:text-sm rounded-full shadow-lg shadow-amber-500/25 active:scale-95 transition-all cursor-pointer"
+          className="group flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-3 sm:py-3.5 bg-[#ee6730] hover:bg-[#d85620] text-white font-bold text-xs sm:text-sm rounded-full shadow-lg shadow-[#ee6730]/30 active:scale-95 transition-all cursor-pointer"
           aria-label="Magduwa Ta - Create Post"
         >
-          <div className="w-5 h-5 rounded-full bg-black/15 flex items-center justify-center shrink-0">
+          <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
             <Plus className="w-3.5 h-3.5 stroke-[3]" />
           </div>
           <span className="tracking-wide">Maglima Ta! 🏀</span>
