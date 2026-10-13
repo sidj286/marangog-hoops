@@ -79,12 +79,20 @@ begin
   insert into public.profiles (id, display_name, purok)
   values (
     new.id,
-    coalesce(new.raw_user_meta_data->>'display_name', 'Marangog Baller'),
-    coalesce(new.raw_user_meta_data->>'purok', 'Marangog')
+    coalesce(
+      new.raw_user_meta_data->>'full_name',
+      new.raw_user_meta_data->>'name',
+      new.raw_user_meta_data->>'display_name',
+      'Marangog Baller'
+    ),
+    coalesce(new.raw_user_meta_data->>'purok', '')
   )
   on conflict (id) do update set
-    display_name = excluded.display_name,
-    purok = excluded.purok;
+    display_name = coalesce(
+      excluded.display_name,
+      public.profiles.display_name
+    ),
+    purok = case when public.profiles.purok is null or public.profiles.purok = '' then excluded.purok else public.profiles.purok end;
   return new;
 end;
 $$;

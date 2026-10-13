@@ -10,6 +10,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   isGuest: boolean;
+  isFacebookUser: boolean;
   isSupabaseLive: boolean;
   authModalReason: string;
   isAuthModalOpen: boolean;
@@ -19,6 +20,7 @@ interface AuthContextType {
   requireAuth: (actionCallback: () => void, modalReason?: string) => void;
   signUp: (email: string, pass: string, displayName: string, purok: string, monicker?: string) => Promise<{ error?: string }>;
   signIn: (email: string, pass: string) => Promise<{ error?: string }>;
+  signInWithFacebook: () => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   updateProfile: (data: { display_name: string; purok: string; monicker?: string }) => Promise<{ error?: string }>;
 }
@@ -62,6 +64,56 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [isSupabaseLive]);
 
+  // Automatically sync Facebook name to profile display_name
+  const syncProfileForSession = useCallback(async (currentSession: Session | null): Promise<Profile | null> => {
+    if (!currentSession?.user) return null;
+
+    const rawMeta = currentSession.user.user_metadata || {};
+    const isFb = currentSession.user.app_metadata?.provider === 'facebook' ||
+      Boolean(currentSession.user.identities?.some((id: any) => id.provider === 'facebook')) ||
+      localStorage.getItem('marangog_is_fb_auth') === 'true';
+
+    const fbFullName = rawMeta.full_name || rawMeta.name || 
+      (rawMeta.first_name ? `${rawMeta.first_name} ${rawMeta.last_name || ''}`.trim() : null);
+
+    let prof = await fetchProfile(currentSession.user.id);
+
+    // If signed in via Facebook, guarantee that their Facebook real name is their platform name
+    if (isFb && fbFullName) {
+      localStorage.setItem('marangog_is_fb_auth', 'true');
+      if (!prof || prof.display_name !== fbFullName) {
+        const syncedProf: Profile = {
+          id: currentSession.user.id,
+          display_name: fbFullName,
+          purok: prof?.purok || '',
+          monicker: prof?.monicker || null,
+          created_at: prof?.created_at || new Date().toISOString(),
+        };
+
+        if (isSupabaseLive) {
+          try {
+            const { error: upsertErr } = await supabase
+              .from('profiles')
+              .upsert(syncedProf);
+
+            if (!upsertErr) {
+              prof = syncedProf;
+            } else {
+              console.error('Failed to sync Facebook name to profiles:', upsertErr);
+            }
+          } catch (err) {
+            console.error('Failed to sync Facebook name to profiles:', err);
+          }
+        } else {
+          mockEngine.saveProfile(syncedProf);
+          prof = syncedProf;
+        }
+      }
+    }
+
+    return prof;
+  }, [fetchProfile, isSupabaseLive]);
+
   // Initial Auth Check
   useEffect(() => {
     let mounted = true;
@@ -75,8 +127,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setSession(currentSession);
           if (currentSession?.user) {
             setUser({ id: currentSession.user.id, email: currentSession.user.email });
-            const prof = await fetchProfile(currentSession.user.id);
-            if (mounted) setProfile(prof);
+            const prof = await syncProfileForSession(currentSession);
+            if (mounted) {
+              setProfile(prof);
+              // If logged in via Facebook but purok is not yet filled, prompt profile setup
+              if (prof && (!prof.purok || !prof.purok.trim())) {
+                setIsProfileModalOpen(true);
+              }
+            }
           } else {
             setUser(null);
             setProfile(null);
@@ -87,17 +145,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           if (mounted) setLoading(false);
         }
 
-        // Listen for Supabase Auth state changes
+        // Listen for Supabase Auth state changes (including OAuth redirects)
         const { data: authListener } = supabase.auth.onAuthStateChange(async (_event, newSession) => {
           if (!mounted) return;
           setSession(newSession);
           if (newSession?.user) {
             setUser({ id: newSession.user.id, email: newSession.user.email });
-            const prof = await fetchProfile(newSession.user.id);
-            if (mounted) setProfile(prof);
+            const prof = await syncProfileForSession(newSession);
+            if (mounted) {
+              setProfile(prof);
+              setIsAuthModalOpen(false);
+              if (prof && (!prof.purok || !prof.purok.trim())) {
+                setIsProfileModalOpen(true);
+              }
+            }
           } else {
             setUser(null);
             setProfile(null);
+            localStorage.removeItem('marangog_is_fb_auth');
           }
         });
 
@@ -124,7 +189,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => {
       mounted = false;
     };
-  }, [isSupabaseLive, fetchProfile]);
+  }, [isSupabaseLive, syncProfileForSession]);
 
   // Execute pending user action once profile and auth are completed
   const executePendingAction = useCallback(() => {
@@ -304,8 +369,58 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Sign In with Facebook Flow (Anti-Alias Verified Identity)
+  const signInWithFacebook = async (): Promise<{ error?: string }> => {
+    try {
+      if (isSupabaseLive) {
+        localStorage.setItem('marangog_is_fb_auth', 'true');
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'facebook',
+          options: {
+            redirectTo: window.location.origin,
+            scopes: 'public_profile,email',
+          },
+        });
+        if (error) {
+          localStorage.removeItem('marangog_is_fb_auth');
+          return { error: error.message };
+        }
+        return {};
+      } else {
+        // Mock mode simulation
+        const simulatedFbName = prompt('I-type ang imong Facebook Full Name para sa demo:', 'Juan Dela Cruz') || 'Juan Dela Cruz';
+        const mockId = 'fb-' + Date.now();
+        const mockFbUser = { id: mockId, email: `${simulatedFbName.toLowerCase().replace(/\s+/g, '.')}@facebook.com` };
+
+        localStorage.setItem('marangog_is_fb_auth', 'true');
+        mockEngine.setCurrentUser(mockFbUser);
+
+        const newProfile: Profile = {
+          id: mockId,
+          display_name: simulatedFbName.trim(),
+          purok: '',
+          monicker: null,
+          created_at: new Date().toISOString(),
+        };
+        mockEngine.saveProfile(newProfile);
+
+        setUser(mockFbUser);
+        setProfile(newProfile);
+        setIsAuthModalOpen(false);
+
+        // Prompt user to select Purok
+        setIsProfileModalOpen(true);
+        return {};
+      }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Sayop sa pag-login gamit ang Facebook.';
+      return { error: message };
+    }
+  };
+
   // Sign Out Flow
   const signOut = async () => {
+    localStorage.removeItem('marangog_is_fb_auth');
     if (isSupabaseLive) {
       await supabase.auth.signOut();
     } else {
@@ -321,9 +436,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user) return { error: 'Palihug log in una.' };
 
     try {
+      // If user signed in with Facebook and already has a Facebook name,
+      // lock their display name to their real Facebook name so they cannot change to an alias!
+      const effectiveName = (isFacebookUser && profile?.display_name)
+        ? profile.display_name
+        : data.display_name.trim();
+
       const updatedData: Profile = {
         id: user.id,
-        display_name: data.display_name.trim(),
+        display_name: effectiveName,
         purok: data.purok.trim(),
         monicker: data.monicker?.trim() || null,
       };
@@ -358,6 +479,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const isGuest = !user || !profile || !profile.display_name;
+  const isFacebookUser = Boolean(
+    (session?.user?.app_metadata?.provider === 'facebook') ||
+    session?.user?.identities?.some((id: any) => id.provider === 'facebook') ||
+    (user?.id && (user.id.startsWith('fb-') || localStorage.getItem('marangog_is_fb_auth') === 'true'))
+  );
 
   return (
     <AuthContext.Provider
@@ -367,6 +493,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         session,
         loading,
         isGuest,
+        isFacebookUser,
         isSupabaseLive,
         authModalReason,
         isAuthModalOpen,
@@ -376,6 +503,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         requireAuth,
         signUp,
         signIn,
+        signInWithFacebook,
         signOut,
         updateProfile,
       }}

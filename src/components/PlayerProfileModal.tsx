@@ -2,6 +2,7 @@ import React from 'react';
 import type { Profile, Post } from '../types';
 import { X, MapPin } from 'lucide-react';
 import { BasketballIcon } from './BasketballIcon';
+import { FacebookIcon } from './FacebookIcon';
 
 interface PlayerProfileModalProps {
   player: Profile | null;
@@ -25,6 +26,7 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
     (p) => p.user_id === player.id || p.profile?.display_name === player.display_name
   );
   const activePostsCount = playerPosts.filter((p) => !p.is_concluded).length;
+  const isFbPlayer = player.id.startsWith('fb-');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
@@ -43,11 +45,19 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
             <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <BasketballIcon className="w-4 h-4 text-[#F59E0B]" />
-            <span className="font-bold text-[10px] sm:text-xs uppercase tracking-wider text-slate-600 bg-white px-1.5 py-0.5 rounded border border-slate-200">
-              Marangog Baller Profile
-            </span>
+          <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+            <div className="flex items-center gap-1">
+              <BasketballIcon className="w-4 h-4 text-[#F59E0B]" />
+              <span className="font-bold text-[10px] sm:text-xs uppercase tracking-wider text-slate-600 bg-white px-1.5 py-0.5 rounded border border-slate-200">
+                Marangog Baller Profile
+              </span>
+            </div>
+            {isFbPlayer && (
+              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#1877F2] bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded shadow-2xs">
+                <FacebookIcon className="w-2.5 h-2.5" />
+                Verified Facebook
+              </span>
+            )}
           </div>
 
           <h3 className="text-base sm:text-xl font-black text-slate-900 tracking-tight leading-tight">
@@ -125,3 +135,4 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
     </div>
   );
 };
+

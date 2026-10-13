@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { X, User, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
+import { FacebookIcon } from './FacebookIcon';
 
 export const ProfileSetupModal: React.FC = () => {
   const {
     profile,
+    isFacebookUser,
     isProfileModalOpen,
     setIsProfileModalOpen,
     updateProfile,
@@ -90,22 +92,37 @@ export const ProfileSetupModal: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
             {/* Full Name */}
             <div>
-              <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-0.5 sm:mb-1">
-                Kumpletong Ngalan (Full Name) <span className="text-[#F59E0B]">*</span>
-              </label>
+              <div className="flex items-center justify-between mb-0.5 sm:mb-1">
+                <label className="text-[11px] sm:text-xs font-bold text-slate-700">
+                  Kumpletong Ngalan (Full Name) <span className="text-[#F59E0B]">*</span>
+                </label>
+                {isFacebookUser && (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#1877F2] bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded shadow-2xs">
+                    <FacebookIcon className="w-2.5 h-2.5 text-[#1877F2]" />
+                    Verified Facebook Name
+                  </span>
+                )}
+              </div>
               <div className="relative">
-                <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F59E0B] absolute left-2.5 top-2 sm:top-2.5" />
+                <User className={`w-3.5 h-3.5 sm:w-4 sm:h-4 absolute left-2.5 top-2 sm:top-2.5 ${isFacebookUser ? 'text-[#1877F2]' : 'text-[#F59E0B]'}`} />
                 <input
                   type="text"
                   required
+                  readOnly={isFacebookUser}
                   placeholder="e.g. Juan Dela Cruz, Pedro Penduko"
                   value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-1.5 sm:py-2 pl-8 sm:pl-9 pr-2.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
+                  onChange={(e) => !isFacebookUser && setDisplayName(e.target.value)}
+                  className={`w-full border rounded-lg py-1.5 sm:py-2 pl-8 sm:pl-9 pr-2.5 text-xs sm:text-sm ${
+                    isFacebookUser
+                      ? 'bg-slate-100 border-slate-200 text-slate-800 font-bold cursor-not-allowed select-none'
+                      : 'bg-slate-50 focus:bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]'
+                  }`}
                 />
               </div>
               <span className="text-[9px] sm:text-[10px] text-slate-500 mt-0.5 block">
-                Tinuod nga ngalan ang gamiton, dili alias.
+                {isFacebookUser
+                  ? 'Awtomatikong gikuha gikan sa imong Facebook profile aron mapugngan ang paggamit ug lain-laing alias o fake name.'
+                  : 'Tinuod nga ngalan ang gamiton, dili alias.'}
               </span>
             </div>
 
