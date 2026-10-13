@@ -44,9 +44,9 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
           <div className="relative shrink-0 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#F59E0B] text-black shadow-sm shadow-[#F59E0B]/25">
             <BasketballIcon className="w-5 h-5 sm:w-6 sm:h-6 text-black stroke-[2.2]" />
-            <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#06B6D4] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#06B6D4] border-2 border-[#1E1E1E]"></span>
+            <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-emerald-500 border-2 border-[#1E1E1E]"></span>
             </span>
           </div>
 
@@ -56,10 +56,16 @@ export const Header: React.FC<HeaderProps> = ({
                 MARANGOG HOOPS
               </h1>
             </div>
-            <p className="text-[10px] sm:text-[11px] font-medium text-[#9CA3AF] truncate flex items-center gap-1 leading-tight">
+            <p className="text-[10px] sm:text-[11px] font-medium text-[#9CA3AF] truncate flex items-center gap-1.5 leading-tight">
               <span>Barangay Marangog, Bogo City</span>
               <span className="text-[#4B5563]">•</span>
-              <span className="text-[#06B6D4] font-bold">Live Board</span>
+              <span className="inline-flex items-center gap-1 text-emerald-400 font-bold">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                </span>
+                <span className="animate-pulse">Live Board</span>
+              </span>
             </p>
           </div>
         </div>
