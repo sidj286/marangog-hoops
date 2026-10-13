@@ -1,13 +1,19 @@
 import React from 'react';
-import { Clock, Swords, UserPlus } from 'lucide-react';
+import { Clock, Swords, UserPlus, Users, ChevronRight } from 'lucide-react';
 import { BasketballIcon } from './BasketballIcon';
 import type { Post } from '../types';
 
 interface CommunityNoticeProps {
   posts: Post[];
+  registeredPlayersCount?: number;
+  onOpenPlayersDirectory?: () => void;
 }
 
-export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
+export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ 
+  posts,
+  registeredPlayersCount,
+  onOpenPlayersDirectory,
+}) => {
   const activeCount = posts.filter(p => !p.is_concluded).length;
   const nanulongCount = posts.filter(p => p.category === 'Naa Nanulong' && !p.is_concluded).length;
   const needPlayerCount = posts.filter(p => p.category === 'Need Player' && !p.is_concluded).length;
@@ -141,6 +147,36 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({ posts }) => {
           Ang tanang post ma-expire human sa 12 ka oras aron pirmi updated ang mga manulaay sa MARANGOG HOOPS.
         </div>
       </div>
+
+      {/* Option: See also who is here */}
+      <button
+        type="button"
+        onClick={onOpenPlayersDirectory}
+        className="w-full bg-white hover:bg-slate-50 border-2 border-slate-200 hover:border-[#06B6D4] rounded-2xl p-3 sm:p-3.5 flex items-center justify-between gap-3 shadow-xs hover:shadow-md transition-all text-left group cursor-pointer"
+      >
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <div className="p-2 sm:p-2.5 rounded-xl bg-[#06B6D4]/15 text-[#06B6D4] border border-[#06B6D4]/30 shrink-0">
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#06B6D4]" />
+          </div>
+          <div className="min-w-0">
+            <div className="text-xs sm:text-sm font-extrabold text-slate-900 flex items-center gap-1.5 flex-wrap">
+              <span>See also who is here</span>
+              {registeredPlayersCount !== undefined && registeredPlayersCount > 0 && (
+                <span className="text-[10px] font-black text-cyan-800 bg-cyan-100 px-2 py-0.5 rounded-full border border-cyan-200">
+                  {registeredPlayersCount} players
+                </span>
+              )}
+            </div>
+            <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 truncate">
+              Tan-awa ang tanang mga magduduwa nga adunay account sa Barangay Marangog
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-1 text-xs font-bold text-[#06B6D4] group-hover:text-cyan-700 shrink-0">
+          <span className="hidden min-[420px]:inline">Tan-awa</span>
+          <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+        </div>
+      </button>
     </div>
   );
 };

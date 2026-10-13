@@ -5,7 +5,7 @@ import { PostCard } from './PostCard';
 import { CategoryIcon } from './CategoryIcon';
 import { BasketballIcon } from './BasketballIcon';
 import { isPostExpired } from '../lib/time';
-import { Search, Sparkles, User } from 'lucide-react';
+import { Search, Sparkles, User, Users } from 'lucide-react';
 
 interface PostFeedProps {
   posts: Post[];
@@ -17,6 +17,7 @@ interface PostFeedProps {
   onDeletePost: (postId: string) => void;
   onTriggerCreatePost: () => void;
   onSelectPlayer?: (player: Profile) => void;
+  onOpenPlayersDirectory?: () => void;
 }
 
 export const PostFeed: React.FC<PostFeedProps> = ({
@@ -29,6 +30,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
   onDeletePost,
   onTriggerCreatePost,
   onSelectPlayer,
+  onOpenPlayersDirectory,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<PostCategory | 'ALL'>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -145,22 +147,43 @@ export const PostFeed: React.FC<PostFeedProps> = ({
           })}
         </div>
 
-        {/* Search Input */}
-        <div className="relative w-full">
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
-          <input
-            type="text"
-            placeholder="Pangitaa ang Court, Purok, o Ngalan sa Magduduwa..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white border border-slate-200 rounded-lg py-1.5 pl-8 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]"
-          />
-          {searchQuery && (
+        {/* Search Bar & 'See also who is here' option */}
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+            <input
+              type="text"
+              placeholder="Pangitaa ang Court, Purok, o Magduduwa..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white border border-slate-200 rounded-lg py-1.5 pl-8 pr-7 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2.5 top-1.5 text-slate-400 hover:text-slate-700 text-xs p-0.5"
+              >
+                ×
+              </button>
+            )}
+          </div>
+
+          {/* Option: See also who is here button */}
+          {onOpenPlayersDirectory && (
             <button
-              onClick={() => setSearchQuery('')}
-              className="absolute right-2.5 top-1.5 text-slate-400 hover:text-slate-700 text-xs p-0.5"
+              type="button"
+              onClick={onOpenPlayersDirectory}
+              className="px-2.5 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#06B6D4] text-slate-700 hover:text-slate-900 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shadow-2xs shrink-0 cursor-pointer"
+              title="Tan-awa ang tanang magduduwa nga adunay account"
             >
-              ×
+              <Users className="w-3.5 h-3.5 text-[#06B6D4] shrink-0" />
+              <span className="hidden sm:inline">See also who is here</span>
+              <span className="sm:hidden">Who is here</span>
+              {allProfiles.length > 0 && (
+                <span className="text-[10px] bg-cyan-50 text-cyan-800 px-1.5 py-0.2 rounded font-extrabold border border-cyan-200">
+                  {allProfiles.length}
+                </span>
+              )}
             </button>
           )}
         </div>

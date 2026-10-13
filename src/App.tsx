@@ -11,6 +11,7 @@ import { CreatePostDrawer } from './components/CreatePostDrawer';
 import { AuthModal } from './components/AuthModal';
 import { ProfileSetupModal } from './components/ProfileSetupModal';
 import { PlayerProfileModal } from './components/PlayerProfileModal';
+import { PlayersDirectoryModal } from './components/PlayersDirectoryModal';
 import { BasketballIcon } from './components/BasketballIcon';
 import { Plus } from 'lucide-react';
 
@@ -28,6 +29,24 @@ export const AppContent: React.FC = () => {
   const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
   const [viewingPlayer, setViewingPlayer] = useState<Profile | null>(null);
   const [allProfiles, setAllProfiles] = useState<Profile[]>([]);
+  const [isPlayersDirectoryOpen, setIsPlayersDirectoryOpen] = useState(false);
+
+  // Consolidated list of all registered players in Barangay Marangog
+  const directoryPlayers = React.useMemo(() => {
+    const map = new Map<string, Profile>();
+    allProfiles.forEach((p) => {
+      if (p && p.id) map.set(p.id, p);
+    });
+    posts.forEach((p) => {
+      if (p.profile && p.profile.id) map.set(p.profile.id, p.profile);
+      if (p.headcount_roster) {
+        p.headcount_roster.forEach((r) => {
+          if (r && r.id) map.set(r.id, r);
+        });
+      }
+    });
+    return Array.from(map.values()).sort((a, b) => a.display_name.localeCompare(b.display_name));
+  }, [allProfiles, posts]);
 
   // Fetch comments for a specific post
   const fetchCommentsForPost = useCallback(async (postId: string) => {
@@ -425,19 +444,24 @@ export const AppContent: React.FC = () => {
       {/* Main Content Area */}
       <main className="flex-1 max-w-2xl w-full mx-auto px-3 sm:px-4 py-3 sm:py-4 pb-24">
         {/* Barangay Notice Banner & Stats */}
-        <CommunityNotice posts={posts} />
+        <CommunityNotice
+          posts={posts}
+          registeredPlayersCount={directoryPlayers.length}
+          onOpenPlayersDirectory={() => setIsPlayersDirectoryOpen(true)}
+        />
 
         {/* Real-time Game Feed */}
         <PostFeed
           posts={posts}
           loading={loadingPosts}
-          allProfiles={allProfiles}
+          allProfiles={directoryPlayers}
           onOpenComments={handleOpenComments}
           onToggleHeadcount={handleToggleHeadcount}
           onToggleConcluded={handleToggleConcluded}
           onDeletePost={handleDeletePost}
           onTriggerCreatePost={handleOpenCreatePost}
           onSelectPlayer={(player) => setViewingPlayer(player)}
+          onOpenPlayersDirectory={() => setIsPlayersDirectoryOpen(true)}
         />
       </main>
 
@@ -473,6 +497,17 @@ export const AppContent: React.FC = () => {
         isOpen={isCreateDrawerOpen}
         onClose={() => setIsCreateDrawerOpen(false)}
         onSubmitPost={handleSubmitPost}
+      />
+
+      <PlayersDirectoryModal
+        isOpen={isPlayersDirectoryOpen}
+        onClose={() => setIsPlayersDirectoryOpen(false)}
+        players={directoryPlayers}
+        posts={posts}
+        onSelectPlayer={(player) => {
+          setIsPlayersDirectoryOpen(false);
+          setViewingPlayer(player);
+        }}
       />
 
       <PlayerProfileModal
