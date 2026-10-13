@@ -192,6 +192,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
 
         if (authError) {
+          const msg = authError.message.toLowerCase();
+          if (msg.includes('user already registered') || msg.includes('already registered')) {
+            return { error: "Kini nga email/gmail aduna na'y account. Palihug gamita ang Log In." };
+          }
+          if (msg.includes('invalid email') || msg.includes('unable to validate email')) {
+            return { error: 'Sayop o dili balido ang imong email/gmail address.' };
+          }
+          if (msg.includes('password') && (msg.includes('weak') || msg.includes('short') || msg.includes('least'))) {
+            return { error: 'Sayop o mubo ra ang password. Kinahanglan labing menus 6 ka characters.' };
+          }
           return { error: authError.message };
         }
 
@@ -240,8 +250,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return {};
       } else {
         // Mock Engine Sign Up
+        const trimmedEmail = email.trim();
+        const existingAccount = mockEngine.getAccounts().find(a => a.email.toLowerCase() === trimmedEmail.toLowerCase());
+        if (existingAccount) {
+          return { error: "Kini nga email/gmail aduna na'y account. Palihug gamita ang Log In." };
+        }
+
         const mockId = 'user-' + Date.now();
-        const mockNewUser = { id: mockId, email: email.trim() };
+        const mockNewUser = { id: mockId, email: trimmedEmail };
         mockEngine.setCurrentUser(mockNewUser);
 
         const newProfile: Profile = {
@@ -252,6 +268,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           created_at: new Date().toISOString()
         };
         mockEngine.saveProfile(newProfile);
+        mockEngine.saveAccount({
+          email: trimmedEmail,
+          password: pass,
+          profileId: mockId
+        });
 
         setUser(mockNewUser);
         setProfile(newProfile);
@@ -275,6 +296,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
 
         if (error) {
+          const msg = error.message.toLowerCase();
+          if (msg.includes('invalid login credentials')) {
+            return { error: 'Sayop ang password o email/gmail. Palihug susiha og usab ang imong mga detalye.' };
+          }
+          if (msg.includes('email not confirmed')) {
+            return { error: 'Wala pa ma-confirm ang imong email. Palihug susiha ang imong inbox.' };
+          }
+          if (msg.includes('invalid email') || msg.includes('unable to validate email')) {
+            return { error: 'Sayop o dili balido ang format sa imong email/gmail address.' };
+          }
           return { error: error.message };
         }
 
@@ -292,11 +323,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
         return {};
       } else {
-        // In mock mode, find if existing profile or generate session
-        const allProfiles = mockEngine.getProfiles();
-        const existingProf = allProfiles.find(p => p.display_name.toLowerCase().includes(email.split('@')[0].toLowerCase())) || allProfiles[0];
-        
-        const mockUser = { id: existingProf.id, email: email.trim() };
+        // Mock Engine Sign In
+        const trimmedEmail = email.trim();
+        const accounts = mockEngine.getAccounts();
+        const account = accounts.find(a => a.email.toLowerCase() === trimmedEmail.toLowerCase());
+
+        if (!account) {
+          return { error: 'Sayop ang email/gmail o wala pa makarehistro. Palihug susiha ang email o pag-sign up una.' };
+        }
+
+        if (account.password !== pass) {
+          return { error: 'Sayop ang password. Palihug susiha og usab ang imong password.' };
+        }
+
+        const existingProf = mockEngine.getProfile(account.profileId) || {
+          id: account.profileId,
+          display_name: trimmedEmail.split('@')[0],
+          purok: 'Marangog',
+        };
+
+        const mockUser = { id: account.profileId, email: trimmedEmail };
         mockEngine.setCurrentUser(mockUser);
         setUser(mockUser);
         setProfile(existingProf);

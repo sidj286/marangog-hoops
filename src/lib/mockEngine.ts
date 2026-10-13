@@ -5,6 +5,20 @@ const STORAGE_KEY_COMMENTS = 'marangog_mock_comments';
 const STORAGE_KEY_HEADCOUNTS = 'marangog_mock_headcounts';
 const STORAGE_KEY_PROFILES = 'marangog_mock_profiles';
 const STORAGE_KEY_CURRENT_USER = 'marangog_mock_current_user';
+const STORAGE_KEY_ACCOUNTS = 'marangog_mock_accounts';
+
+export interface MockAccount {
+  email: string;
+  password: string;
+  profileId: string;
+}
+
+const INITIAL_ACCOUNTS: MockAccount[] = [
+  { email: 'mark@gmail.com', password: 'password123', profileId: 'user-mark-123' },
+  { email: 'christian@gmail.com', password: 'password123', profileId: 'user-christian-456' },
+  { email: 'arnel@gmail.com', password: 'password123', profileId: 'user-arnel-789' },
+  { email: 'jeric@gmail.com', password: 'password123', profileId: 'user-jeric-101' },
+];
 
 // Initial authentic mock profiles for Barangay Marangog, Bogo City
 const INITIAL_PROFILES: Profile[] = [
@@ -150,6 +164,9 @@ class MockEngine {
     }
     if (!localStorage.getItem(STORAGE_KEY_HEADCOUNTS)) {
       localStorage.setItem(STORAGE_KEY_HEADCOUNTS, JSON.stringify(INITIAL_HEADCOUNTS));
+    }
+    if (!localStorage.getItem(STORAGE_KEY_ACCOUNTS)) {
+      localStorage.setItem(STORAGE_KEY_ACCOUNTS, JSON.stringify(INITIAL_ACCOUNTS));
     }
   }
 
@@ -373,11 +390,33 @@ class MockEngine {
     this.notify();
   }
 
+  // --- Mock Auth Accounts ---
+  getAccounts(): MockAccount[] {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY_ACCOUNTS);
+      return data ? JSON.parse(data) : INITIAL_ACCOUNTS;
+    } catch {
+      return INITIAL_ACCOUNTS;
+    }
+  }
+
+  saveAccount(account: MockAccount) {
+    const list = this.getAccounts();
+    const idx = list.findIndex(a => a.email.toLowerCase() === account.email.toLowerCase());
+    if (idx >= 0) {
+      list[idx] = account;
+    } else {
+      list.push(account);
+    }
+    localStorage.setItem(STORAGE_KEY_ACCOUNTS, JSON.stringify(list));
+  }
+
   resetToDefaults() {
     localStorage.removeItem(STORAGE_KEY_POSTS);
     localStorage.removeItem(STORAGE_KEY_COMMENTS);
     localStorage.removeItem(STORAGE_KEY_HEADCOUNTS);
     localStorage.removeItem(STORAGE_KEY_PROFILES);
+    localStorage.removeItem(STORAGE_KEY_ACCOUNTS);
     this.ensureInitialized();
     this.notify();
   }

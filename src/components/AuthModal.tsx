@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { X, Lock, Mail, User, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, Lock, Mail, User, MapPin, CheckCircle2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { BasketballIcon } from './BasketballIcon';
 import { isNbaName } from '../lib/nbaNameFilter';
 
@@ -17,6 +17,7 @@ export const AuthModal: React.FC = () => {
   const [mode, setMode] = useState<'signup' | 'login'>('signup');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [displayName, setDisplayName] = useState('');
   const [purok, setPurok] = useState('');
   const [loading, setLoading] = useState(false);
@@ -27,6 +28,30 @@ export const AuthModal: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
+
+    const trimmedEmail = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!trimmedEmail) {
+      setErrorMsg('Palihug isulod ang imong email o gmail address.');
+      return;
+    }
+
+    if (!emailRegex.test(trimmedEmail)) {
+      setErrorMsg('Sayop ang format sa email/gmail (pananglitan: player@gmail.com).');
+      return;
+    }
+
+    if (!password) {
+      setErrorMsg('Palihug isulod ang imong password.');
+      return;
+    }
+
+    if (password.length < 6) {
+      setErrorMsg('Sayop o mubo ra ang password (kinahanglan labing menus 6 ka characters).');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -46,28 +71,13 @@ export const AuthModal: React.FC = () => {
           setLoading(false);
           return;
         }
-        if (!email.trim() || !password.trim()) {
-          setErrorMsg('Palihug kompletoha ang email ug password.');
-          setLoading(false);
-          return;
-        }
-        if (password.length < 6) {
-          setErrorMsg('Ang password kinahanglan labing menus 6 ka characters.');
-          setLoading(false);
-          return;
-        }
 
-        const res = await signUp(email, password, displayName, purok);
+        const res = await signUp(trimmedEmail, password, displayName, purok);
         if (res.error) {
           setErrorMsg(res.error);
         }
       } else {
-        if (!email.trim() || !password.trim()) {
-          setErrorMsg('Palihug isulod ang imong email ug password.');
-          setLoading(false);
-          return;
-        }
-        const res = await signIn(email, password);
+        const res = await signIn(trimmedEmail, password);
         if (res.error) {
           setErrorMsg(res.error);
         }
@@ -119,7 +129,7 @@ export const AuthModal: React.FC = () => {
           <div className="flex p-0.5 sm:p-1 mt-2 sm:mt-2.5 bg-slate-100 rounded-lg border border-slate-200">
             <button
               type="button"
-              onClick={() => { setMode('signup'); setErrorMsg(null); }}
+              onClick={() => { setMode('signup'); setErrorMsg(null); setShowPassword(false); }}
               className={`flex-1 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold rounded-md transition-all ${
                 mode === 'signup'
                   ? 'bg-white text-slate-900 shadow-xs border border-slate-200'
@@ -130,7 +140,7 @@ export const AuthModal: React.FC = () => {
             </button>
             <button
               type="button"
-              onClick={() => { setMode('login'); setErrorMsg(null); }}
+              onClick={() => { setMode('login'); setErrorMsg(null); setShowPassword(false); }}
               className={`flex-1 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold rounded-md transition-all ${
                 mode === 'login'
                   ? 'bg-white text-slate-900 shadow-xs border border-slate-200'
@@ -227,13 +237,26 @@ export const AuthModal: React.FC = () => {
               <div className="relative">
                 <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F59E0B] absolute left-2.5 top-2 sm:top-2.5" />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-1.5 sm:py-2 pl-8 sm:pl-9 pr-2.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
+                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-1.5 sm:py-2 pl-8 sm:pl-9 pr-9 sm:pr-10 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2.5 top-2 sm:top-2.5 p-0.5 text-slate-400 hover:text-slate-700 rounded transition-colors focus:outline-none"
+                  title={showPassword ? "Itago ang password" : "Ipakita ang password"}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  ) : (
+                    <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  )}
+                </button>
               </div>
             </div>
 
