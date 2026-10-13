@@ -23,7 +23,10 @@ export const CommunityNotice: React.FC<CommunityNoticeProps> = ({
       {/* Dashboard Section Header */}
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#06B6D4] animate-pulse" />
+          <span className="relative flex h-2.5 w-2.5 shrink-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
           <h2 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900">
             Live Court Dashboard
           </h2>
