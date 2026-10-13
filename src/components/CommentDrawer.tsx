@@ -153,12 +153,6 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                       : 'bg-slate-50 border-slate-200 mr-4'
                   }`}
                 >
-                  {/* Avatar */}
-                  <div className="w-7 h-7 rounded-full bg-[#F59E0B]/15 border border-[#F59E0B]/40 text-[#D97706] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                    {comment.profile?.display_name?.charAt(0).toUpperCase() || 'P'}
-                  </div>
-
-                  {/* Comment Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-1 mb-1">
                       <div className="flex items-center gap-1.5 flex-wrap">

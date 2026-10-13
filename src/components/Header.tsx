@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { LogIn, LogOut, RefreshCw, Download } from 'lucide-react';
+import { LogIn, LogOut, RefreshCw, Download, User } from 'lucide-react';
 import { BasketballIcon } from './BasketballIcon';
 
 interface HeaderProps {
@@ -105,8 +105,8 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center gap-1.5 text-left hover:opacity-80 transition-opacity"
                 title="Edit profile & Purok"
               >
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-[#F59E0B] text-black flex items-center justify-center font-bold text-[10px] sm:text-[11px]">
-                  {profile?.display_name?.charAt(0).toUpperCase() || 'P'}
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-[#F59E0B] text-black flex items-center justify-center">
+                  <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black stroke-[2.5]" />
                 </div>
                 <div className="hidden sm:block text-left pr-1">
                   <div className="text-[11px] font-bold text-[#F3F4F6] leading-tight truncate max-w-[85px]">

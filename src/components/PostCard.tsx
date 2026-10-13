@@ -173,23 +173,14 @@ export const PostCard: React.FC<PostCardProps> = ({
 
         {/* Author & Court details */}
         <div className="flex items-center justify-between gap-2 flex-wrap text-xs pt-0.5">
-          <div className="flex items-center gap-2 min-w-0">
-            {/* Author Avatar Badge */}
-            <div className="w-7 h-7 rounded-full bg-[#F59E0B]/15 border border-[#F59E0B]/40 text-[#D97706] flex items-center justify-center font-bold text-xs shrink-0">
-              {post.profile?.display_name?.charAt(0).toUpperCase() || 'P'}
-            </div>
-
-            <div className="min-w-0">
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="font-bold text-slate-900 truncate max-w-[150px] sm:max-w-xs">
-                  {post.profile?.display_name || 'Marangog Baller'}
-                </span>
-                {/* Purok Badge */}
-                <span className="text-[10px] font-bold bg-cyan-50 text-cyan-700 px-1.5 py-0.2 rounded border border-cyan-200 shrink-0">
-                  {post.profile?.purok || 'Marangog'}
-                </span>
-              </div>
-            </div>
+          <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+            <span className="font-bold text-slate-900 truncate max-w-[170px] sm:max-w-xs">
+              {post.profile?.display_name || 'Marangog Baller'}
+            </span>
+            {/* Purok Badge */}
+            <span className="text-[10px] font-bold bg-cyan-50 text-cyan-700 px-1.5 py-0.2 rounded border border-cyan-200 shrink-0">
+              {post.profile?.purok || 'Marangog'}
+            </span>
           </div>
 
           {/* Court Name with Pin */}
