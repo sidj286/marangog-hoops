@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { LogIn, LogOut, RefreshCw, Download, User } from 'lucide-react';
+import { LogIn, LogOut, Download, User } from 'lucide-react';
 import { BasketballIcon } from './BasketballIcon';
 
 interface HeaderProps {
-  onRefreshFeed: () => void;
+  onRefreshFeed?: () => void;
   isRefreshing?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  onRefreshFeed,
-  isRefreshing,
-}) => {
+export const Header: React.FC<HeaderProps> = () => {
   const { profile, isGuest, signOut, setIsAuthModalOpen, setIsProfileModalOpen } = useAuth();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstallable, setIsInstallable] = useState(false);
@@ -84,53 +81,42 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* Refresh Feed */}
-          <button
-            onClick={onRefreshFeed}
-            disabled={isRefreshing}
-            className="p-1.5 sm:p-2 text-[#9CA3AF] hover:text-[#F3F4F6] bg-[#262626] hover:bg-[#333333] border border-[#333333] rounded-lg transition-all"
-            title="Refresh game board"
-            aria-label="Refresh game board"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#9CA3AF] ${isRefreshing ? 'animate-spin text-[#F59E0B]' : ''}`} />
-          </button>
-
           {/* User Account or Guest Action */}
           {isGuest ? (
             <button
               onClick={() => setIsAuthModalOpen(true)}
-              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-[#F59E0B] hover:bg-[#D97706] text-black font-extrabold text-xs shadow-sm shadow-[#F59E0B]/25 active:scale-95 transition-all"
+              className="flex items-center gap-1 sm:gap-1.5 px-3 py-1.5 rounded-lg bg-[#F59E0B] hover:bg-[#D97706] text-black font-extrabold text-xs shadow-sm shadow-[#F59E0B]/25 active:scale-95 transition-all cursor-pointer"
             >
               <LogIn className="w-3.5 h-3.5" />
               <span>Sign in</span>
             </button>
           ) : (
-            <div className="flex items-center gap-1 bg-[#262626] border border-[#333333] rounded-lg p-0.5 sm:p-1 pl-1.5 sm:pl-2">
+            <div className="flex items-center gap-1 sm:gap-1.5 bg-[#262626] border border-[#333333] rounded-xl p-1 pl-1.5 sm:pl-2">
               <button
                 onClick={() => setIsProfileModalOpen(true)}
-                className="flex items-center gap-1.5 text-left hover:opacity-80 transition-opacity"
-                title="Edit profile & Purok"
+                className="flex items-center gap-1.5 text-left hover:opacity-90 transition-opacity cursor-pointer min-w-0"
+                title="Tan-awa o usba ang imong Profile"
               >
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-[#F59E0B] text-black flex items-center justify-center">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-[#F59E0B] text-black flex items-center justify-center shrink-0 shadow-xs">
                   <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black stroke-[2.5]" />
                 </div>
-                <div className="hidden sm:block text-left pr-1">
-                  <div className="text-[11px] font-bold text-[#F3F4F6] leading-tight truncate max-w-[85px]">
-                    {profile?.display_name}
+                <div className="text-left pr-1 min-w-0">
+                  <div className="text-[11px] sm:text-xs font-bold text-[#F3F4F6] leading-tight truncate max-w-[120px] sm:max-w-[180px]">
+                    {profile?.display_name || 'Player'}
                   </div>
-                  <div className="text-[9px] text-[#06B6D4] font-semibold leading-none truncate max-w-[85px]">
-                    {profile?.purok}
+                  <div className="text-[9px] sm:text-[10px] text-emerald-400 font-semibold leading-none truncate max-w-[120px] sm:max-w-[180px]">
+                    {profile?.purok || 'Marangog'}
                   </div>
                 </div>
               </button>
 
               <button
                 onClick={signOut}
-                className="p-1 sm:p-1.5 text-[#9CA3AF] hover:text-rose-400 rounded hover:bg-[#1E1E1E] transition-colors"
+                className="p-1 sm:p-1.5 text-[#9CA3AF] hover:text-rose-400 rounded-lg hover:bg-[#1E1E1E] transition-colors shrink-0 cursor-pointer"
                 title="Log Out"
                 aria-label="Log Out"
               >
-                <LogOut className="w-3.5 h-3.5" />
+                <LogOut className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
             </div>
           )}
