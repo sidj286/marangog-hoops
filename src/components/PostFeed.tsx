@@ -5,7 +5,7 @@ import { PostCard } from './PostCard';
 import { CategoryIcon } from './CategoryIcon';
 import { BasketballIcon } from './BasketballIcon';
 import { isPostExpired } from '../lib/time';
-import { Search, Clock, Sparkles } from 'lucide-react';
+import { Search, Sparkles } from 'lucide-react';
 
 interface PostFeedProps {
   posts: Post[];
@@ -27,16 +27,14 @@ export const PostFeed: React.FC<PostFeedProps> = ({
   onTriggerCreatePost,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<PostCategory | 'ALL'>('ALL');
-  const [showOnlyActive, setShowOnlyActive] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   // 12-Hour Expiration Filtering + Category & Search Filtering
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
-      const expired = isPostExpired(post.created_at);
-      if (showOnlyActive) {
-        if (expired) return false;
-        if (post.is_concluded) return false;
+      // Auto-expire posts older than 12 hours
+      if (isPostExpired(post.created_at)) {
+        return false;
       }
 
       if (selectedCategory !== 'ALL' && post.category !== selectedCategory) {
@@ -56,7 +54,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
 
       return true;
     });
-  }, [posts, selectedCategory, showOnlyActive, searchQuery]);
+  }, [posts, selectedCategory, searchQuery]);
 
   return (
     <div className="space-y-3.5">
@@ -115,41 +113,24 @@ export const PostFeed: React.FC<PostFeedProps> = ({
           })}
         </div>
 
-        {/* Search & Active 12h Toggle Strip */}
-        <div className="flex items-center justify-between gap-1.5 sm:gap-2">
-          {/* Search Input */}
-          <div className="relative flex-1 min-w-0">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
-            <input
-              type="text"
-              placeholder="Pangitaa ang Court, Purok..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-lg py-1.5 pl-8 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] truncate"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1.5 text-slate-400 hover:text-slate-700 text-xs p-0.5"
-              >
-                ×
-              </button>
-            )}
-          </div>
-
-          {/* Active 12-Hour vs All Toggle */}
-          <button
-            type="button"
-            onClick={() => setShowOnlyActive(!showOnlyActive)}
-            className={`px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-medium border flex items-center gap-1 sm:gap-1.5 whitespace-nowrap transition-colors shrink-0 ${
-              showOnlyActive
-                ? 'bg-white border border-[#06B6D4] text-[#06B6D4] font-semibold shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
-            }`}
-          >
-            <Clock className="w-3 h-3 text-[#06B6D4] shrink-0" />
-            <span>{showOnlyActive ? 'Aktibo (<12h)' : 'Apil Human Na'}</span>
-          </button>
+        {/* Search Input */}
+        <div className="relative w-full">
+          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+          <input
+            type="text"
+            placeholder="Pangitaa ang Court, Purok..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-white border border-slate-200 rounded-lg py-1.5 pl-8 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-2.5 top-1.5 text-slate-400 hover:text-slate-700 text-xs p-0.5"
+            >
+              ×
+            </button>
+          )}
         </div>
       </div>
 
@@ -166,9 +147,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
           </div>
           <div>
             <h4 className="text-sm font-bold text-slate-900">
-              {showOnlyActive 
-                ? 'Walay aktibong duwa sa board karon.' 
-                : 'Walay nakit-an nga post.'}
+              Walay aktibong duwa sa board karon.
             </h4>
             <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1 leading-relaxed">
               Ang mga post awtomatikong mo-expire human sa 12 ka oras. Mahimo kang mag-post karon aron magka-tapok ang mga magduduwa!
