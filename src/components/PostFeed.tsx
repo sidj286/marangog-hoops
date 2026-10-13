@@ -252,6 +252,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
             <PostCard
               key={post.id}
               post={post}
+              players={allProfiles}
               onOpenComments={onOpenComments}
               onToggleHeadcount={onToggleHeadcount}
               onToggleConcluded={onToggleConcluded}

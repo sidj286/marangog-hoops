@@ -487,6 +487,7 @@ export const AppContent: React.FC = () => {
         post={selectedPost}
         comments={comments}
         isOpen={isCommentDrawerOpen}
+        players={directoryPlayers}
         onClose={() => setIsCommentDrawerOpen(false)}
         onSubmitComment={handleSubmitComment}
         onDeleteComment={handleDeleteComment}
@@ -495,6 +496,7 @@ export const AppContent: React.FC = () => {
 
       <CreatePostDrawer
         isOpen={isCreateDrawerOpen}
+        players={directoryPlayers}
         onClose={() => setIsCreateDrawerOpen(false)}
         onSubmitPost={handleSubmitPost}
       />

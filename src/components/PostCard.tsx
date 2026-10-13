@@ -4,6 +4,7 @@ import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { formatTimeAgo } from '../lib/time';
 import { CategoryIcon } from './CategoryIcon';
+import { MentionText } from './MentionText';
 import confetti from 'canvas-confetti';
 import { 
   MapPin, 
@@ -20,6 +21,7 @@ import {
 
 interface PostCardProps {
   post: Post;
+  players?: Profile[];
   onOpenComments: (post: Post) => void;
   onToggleHeadcount: (postId: string) => void;
   onToggleConcluded: (postId: string) => void;
@@ -29,6 +31,7 @@ interface PostCardProps {
 
 export const PostCard: React.FC<PostCardProps> = ({
   post,
+  players = [],
   onOpenComments,
   onToggleHeadcount,
   onToggleConcluded,
@@ -204,7 +207,7 @@ export const PostCard: React.FC<PostCardProps> = ({
 
         {/* Post Message Body */}
         <div className="text-slate-800 text-sm leading-relaxed whitespace-pre-wrap font-medium">
-          {post.message}
+          <MentionText text={post.message} players={players} onSelectPlayer={onSelectPlayer} />
         </div>
 
         {/* Headcount Attendees Roster Preview if available */}

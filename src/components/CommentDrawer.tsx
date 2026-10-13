@@ -4,19 +4,23 @@ import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { formatRelativeTime } from '../lib/time';
 import { CategoryIcon } from './CategoryIcon';
+import { MentionText } from './MentionText';
+import { MentionSuggestions } from './MentionSuggestions';
 import { 
   X, 
   Send, 
   Trash2, 
   Lock, 
   MapPin,
-  MessageSquare 
+  MessageSquare,
+  AtSign
 } from 'lucide-react';
 
 interface CommentDrawerProps {
   post: Post | null;
   comments: Comment[];
   isOpen: boolean;
+  players?: Profile[];
   onClose: () => void;
   onSubmitComment: (postId: string, text: string) => Promise<void>;
   onDeleteComment: (commentId: string) => Promise<void>;
@@ -35,6 +39,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
   post,
   comments,
   isOpen,
+  players = [],
   onClose,
   onSubmitComment,
   onDeleteComment,
@@ -43,6 +48,8 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
   const { user, profile, isGuest, requireAuth } = useAuth();
   const [commentText, setCommentText] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [showMentionPicker, setShowMentionPicker] = useState(false);
+  const [mentionQuery, setMentionQuery] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -61,6 +68,56 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
 
   const categoryMeta = CATEGORIES[post.category] || CATEGORIES['Magduwa Hapon'];
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setCommentText(val);
+
+    const selStart = e.target.selectionStart || val.length;
+    const textBefore = val.slice(0, selStart);
+    const lastAt = textBefore.lastIndexOf('@');
+
+    if (lastAt !== -1) {
+      const query = textBefore.slice(lastAt + 1);
+      if (!query.includes('  ')) {
+        setMentionQuery(query);
+        setShowMentionPicker(true);
+        return;
+      }
+    }
+
+    if (showMentionPicker && !mentionQuery) {
+      setShowMentionPicker(false);
+    }
+  };
+
+  const handleSelectMention = (player: Profile) => {
+    const input = inputRef.current;
+    const tag = `@${player.display_name} `;
+
+    if (input) {
+      const selStart = input.selectionStart || commentText.length;
+      const textBefore = commentText.slice(0, selStart);
+      const lastAt = textBefore.lastIndexOf('@');
+
+      if (lastAt !== -1) {
+        const newText = commentText.slice(0, lastAt) + tag + commentText.slice(selStart);
+        setCommentText(newText);
+      } else {
+        const sep = commentText && !commentText.endsWith(' ') ? ' ' : '';
+        setCommentText(commentText + sep + tag);
+      }
+    } else {
+      const sep = commentText && !commentText.endsWith(' ') ? ' ' : '';
+      setCommentText(commentText + sep + tag);
+    }
+
+    setShowMentionPicker(false);
+    setMentionQuery('');
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 50);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!commentText.trim()) return;
@@ -70,6 +127,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
       try {
         await onSubmitComment(post.id, commentText.trim());
         setCommentText('');
+        setShowMentionPicker(false);
       } finally {
         setSubmitting(false);
       }
@@ -113,8 +171,8 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                 {post.court_name}
               </span>
             </div>
-            <h3 className="text-xs sm:text-sm font-bold text-slate-900 truncate">
-              "{post.message}"
+            <h3 className="text-xs sm:text-sm font-bold text-slate-900 line-clamp-2">
+              "<MentionText text={post.message} players={players} onSelectPlayer={onSelectPlayer} />"
             </h3>
             <p className="text-[10px] sm:text-[11px] text-slate-500">
               Gipost ni <span className="text-slate-900 font-semibold">{post.profile?.display_name}</span> ({post.profile?.purok})
@@ -181,9 +239,9 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                       </span>
                     </div>
 
-                    <p className="text-xs text-slate-800 whitespace-pre-wrap leading-relaxed font-normal">
-                      {comment.comment_text}
-                    </p>
+                    <div className="text-xs text-slate-800 whitespace-pre-wrap leading-relaxed font-normal">
+                      <MentionText text={comment.comment_text} players={players} onSelectPlayer={onSelectPlayer} />
+                    </div>
                   </div>
 
                   {/* Delete Button (if author) */}
@@ -248,32 +306,62 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex items-center gap-2">
-              <div className="relative flex-1">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  placeholder={`Comment isip ${profile?.display_name} (${profile?.purok})...`}
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                  disabled={submitting}
-                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-2 pl-3.5 pr-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
-                />
-              </div>
+            <div className="relative">
+              {showMentionPicker && (
+                <div className="absolute bottom-full left-0 right-0 mb-2 z-50">
+                  <MentionSuggestions
+                    players={players}
+                    filterQuery={mentionQuery}
+                    onSelect={handleSelectMention}
+                    onClose={() => {
+                      setShowMentionPicker(false);
+                      setMentionQuery('');
+                    }}
+                    title="I-mention sa Comment"
+                  />
+                </div>
+              )}
 
-              <button
-                type="submit"
-                disabled={submitting || !commentText.trim()}
-                className="p-2.5 bg-[#F59E0B] hover:bg-[#D97706] disabled:opacity-40 text-black font-bold rounded-lg shadow-sm shadow-[#F59E0B]/25 active:scale-95 transition-all shrink-0"
-                aria-label="Send comment"
-              >
-                {submitting ? (
-                  <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                ) : (
-                  <Send className="w-4 h-4 text-black" />
-                )}
-              </button>
-            </form>
+              <form onSubmit={handleSubmit} className="flex items-center gap-1.5 sm:gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowMentionPicker((prev) => !prev);
+                    setMentionQuery('');
+                  }}
+                  className="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-amber-50 text-slate-500 hover:text-[#D97706] hover:border-amber-300 transition-colors shrink-0 cursor-pointer"
+                  title="I-mention ang Player (@)"
+                  aria-label="Mention a player"
+                >
+                  <AtSign className="w-4 h-4" />
+                </button>
+
+                <div className="relative flex-1">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    placeholder={`Comment isip ${profile?.display_name || 'Player'} (@ aron mag-tag)...`}
+                    value={commentText}
+                    onChange={handleInputChange}
+                    disabled={submitting}
+                    className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-2 pl-3 pr-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submitting || !commentText.trim()}
+                  className="p-2.5 bg-[#F59E0B] hover:bg-[#D97706] disabled:opacity-40 text-black font-bold rounded-lg shadow-sm shadow-[#F59E0B]/25 active:scale-95 transition-all shrink-0 cursor-pointer"
+                  aria-label="Send comment"
+                >
+                  {submitting ? (
+                    <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4 text-black" />
+                  )}
+                </button>
+              </form>
+            </div>
           )}
         </div>
       </div>

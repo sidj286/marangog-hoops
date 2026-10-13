@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
-import type { PostCategory } from '../types';
+import React, { useState, useRef } from 'react';
+import type { PostCategory, Profile } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { CategoryIcon } from './CategoryIcon';
 import { BasketballIcon } from './BasketballIcon';
+import { MentionSuggestions } from './MentionSuggestions';
 import { 
   X, 
   MapPin, 
   Send, 
-  AlertCircle 
+  AlertCircle,
+  AtSign
 } from 'lucide-react';
 
 interface CreatePostDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  players?: Profile[];
   onSubmitPost: (data: {
     category: PostCategory;
     court_name: string;
@@ -48,6 +51,7 @@ const PRESET_MESSAGES: Record<PostCategory, string[]> = {
 export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
   isOpen,
   onClose,
+  players = [],
   onSubmitPost,
 }) => {
   const { profile } = useAuth();
@@ -57,8 +61,61 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
   const [playersNeeded, setPlayersNeeded] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showMentionPicker, setShowMentionPicker] = useState(false);
+  const [mentionQuery, setMentionQuery] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   if (!isOpen) return null;
+
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const val = e.target.value;
+    setMessage(val);
+
+    const selStart = e.target.selectionStart;
+    const textBefore = val.slice(0, selStart);
+    const lastAt = textBefore.lastIndexOf('@');
+
+    if (lastAt !== -1) {
+      const query = textBefore.slice(lastAt + 1);
+      if (!query.includes('\n') && !query.includes('  ')) {
+        setMentionQuery(query);
+        setShowMentionPicker(true);
+        return;
+      }
+    }
+
+    if (showMentionPicker && !mentionQuery) {
+      setShowMentionPicker(false);
+    }
+  };
+
+  const handleSelectMention = (player: Profile) => {
+    const textarea = textareaRef.current;
+    const tag = `@${player.display_name} `;
+
+    if (textarea) {
+      const selStart = textarea.selectionStart;
+      const textBefore = message.slice(0, selStart);
+      const lastAt = textBefore.lastIndexOf('@');
+
+      if (lastAt !== -1) {
+        const newMsg = message.slice(0, lastAt) + tag + message.slice(selStart);
+        setMessage(newMsg);
+      } else {
+        const sep = message && !message.endsWith(' ') ? ' ' : '';
+        setMessage(message + sep + tag);
+      }
+    } else {
+      const sep = message && !message.endsWith(' ') ? ' ' : '';
+      setMessage(message + sep + tag);
+    }
+
+    setShowMentionPicker(false);
+    setMentionQuery('');
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 50);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,8 +127,8 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
       setErrorMsg('Palihug pagbutang ug mensahe o pahibalo kabahin sa duwa.');
       return;
     }
-    if (message.length > 140) {
-      setErrorMsg('Ang mensahe kinahanglan dili molapas sa 140 ka characters.');
+    if (message.length > 200) {
+      setErrorMsg('Ang mensahe kinahanglan dili molapas sa 200 ka characters.');
       return;
     }
 
@@ -87,6 +144,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
       });
       setMessage('');
       setCourtName('');
+      setShowMentionPicker(false);
       onClose();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Sayop sa pag-post.';
@@ -234,31 +292,66 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
             </span>
           </div>
 
-          {/* 3. Message / Note (<140 chars) */}
-          <div>
+          {/* 3. Message / Note (<200 chars) */}
+          <div className="relative">
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 3. Mensahe / Detalye
               </label>
               <span className={`text-[11px] font-mono font-bold ${
-                message.length > 130 ? 'text-rose-500' : 'text-slate-400'
+                message.length > 185 ? 'text-rose-500' : 'text-slate-400'
               }`}>
-                {message.length}/140
+                {message.length}/200
               </span>
             </div>
 
             <textarea
+              ref={textareaRef}
               required
               rows={3}
-              maxLength={140}
-              placeholder="Unsay sabot? Kanus-a sugdan? Dala bola? Pila kabuok ka team?"
+              maxLength={200}
+              placeholder="Unsay sabot? Kanus-a sugdan? Pwede i-mention ang player gamit ang @ (e.g. @Juan)..."
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={handleMessageChange}
               className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg p-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm resize-none"
             />
 
+            {/* Mention Suggestions Floating Card */}
+            {showMentionPicker && (
+              <div className="mt-1.5 mb-2">
+                <MentionSuggestions
+                  players={players}
+                  filterQuery={mentionQuery}
+                  onSelect={handleSelectMention}
+                  onClose={() => {
+                    setShowMentionPicker(false);
+                    setMentionQuery('');
+                  }}
+                  title="Pilia ang Player nga i-mention sa Post"
+                />
+              </div>
+            )}
+
+            {/* Quick Mention Action Bar */}
+            <div className="flex items-center justify-between mt-1.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowMentionPicker((prev) => !prev);
+                  setMentionQuery('');
+                }}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 transition-colors cursor-pointer"
+              >
+                <AtSign className="w-3.5 h-3.5 text-[#D97706]" />
+                <span>I-mention ang Player</span>
+              </button>
+              <span className="text-[10px] text-slate-400">
+                I-type ang <strong className="text-amber-600 font-mono">@</strong> aron mag-tag
+              </span>
+            </div>
+
             {/* Quick Preset Phrases */}
-            <div className="mt-2 space-y-1">
+            <div className="mt-2.5 space-y-1">
               <span className="text-[10px] text-slate-500 font-semibold block">
                 Paspas nga mga pulong (1-tap):
               </span>
