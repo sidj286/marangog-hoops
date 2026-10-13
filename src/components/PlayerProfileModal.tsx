@@ -117,7 +117,7 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
               onClick={onClose}
               className="py-2 px-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs border border-slate-200 transition-colors"
             >
-              Isara
+              Close
             </button>
           </div>
         </div>

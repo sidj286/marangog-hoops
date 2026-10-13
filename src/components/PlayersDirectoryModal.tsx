@@ -228,10 +228,11 @@ export const PlayersDirectoryModal: React.FC<PlayersDirectoryModalProps> = ({
             onClick={onClose}
             className="py-1.5 px-3.5 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-lg text-xs border border-slate-200 transition-colors"
           >
-            Isara
+            Close
           </button>
         </div>
       </div>
     </div>
   );
 };
+
