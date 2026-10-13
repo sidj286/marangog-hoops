@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { LogIn, LogOut, RefreshCw, Download, User } from 'lucide-react';
 import { BasketballIcon } from './BasketballIcon';
-import { FacebookIcon } from './FacebookIcon';
 
 interface HeaderProps {
   onRefreshFeed: () => void;
@@ -13,7 +12,7 @@ export const Header: React.FC<HeaderProps> = ({
   onRefreshFeed,
   isRefreshing,
 }) => {
-  const { profile, isGuest, isFacebookUser, signOut, setIsAuthModalOpen, setIsProfileModalOpen } = useAuth();
+  const { profile, isGuest, signOut, setIsAuthModalOpen, setIsProfileModalOpen } = useAuth();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstallable, setIsInstallable] = useState(false);
 
@@ -106,19 +105,12 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center gap-1.5 text-left hover:opacity-80 transition-opacity"
                 title="Edit profile & Purok"
               >
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-[#F59E0B] text-black flex items-center justify-center relative">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-[#F59E0B] text-black flex items-center justify-center">
                   <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black stroke-[2.5]" />
-                  {isFacebookUser && (
-                    <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-[#1877F2] rounded-full flex items-center justify-center border border-[#1E1E1E]">
-                      <FacebookIcon className="w-2 h-2 text-white" />
-                    </span>
-                  )}
                 </div>
                 <div className="hidden sm:block text-left pr-1">
-                  <div className="flex items-center gap-1">
-                    <span className="text-[11px] font-bold text-[#F3F4F6] leading-tight truncate max-w-[85px]">
-                      {profile?.display_name}
-                    </span>
+                  <div className="text-[11px] font-bold text-[#F3F4F6] leading-tight truncate max-w-[85px]">
+                    {profile?.display_name}
                   </div>
                   <div className="text-[9px] text-[#06B6D4] font-semibold leading-none truncate max-w-[85px]">
                     {profile?.purok}

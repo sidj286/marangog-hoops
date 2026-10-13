@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { X, Lock, Mail, User, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
 import { BasketballIcon } from './BasketballIcon';
-import { FacebookIcon } from './FacebookIcon';
 
 export const AuthModal: React.FC = () => {
   const {
@@ -11,7 +10,6 @@ export const AuthModal: React.FC = () => {
     authModalReason,
     signUp,
     signIn,
-    signInWithFacebook,
     isSupabaseLive,
   } = useAuth();
 
@@ -21,7 +19,6 @@ export const AuthModal: React.FC = () => {
   const [displayName, setDisplayName] = useState('');
   const [purok, setPurok] = useState('');
   const [loading, setLoading] = useState(false);
-  const [fbLoading, setFbLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   if (!isAuthModalOpen) return null;
@@ -71,19 +68,6 @@ export const AuthModal: React.FC = () => {
       }
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleFacebookLogin = async () => {
-    setErrorMsg(null);
-    setFbLoading(true);
-    try {
-      const res = await signInWithFacebook();
-      if (res.error) {
-        setErrorMsg(res.error);
-      }
-    } finally {
-      setFbLoading(false);
     }
   };
 
@@ -160,43 +144,6 @@ export const AuthModal: React.FC = () => {
               <span>{errorMsg}</span>
             </div>
           )}
-
-          {/* Facebook Quick Login (Anti-Alias Verified Identity) */}
-          <div className="space-y-2">
-            <button
-              type="button"
-              onClick={handleFacebookLogin}
-              disabled={loading || fbLoading}
-              className="w-full py-2.5 px-4 bg-[#1877F2] hover:bg-[#166fe5] text-white font-extrabold rounded-xl shadow-xs flex items-center justify-center gap-2.5 transition-all active:scale-[0.98] disabled:opacity-50 text-xs sm:text-sm cursor-pointer"
-            >
-              {fbLoading ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  <FacebookIcon className="w-4 h-4 text-white shrink-0" />
-                  <span>Padayon gamit ang Facebook</span>
-                </>
-              )}
-            </button>
-
-            <div className="p-2 bg-blue-50/70 border border-blue-200/80 rounded-xl text-[10px] text-slate-600 leading-relaxed flex items-start gap-2">
-              <span className="font-bold text-[#1877F2] bg-white px-1.5 py-0.5 rounded border border-blue-200 uppercase tracking-wider text-[9px] shrink-0 mt-0.5">
-                Anti-Alias
-              </span>
-              <span>
-                Ang imong <strong>tinuod nga ngalan sa Facebook</strong> maoy awtomatikong gamiton sa board aron dili magamit ang lain-laing alias o fake name.
-              </span>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="relative flex py-0.5 items-center">
-            <div className="flex-grow border-t border-slate-200" />
-            <span className="shrink-0 mx-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-              o gamit ang Email
-            </span>
-            <div className="flex-grow border-t border-slate-200" />
-          </div>
 
           <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-3">
             {mode === 'signup' && (
