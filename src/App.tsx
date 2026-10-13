@@ -10,6 +10,7 @@ import { CommentDrawer } from './components/CommentDrawer';
 import { CreatePostDrawer } from './components/CreatePostDrawer';
 import { AuthModal } from './components/AuthModal';
 import { ProfileSetupModal } from './components/ProfileSetupModal';
+import { PlayerProfileModal } from './components/PlayerProfileModal';
 import { BasketballIcon } from './components/BasketballIcon';
 import { Plus } from 'lucide-react';
 
@@ -25,6 +26,8 @@ export const AppContent: React.FC = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [isCommentDrawerOpen, setIsCommentDrawerOpen] = useState(false);
   const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
+  const [viewingPlayer, setViewingPlayer] = useState<Profile | null>(null);
+  const [allProfiles, setAllProfiles] = useState<Profile[]>([]);
 
   // Fetch comments for a specific post
   const fetchCommentsForPost = useCallback(async (postId: string) => {
@@ -153,19 +156,40 @@ export const AppContent: React.FC = () => {
     }
   }, [isSupabaseLive, user]);
 
+  // Fetch all registered player profiles
+  const fetchProfiles = useCallback(async () => {
+    if (isSupabaseLive) {
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('id, display_name, purok, monicker, created_at')
+          .order('display_name', { ascending: true });
+
+        if (!error && data) {
+          setAllProfiles(data);
+        }
+      } catch (err) {
+        console.error('Failed to load profiles from Supabase:', err);
+      }
+    } else {
+      const mockProfs = mockEngine.getProfiles();
+      setAllProfiles(mockProfs);
+    }
+  }, [isSupabaseLive]);
+
   // Initial load
   useEffect(() => {
     let mounted = true;
     setLoadingPosts(true);
 
-    fetchPosts().finally(() => {
+    Promise.all([fetchPosts(), fetchProfiles()]).finally(() => {
       if (mounted) setLoadingPosts(false);
     });
 
     return () => {
       mounted = false;
     };
-  }, [fetchPosts]);
+  }, [fetchPosts, fetchProfiles]);
 
   // Real-time Subscriptions (Supabase Channel or Mock Engine)
   useEffect(() => {
@@ -213,10 +237,11 @@ export const AppContent: React.FC = () => {
   // Manual pull-to-refresh / header refresh action
   const handleManualRefresh = async () => {
     setIsRefreshing(true);
-    await fetchPosts();
-    if (selectedPost) {
-      await fetchCommentsForPost(selectedPost.id);
-    }
+    await Promise.all([
+      fetchPosts(),
+      fetchProfiles(),
+      selectedPost ? fetchCommentsForPost(selectedPost.id) : Promise.resolve(),
+    ]);
     setTimeout(() => setIsRefreshing(false), 600);
   };
 
@@ -406,11 +431,13 @@ export const AppContent: React.FC = () => {
         <PostFeed
           posts={posts}
           loading={loadingPosts}
+          allProfiles={allProfiles}
           onOpenComments={handleOpenComments}
           onToggleHeadcount={handleToggleHeadcount}
           onToggleConcluded={handleToggleConcluded}
           onDeletePost={handleDeletePost}
           onTriggerCreatePost={handleOpenCreatePost}
+          onSelectPlayer={(player) => setViewingPlayer(player)}
         />
       </main>
 
@@ -439,12 +466,20 @@ export const AppContent: React.FC = () => {
         onClose={() => setIsCommentDrawerOpen(false)}
         onSubmitComment={handleSubmitComment}
         onDeleteComment={handleDeleteComment}
+        onSelectPlayer={(player) => setViewingPlayer(player)}
       />
 
       <CreatePostDrawer
         isOpen={isCreateDrawerOpen}
         onClose={() => setIsCreateDrawerOpen(false)}
         onSubmitPost={handleSubmitPost}
+      />
+
+      <PlayerProfileModal
+        player={viewingPlayer}
+        isOpen={Boolean(viewingPlayer)}
+        onClose={() => setViewingPlayer(null)}
+        posts={posts}
       />
 
       <AuthModal />

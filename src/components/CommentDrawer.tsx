@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import type { Post, Comment } from '../types';
+import type { Post, Comment, Profile } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { formatRelativeTime } from '../lib/time';
@@ -20,6 +20,7 @@ interface CommentDrawerProps {
   onClose: () => void;
   onSubmitComment: (postId: string, text: string) => Promise<void>;
   onDeleteComment: (commentId: string) => Promise<void>;
+  onSelectPlayer?: (player: Profile) => void;
 }
 
 const QUICK_RESPONSES = [
@@ -37,6 +38,7 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
   onClose,
   onSubmitComment,
   onDeleteComment,
+  onSelectPlayer,
 }) => {
   const { user, profile, isGuest, requireAuth } = useAuth();
   const [commentText, setCommentText] = useState('');
@@ -156,12 +158,22 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-1 mb-1">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="text-xs font-bold text-slate-900">
+                        <button
+                          type="button"
+                          onClick={() => comment.profile && onSelectPlayer?.(comment.profile)}
+                          className="text-xs font-bold text-slate-900 hover:text-[#D97706] hover:underline transition-colors text-left cursor-pointer"
+                          title="Tan-awa ang Profile sa Player"
+                        >
                           {comment.profile?.display_name || 'Marangog Baller'}
-                        </span>
-                        <span className="text-[10px] font-bold bg-white text-[#06B6D4] px-1.5 py-0.2 rounded border border-slate-200">
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => comment.profile && onSelectPlayer?.(comment.profile)}
+                          className="text-[10px] font-bold bg-white hover:bg-cyan-50 text-[#06B6D4] px-1.5 py-0.2 rounded border border-slate-200 transition-colors cursor-pointer"
+                          title="Purok sa Player"
+                        >
                           {comment.profile?.purok || 'Marangog'}
-                        </span>
+                        </button>
                       </div>
 
                       <span className="text-[10px] text-slate-400 shrink-0">

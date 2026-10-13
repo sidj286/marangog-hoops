@@ -1,33 +1,65 @@
 import React, { useState, useMemo } from 'react';
-import type { Post, PostCategory } from '../types';
+import type { Post, PostCategory, Profile } from '../types';
 import { CATEGORIES } from '../types';
 import { PostCard } from './PostCard';
 import { CategoryIcon } from './CategoryIcon';
 import { BasketballIcon } from './BasketballIcon';
 import { isPostExpired } from '../lib/time';
-import { Search, Sparkles } from 'lucide-react';
+import { Search, Sparkles, User } from 'lucide-react';
 
 interface PostFeedProps {
   posts: Post[];
   loading: boolean;
+  allProfiles?: Profile[];
   onOpenComments: (post: Post) => void;
   onToggleHeadcount: (postId: string) => void;
   onToggleConcluded: (postId: string) => void;
   onDeletePost: (postId: string) => void;
   onTriggerCreatePost: () => void;
+  onSelectPlayer?: (player: Profile) => void;
 }
 
 export const PostFeed: React.FC<PostFeedProps> = ({
   posts,
   loading,
+  allProfiles = [],
   onOpenComments,
   onToggleHeadcount,
   onToggleConcluded,
   onDeletePost,
   onTriggerCreatePost,
+  onSelectPlayer,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<PostCategory | 'ALL'>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Players matching the search query across profiles and posts
+  const matchingPlayers = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const q = searchQuery.toLowerCase().trim();
+
+    const profileMap = new Map<string, Profile>();
+    allProfiles.forEach((p) => {
+      if (p && p.id) profileMap.set(p.id, p);
+    });
+    posts.forEach((p) => {
+      if (p.profile && p.profile.id) {
+        profileMap.set(p.profile.id, p.profile);
+      }
+      if (p.headcount_roster) {
+        p.headcount_roster.forEach((r) => {
+          if (r && r.id) profileMap.set(r.id, r);
+        });
+      }
+    });
+
+    return Array.from(profileMap.values()).filter((player) => {
+      const name = player.display_name?.toLowerCase() || '';
+      const purok = player.purok?.toLowerCase() || '';
+      const monicker = player.monicker?.toLowerCase() || '';
+      return name.includes(q) || purok.includes(q) || monicker.includes(q);
+    });
+  }, [allProfiles, posts, searchQuery]);
 
   // 12-Hour Expiration Filtering + Category & Search Filtering
   const filteredPosts = useMemo(() => {
@@ -118,7 +150,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
           <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
           <input
             type="text"
-            placeholder="Pangitaa ang Court, Purok..."
+            placeholder="Pangitaa ang Court, Purok, o Ngalan sa Magduduwa..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-white border border-slate-200 rounded-lg py-1.5 pl-8 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]"
@@ -132,6 +164,35 @@ export const PostFeed: React.FC<PostFeedProps> = ({
             </button>
           )}
         </div>
+
+        {/* Matching Players Result Strip */}
+        {searchQuery.trim() && matchingPlayers.length > 0 && (
+          <div className="bg-amber-50/70 border border-amber-200/80 rounded-xl p-2.5 space-y-1.5 shadow-xs">
+            <div className="flex items-center justify-between px-0.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1">
+                <User className="w-3 h-3 text-[#F59E0B]" />
+                Nakit-an nga Magduduwa ({matchingPlayers.length})
+              </span>
+              <span className="text-[10px] text-slate-500 font-medium">I-click aron makita ang profile</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {matchingPlayers.map((player) => (
+                <button
+                  key={player.id}
+                  type="button"
+                  onClick={() => onSelectPlayer?.(player)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white hover:bg-amber-100/50 border border-amber-200 rounded-lg text-xs text-slate-800 font-semibold shadow-2xs transition-all active:scale-95 cursor-pointer"
+                  title="Tan-awa ang Full Name ug Purok"
+                >
+                  <span className="text-slate-900 font-bold">{player.display_name}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-50 text-cyan-700 border border-cyan-200 font-bold">
+                    {player.purok}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Posts List */}
@@ -172,6 +233,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
               onToggleHeadcount={onToggleHeadcount}
               onToggleConcluded={onToggleConcluded}
               onDeletePost={onDeletePost}
+              onSelectPlayer={onSelectPlayer}
             />
           ))}
         </div>

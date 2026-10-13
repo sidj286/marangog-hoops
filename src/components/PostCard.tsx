@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { Post } from '../types';
+import type { Post, Profile } from '../types';
 import { CATEGORIES } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { formatTimeAgo } from '../lib/time';
@@ -24,6 +24,7 @@ interface PostCardProps {
   onToggleHeadcount: (postId: string) => void;
   onToggleConcluded: (postId: string) => void;
   onDeletePost: (postId: string) => void;
+  onSelectPlayer?: (player: Profile) => void;
 }
 
 export const PostCard: React.FC<PostCardProps> = ({
@@ -32,6 +33,7 @@ export const PostCard: React.FC<PostCardProps> = ({
   onToggleHeadcount,
   onToggleConcluded,
   onDeletePost,
+  onSelectPlayer,
 }) => {
   const { user, requireAuth } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
@@ -174,13 +176,23 @@ export const PostCard: React.FC<PostCardProps> = ({
         {/* Author & Court details */}
         <div className="flex items-center justify-between gap-2 flex-wrap text-xs pt-0.5">
           <div className="flex items-center gap-1.5 flex-wrap min-w-0">
-            <span className="font-bold text-slate-900 truncate max-w-[170px] sm:max-w-xs">
+            <button
+              type="button"
+              onClick={() => post.profile && onSelectPlayer?.(post.profile)}
+              className="font-bold text-slate-900 hover:text-[#D97706] hover:underline truncate max-w-[170px] sm:max-w-xs text-left transition-colors cursor-pointer"
+              title="Tan-awa ang Profile sa Player"
+            >
               {post.profile?.display_name || 'Marangog Baller'}
-            </span>
+            </button>
             {/* Purok Badge */}
-            <span className="text-[10px] font-bold bg-cyan-50 text-cyan-700 px-1.5 py-0.2 rounded border border-cyan-200 shrink-0">
+            <button
+              type="button"
+              onClick={() => post.profile && onSelectPlayer?.(post.profile)}
+              className="text-[10px] font-bold bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-1.5 py-0.2 rounded border border-cyan-200 shrink-0 transition-colors cursor-pointer"
+              title="Purok sa Player"
+            >
               {post.profile?.purok || 'Marangog'}
-            </span>
+            </button>
           </div>
 
           {/* Court Name with Pin */}
@@ -202,12 +214,15 @@ export const PostCard: React.FC<PostCardProps> = ({
             <span className="text-slate-500 text-[10px]">Joined:</span>
             <div className="flex items-center gap-1 flex-wrap">
               {post.headcount_roster.slice(0, 4).map((player, idx) => (
-                <span 
+                <button 
                   key={player.id || idx}
-                  className="bg-white border border-slate-200 px-1.5 py-0.5 rounded text-[10px] text-slate-800"
+                  type="button"
+                  onClick={() => onSelectPlayer?.(player)}
+                  className="bg-white hover:bg-amber-50 hover:border-[#F59E0B] border border-slate-200 px-1.5 py-0.5 rounded text-[10px] text-slate-800 transition-colors cursor-pointer"
+                  title="Tan-awa ang Profile sa Player"
                 >
                   {player.display_name} <span className="text-[#06B6D4] text-[9px] font-bold">({player.purok})</span>
-                </span>
+                </button>
               ))}
               {post.headcount_roster.length > 4 && (
                 <span className="text-slate-500 text-[10px]">
