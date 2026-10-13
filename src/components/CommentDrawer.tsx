@@ -92,39 +92,39 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
         onClick={onClose} 
       />
 
-      <div className="relative w-full max-w-lg bg-white border border-slate-200 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col z-10 text-slate-900">
+      <div className="relative w-full max-w-md sm:max-w-lg bg-white border border-slate-200 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[85vh] flex flex-col z-10 text-slate-900">
         {/* Top Handle for mobile */}
-        <div className="sm:hidden flex justify-center pt-2.5 pb-1 bg-slate-50 border-b border-slate-200">
-          <div className="w-10 h-1 rounded-full bg-slate-300" />
+        <div className="sm:hidden flex justify-center pt-2 pb-1 bg-slate-50 border-b border-slate-200">
+          <div className="w-8 h-1 rounded-full bg-slate-300" />
         </div>
 
         {/* Header */}
-        <div className="p-4 border-b border-slate-200 bg-slate-50 flex items-start justify-between gap-3">
+        <div className="p-3 sm:p-4 border-b border-slate-200 bg-slate-50 flex items-start justify-between gap-2.5">
           <div className="min-w-0">
-            <div className="flex items-center gap-2 mb-1">
-              <span className={`inline-flex items-center gap-1.5 text-xs px-2 py-0.5 rounded-md border font-bold ${categoryMeta.badgeBg}`}>
-                <CategoryIcon category={post.category} className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 sm:gap-2 mb-1 flex-wrap">
+              <span className={`inline-flex items-center gap-1 text-[11px] sm:text-xs px-2 py-0.5 rounded-md border font-bold ${categoryMeta.badgeBg}`}>
+                <CategoryIcon category={post.category} className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 <span>{categoryMeta.label}</span>
               </span>
-              <span className="text-slate-500 text-xs flex items-center gap-1">
+              <span className="text-slate-500 text-[11px] sm:text-xs flex items-center gap-1">
                 <MapPin className="w-3 h-3 text-[#06B6D4]" />
                 {post.court_name}
               </span>
             </div>
-            <h3 className="text-sm font-bold text-slate-900 truncate">
+            <h3 className="text-xs sm:text-sm font-bold text-slate-900 truncate">
               "{post.message}"
             </h3>
-            <p className="text-[11px] text-slate-500">
+            <p className="text-[10px] sm:text-[11px] text-slate-500">
               Gipost ni <span className="text-slate-900 font-semibold">{post.profile?.display_name}</span> ({post.profile?.purok})
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-slate-400 hover:text-slate-800 bg-white hover:bg-slate-100 border border-slate-200 transition-colors shrink-0"
+            className="p-1 sm:p-1.5 rounded-full text-slate-400 hover:text-slate-800 bg-white hover:bg-slate-100 border border-slate-200 transition-colors shrink-0"
             aria-label="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
 

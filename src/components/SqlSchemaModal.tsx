@@ -123,18 +123,18 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs animate-fade-in">
-      <div className="w-full max-w-2xl bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col text-slate-900">
+      <div className="w-full max-w-2xl bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden max-h-[88vh] flex flex-col text-slate-900">
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-white text-[#F59E0B] flex items-center justify-center border border-slate-200 shadow-xs">
-              <Database className="w-5 h-5" />
+        <div className="px-4 py-3 sm:px-6 sm:py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white text-[#F59E0B] flex items-center justify-center border border-slate-200 shadow-xs shrink-0">
+              <Database className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <h3 className="text-base font-bold text-slate-900">
+            <div className="min-w-0">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 truncate">
                 Supabase SQL & Setup Guide
               </h3>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[10px] sm:text-[11px] text-slate-500 truncate">
                 Barangay Marangog, Bogo City Basketball Database
               </p>
             </div>
@@ -142,17 +142,17 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-slate-400 hover:text-slate-800 bg-white hover:bg-slate-100 border border-slate-200 transition-colors"
+            className="p-1 sm:p-1.5 rounded-full text-slate-400 hover:text-slate-800 bg-white hover:bg-slate-100 border border-slate-200 transition-colors shrink-0"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
 
         {/* Status banner */}
-        <div className="px-6 py-2.5 bg-slate-100/70 border-b border-slate-200 flex items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full ${isConfigured ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
-            <span className="font-semibold text-slate-600">
+        <div className="px-4 py-2 sm:px-6 sm:py-2.5 bg-slate-100/70 border-b border-slate-200 flex items-center justify-between gap-2 text-xs">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span className={`w-2 h-2 rounded-full shrink-0 ${isConfigured ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+            <span className="font-semibold text-slate-600 text-[11px] sm:text-xs truncate">
               {isConfigured ? 'Supabase Live Connected' : 'Preview Mode (Local Engine Active)'}
             </span>
           </div>
@@ -160,14 +160,14 @@ export const SqlSchemaModal: React.FC<SqlSchemaModalProps> = ({ isOpen, onClose 
           <button
             type="button"
             onClick={() => setShowConfig(!showConfig)}
-            className="text-[11px] text-[#06B6D4] hover:underline font-semibold"
+            className="text-[10px] sm:text-[11px] text-[#06B6D4] hover:underline font-semibold shrink-0"
           >
             {showConfig ? 'Tago-a ang Config' : 'I-configure ang Keys'}
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto space-y-4 text-xs bg-white">
+        <div className="p-3.5 sm:p-6 overflow-y-auto space-y-3 sm:space-y-4 text-xs bg-white">
           {showConfig && (
             <form onSubmit={handleSaveCredentials} className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
               <h4 className="font-bold text-slate-900 flex items-center gap-1.5">
