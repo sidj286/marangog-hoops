@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { X, User, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
+import { isNbaName } from '../lib/nbaNameFilter';
 
 export const ProfileSetupModal: React.FC = () => {
   const {
@@ -28,6 +29,10 @@ export const ProfileSetupModal: React.FC = () => {
     e.preventDefault();
     if (!displayName.trim()) {
       setErrorMsg('Palihug isulod ang imong Kumpletong Ngalan (Full Name).');
+      return;
+    }
+    if (isNbaName(displayName)) {
+      setErrorMsg('Use your real full name');
       return;
     }
     if (!purok.trim()) {

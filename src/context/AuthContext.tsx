@@ -3,6 +3,7 @@ import type { Session } from '@supabase/supabase-js';
 import { supabase, getSupabaseCredentials } from '../lib/supabase';
 import { mockEngine } from '../lib/mockEngine';
 import type { Profile } from '../types';
+import { isNbaName } from '../lib/nbaNameFilter';
 
 interface AuthContextType {
   user: { id: string; email?: string } | null;
@@ -171,6 +172,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     purok: string,
     monicker?: string
   ): Promise<{ error?: string }> => {
+    // Validate NBA player names
+    if (isNbaName(displayName)) {
+      return { error: 'Use your real full name' };
+    }
+
     try {
       if (isSupabaseLive) {
         // Pass metadata to Supabase so PostgreSQL triggers can access display_name and purok
@@ -319,6 +325,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Update Profile Flow
   const updateProfile = async (data: { display_name: string; purok: string; monicker?: string }): Promise<{ error?: string }> => {
     if (!user) return { error: 'Palihug log in una.' };
+
+    // Validate NBA player names
+    if (isNbaName(data.display_name)) {
+      return { error: 'Use your real full name' };
+    }
 
     try {
       const updatedData: Profile = {

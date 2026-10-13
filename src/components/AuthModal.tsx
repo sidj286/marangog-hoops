@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { X, Lock, Mail, User, MapPin, CheckCircle2, AlertCircle } from 'lucide-react';
 import { BasketballIcon } from './BasketballIcon';
+import { isNbaName } from '../lib/nbaNameFilter';
 
 export const AuthModal: React.FC = () => {
   const {
@@ -32,6 +33,11 @@ export const AuthModal: React.FC = () => {
       if (mode === 'signup') {
         if (!displayName.trim()) {
           setErrorMsg('Palihug ibutang ang imong Kumpletong Ngalan (Full Name).');
+          setLoading(false);
+          return;
+        }
+        if (isNbaName(displayName)) {
+          setErrorMsg('Use your real full name');
           setLoading(false);
           return;
         }
