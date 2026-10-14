@@ -94,7 +94,7 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
           {/* Quick Notice / Description */}
           <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-[11px] leading-relaxed">
             <p>
-              Kini nga magduduwa aduna na'y account sa <strong className="text-slate-900">Marangog Hoops</strong> ug makakita sa imong mga post.
+              This player has an account on <strong className="text-slate-900">Marangog Hoops</strong> and can see your posts.
             </p>
           </div>
 
