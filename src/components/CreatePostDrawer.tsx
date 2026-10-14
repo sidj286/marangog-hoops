@@ -181,7 +181,7 @@ export const CreatePostDrawer: React.FC<CreatePostDrawerProps> = ({
               </h3>
             </div>
             <p className="text-[10px] sm:text-[11px] text-slate-500">
-              Isip <span className="text-[#D97706] font-semibold">{profile?.display_name}</span> ({profile?.purok})
+              <span className="text-[#D97706] font-semibold">{profile?.display_name}</span> ({profile?.purok})
             </p>
           </div>
 
