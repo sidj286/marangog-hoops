@@ -446,8 +446,6 @@ export const AppContent: React.FC = () => {
         {/* Barangay Notice Banner & Stats */}
         <CommunityNotice
           posts={posts}
-          registeredPlayersCount={directoryPlayers.length}
-          onOpenPlayersDirectory={() => setIsPlayersDirectoryOpen(true)}
         />
 
         {/* Real-time Game Feed */}
