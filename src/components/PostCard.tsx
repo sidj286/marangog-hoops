@@ -75,14 +75,10 @@ export const PostCard: React.FC<PostCardProps> = ({
     }
   };
 
-  // Player initials for avatar
-  const playerInitials = (post.profile?.display_name || 'MB')
-    .trim()
-    .split(/\s+/)
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase() || 'MB';
+  // Player initial for avatar (first letter only, e.g. "Cj Caayon" -> "C")
+  const playerInitial = (post.profile?.display_name?.trim() || 'M')
+    .charAt(0)
+    .toUpperCase() || 'M';
 
   return (
     <article
@@ -100,10 +96,10 @@ export const PostCard: React.FC<PostCardProps> = ({
             <button
               type="button"
               onClick={() => post.profile && onSelectPlayer?.(post.profile)}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-amber-400 to-[#F59E0B] text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border border-amber-300 hover:scale-105 active:scale-95 transition-transform cursor-pointer"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-amber-400 to-[#F59E0B] text-slate-950 font-black text-sm sm:text-base flex items-center justify-center shrink-0 shadow-xs border border-amber-300 hover:scale-105 active:scale-95 transition-transform cursor-pointer"
               title="Tan-awa ang Profile sa Player"
             >
-              {playerInitials}
+              {playerInitial}
             </button>
 
             {/* Author Name, Purok, Time */}
