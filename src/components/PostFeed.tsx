@@ -109,7 +109,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
                 }`}
               >
                 <BasketballIcon className="w-3.5 h-3.5 shrink-0" />
-                <span>Tanan</span>
+                <span>Tanan posts</span>
                 {allActiveCount > 0 && (
                   <span className="min-w-[18px] h-[18px] px-1.5 flex items-center justify-center text-[10px] font-black text-white bg-red-600 rounded-full shadow-xs leading-none">
                     {allActiveCount}
