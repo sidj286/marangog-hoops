@@ -94,7 +94,7 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
           {/* Quick Notice / Description */}
           <div className="p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-[11px] leading-relaxed">
             <p>
-              Rehistradong magduduwa sa <strong className="text-slate-900">Barangay Marangog, Bogo City</strong>. Mahimo nimo siyang i-search o tan-awon iyang mga gidapit nga duwa sa court.
+              Kini nga magduduwa aduna na'y account sa <strong className="text-slate-900">Marangog Hoops</strong> ug makakita sa imong mga post.
             </p>
           </div>
 
