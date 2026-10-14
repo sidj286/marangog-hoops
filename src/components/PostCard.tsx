@@ -199,9 +199,10 @@ export const PostCard: React.FC<PostCardProps> = ({
           </div>
 
           {/* Court Name with Pin */}
-          <div className="flex items-center gap-1 text-[11px] font-medium text-slate-700 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200 shrink-0 max-w-full sm:max-w-none truncate">
+          <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200 shrink-0 max-w-full sm:max-w-none">
             <MapPin className="w-3 h-3 text-[#06B6D4] shrink-0" />
-            <span className="truncate">{post.court_name}</span>
+            <span className="text-[10px] font-bold text-slate-500">Basket Ball Court:</span>
+            <span className="font-semibold text-slate-900 truncate">{post.court_name}</span>
           </div>
         </div>
 

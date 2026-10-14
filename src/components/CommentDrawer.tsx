@@ -166,9 +166,10 @@ export const CommentDrawer: React.FC<CommentDrawerProps> = ({
                 <CategoryIcon category={post.category} className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 <span>{categoryMeta.label}</span>
               </span>
-              <span className="text-slate-500 text-[11px] sm:text-xs flex items-center gap-1">
+              <span className="text-slate-600 text-[11px] sm:text-xs flex items-center gap-1">
                 <MapPin className="w-3 h-3 text-[#06B6D4]" />
-                {post.court_name}
+                <span className="text-[10px] font-bold text-slate-500">Basket Ball Court:</span>
+                <span className="font-semibold text-slate-900">{post.court_name}</span>
               </span>
             </div>
             <h3 className="text-xs sm:text-sm font-bold text-slate-900 line-clamp-2">
