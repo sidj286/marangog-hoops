@@ -13,6 +13,7 @@ export const ProfileSetupModal: React.FC = () => {
 
   const [displayName, setDisplayName] = useState(profile?.display_name || '');
   const [purok, setPurok] = useState(profile?.purok || '');
+  const [isGuest, setIsGuest] = useState(profile?.purok === 'Guest');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -20,6 +21,7 @@ export const ProfileSetupModal: React.FC = () => {
     if (profile) {
       setDisplayName(profile.display_name || '');
       setPurok(profile.purok || '');
+      setIsGuest(profile.purok === 'Guest');
     }
   }, [profile]);
 
@@ -35,17 +37,18 @@ export const ProfileSetupModal: React.FC = () => {
       setErrorMsg('Use your real full name');
       return;
     }
-    if (!purok.trim()) {
-      setErrorMsg('Palihug ibutang o i-type ang imong Purok o Sitio.');
+    if (!isGuest && !purok.trim()) {
+      setErrorMsg('Palihug ibutang o i-type ang imong Purok o Sitio sa Marangog.');
       return;
     }
 
     setLoading(true);
     setErrorMsg(null);
 
+    const finalPurok = isGuest ? 'Guest' : purok.trim();
     const res = await updateProfile({
       display_name: displayName.trim(),
-      purok: purok.trim(),
+      purok: finalPurok,
     });
 
     setLoading(false);
@@ -114,25 +117,77 @@ export const ProfileSetupModal: React.FC = () => {
               </span>
             </div>
 
-            {/* Purok / Sitio - Free User Input */}
+            {/* Residence / Purok Selection */}
             <div>
-              <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-0.5 sm:mb-1">
-                Imong Purok o Sitio sa Marangog <span className="text-[#F59E0B]">*</span>
-              </label>
-              <div className="relative">
-                <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F59E0B] absolute left-2.5 top-2 sm:top-2.5" />
-                <input
-                  type="text"
-                  required
-                  placeholder="I-type imong Purok o Sitio (e.g. Purok 1, Sitio Ilaya)"
-                  value={purok}
-                  onChange={(e) => setPurok(e.target.value)}
-                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-1.5 sm:py-2 pl-8 sm:pl-9 pr-2.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
-                />
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] sm:text-xs font-bold text-slate-700">
+                  Residente / Lokasyon <span className="text-[#F59E0B]">*</span>
+                </label>
               </div>
-              <span className="text-[9px] sm:text-[10px] text-slate-500 mt-0.5 block">
-                I-type kung asa ka nga purok o sitio nagpuyo sa Barangay Marangog.
-              </span>
+
+              {/* Options: Taga Marangog vs Guest */}
+              <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mb-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsGuest(false);
+                    if (purok === 'Guest') setPurok('');
+                  }}
+                  className={`py-1.5 px-2 rounded-lg text-[11px] sm:text-xs font-bold border transition-all text-center flex items-center justify-center gap-1 cursor-pointer ${
+                    !isGuest
+                      ? 'bg-[#F59E0B] text-black border-[#F59E0B] shadow-2xs font-extrabold'
+                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <span>Taga Marangog</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsGuest(true);
+                    setPurok('Guest');
+                  }}
+                  className={`py-1.5 px-2 rounded-lg text-[11px] sm:text-xs font-bold border transition-all text-center flex items-center justify-center gap-1 cursor-pointer ${
+                    isGuest
+                      ? 'bg-[#06B6D4] text-black border-[#06B6D4] shadow-2xs font-extrabold'
+                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  <span>Guest</span>
+                </button>
+              </div>
+
+              {!isGuest ? (
+                <div>
+                  <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-0.5 sm:mb-1">
+                    Imong Purok o Sitio sa Marangog <span className="text-[#F59E0B]">*</span>
+                  </label>
+                  <div className="relative">
+                    <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F59E0B] absolute left-2.5 top-2 sm:top-2.5" />
+                    <input
+                      type="text"
+                      required={!isGuest}
+                      placeholder="I-type imong Purok o Sitio (e.g. Purok 1, Sitio Ilaya)"
+                      value={purok}
+                      onChange={(e) => setPurok(e.target.value)}
+                      className="w-full bg-slate-50 focus:bg-white border border-slate-200 rounded-lg py-1.5 sm:py-2 pl-8 sm:pl-9 pr-2.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] text-xs sm:text-sm"
+                    />
+                  </div>
+                  <span className="text-[9px] sm:text-[10px] text-slate-500 mt-0.5 block">
+                    I-type kung asa ka nga purok o sitio nagpuyo sa Barangay Marangog.
+                  </span>
+                </div>
+              ) : (
+                <div className="p-2 sm:p-2.5 rounded-lg bg-cyan-50 border border-cyan-200 text-cyan-900 text-[11px] leading-relaxed">
+                  <div className="flex items-center gap-1.5 font-bold text-xs text-cyan-950">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#06B6D4]" />
+                    <span>Naka-select: Guest</span>
+                  </div>
+                  <p className="text-[10px] sm:text-[11px] text-cyan-800 mt-0.5">
+                    Dili kinahanglan og purok. Makapadayon na ka isip guest player.
+                  </p>
+                </div>
+              )}
             </div>
 
             <button
