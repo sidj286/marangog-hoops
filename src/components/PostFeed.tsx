@@ -174,7 +174,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({
               type="button"
               onClick={onOpenPlayersDirectory}
               className="px-2.5 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#06B6D4] text-slate-700 hover:text-slate-900 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shadow-2xs shrink-0 cursor-pointer"
-              title="Tan-awa ang tanang magduduwa nga adunay account"
+              title="View all players with a registered account"
             >
               <Users className="w-3.5 h-3.5 text-[#06B6D4] shrink-0" />
               <span className="hidden sm:inline">See also who is here</span>

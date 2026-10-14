@@ -88,7 +88,7 @@ export const PlayersDirectoryModal: React.FC<PlayersDirectoryModalProps> = ({
           </div>
 
           <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-relaxed">
-            Tan-awa ang tanang mga magduduwa nga adunay rehistradong account sa Marangog Hoops.
+            View all players with a registered account on Marangog Hoops.
           </p>
 
           {/* Search Box */}
