@@ -75,70 +75,86 @@ export const PostCard: React.FC<PostCardProps> = ({
     }
   };
 
+  // Player initials for avatar
+  const playerInitials = (post.profile?.display_name || 'MB')
+    .trim()
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase() || 'MB';
+
   return (
     <article
-      className={`relative rounded-xl border transition-all duration-150 overflow-hidden shadow-xs ${
+      className={`relative rounded-2xl border transition-all duration-150 overflow-hidden shadow-xs ${
         post.is_concluded 
           ? 'border-slate-200 opacity-70 bg-slate-50/70' 
           : 'border-slate-200 hover:border-[#F59E0B] hover:shadow-md bg-white'
       }`}
     >
-      <div className="p-4 space-y-3">
-        {/* Top Meta Bar */}
+      <div className="p-3.5 sm:p-4 space-y-3">
+        {/* 1. Header: Author Identity + Time + Actions */}
         <div className="flex items-start justify-between gap-2">
-          {/* Category & Status Badges */}
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span
-              className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-bold border ${categoryMeta.badgeBg}`}
+          <div className="flex items-center gap-2.5 min-w-0">
+            {/* Player Avatar */}
+            <button
+              type="button"
+              onClick={() => post.profile && onSelectPlayer?.(post.profile)}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-amber-400 to-[#F59E0B] text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border border-amber-300 hover:scale-105 active:scale-95 transition-transform cursor-pointer"
+              title="Tan-awa ang Profile sa Player"
             >
-              <CategoryIcon category={post.category} className="w-3.5 h-3.5 shrink-0" />
-              <span>{categoryMeta.label}</span>
-            </span>
+              {playerInitials}
+            </button>
 
-            {post.is_concluded && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
-                <Check className="w-3 h-3 text-emerald-500" />
-                Concluded
-              </span>
-            )}
+            {/* Author Name, Purok, Time */}
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => post.profile && onSelectPlayer?.(post.profile)}
+                  className="text-sm sm:text-base font-extrabold text-slate-900 hover:text-[#D97706] hover:underline truncate max-w-[170px] sm:max-w-xs text-left transition-colors cursor-pointer leading-tight"
+                  title="Tan-awa ang Profile sa Player"
+                >
+                  {post.profile?.display_name || 'Marangog Baller'}
+                </button>
+                {/* Purok Badge */}
+                <button
+                  type="button"
+                  onClick={() => post.profile && onSelectPlayer?.(post.profile)}
+                  className="text-[10px] sm:text-xs font-bold bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-1.5 py-0.5 rounded border border-cyan-200 shrink-0 transition-colors cursor-pointer leading-none"
+                  title="Purok sa Player"
+                >
+                  {post.profile?.purok || 'Marangog'}
+                </button>
+              </div>
 
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
-              <Clock className="w-3 h-3 text-slate-500" />
-              {formatTimeAgo(post.created_at)}
-            </span>
-
-            {/* Players Needed badge */}
-            {post.category === 'Need Player' && post.players_needed > 0 && !post.is_concluded && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-cyan-100 text-cyan-800 border border-cyan-300">
-                <span>Kulang:</span>
-                <span className="bg-[#06B6D4] text-black px-1 rounded text-[10px] font-black">
-                  {post.players_needed}
-                </span>
-              </span>
-            )}
+              {/* Time Ago */}
+              <div className="flex items-center gap-1 text-[11px] text-slate-400 mt-0.5">
+                <Clock className="w-3 h-3 text-slate-400 shrink-0" />
+                <span>{formatTimeAgo(post.created_at)}</span>
+              </div>
+            </div>
           </div>
 
           {/* More actions menu (Author or Share) */}
-          <div className="relative shrink-0">
-            <div className="flex items-center gap-1">
-              <button
-                onClick={handleShareClick}
-                className="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100 transition-colors"
-                title="Share post"
-              >
-                {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
-              </button>
+          <div className="relative shrink-0 flex items-center gap-0.5 sm:gap-1">
+            <button
+              onClick={handleShareClick}
+              className="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+              title="Share post"
+            >
+              {copiedLink ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
+            </button>
 
-              {isAuthor && (
-                <button
-                  onClick={() => setShowMenu(!showMenu)}
-                  className="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100 transition-colors"
-                  title="Author settings"
-                >
-                  <MoreVertical className="w-4 h-4" />
-                </button>
-              )}
-            </div>
+            {isAuthor && (
+              <button
+                onClick={() => setShowMenu(!showMenu)}
+                className="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                title="Author settings"
+              >
+                <MoreVertical className="w-4 h-4" />
+              </button>
+            )}
 
             {/* Author Dropdown */}
             {showMenu && isAuthor && (
@@ -176,37 +192,41 @@ export const PostCard: React.FC<PostCardProps> = ({
           </div>
         </div>
 
-        {/* Author & Court details */}
-        <div className="flex items-center justify-between gap-2 flex-wrap pt-0.5">
-          <div className="flex items-center gap-2 flex-wrap min-w-0">
-            <button
-              type="button"
-              onClick={() => post.profile && onSelectPlayer?.(post.profile)}
-              className="text-sm sm:text-base font-extrabold text-slate-900 hover:text-[#D97706] hover:underline truncate max-w-[200px] sm:max-w-xs text-left transition-colors cursor-pointer"
-              title="Tan-awa ang Profile sa Player"
-            >
-              {post.profile?.display_name || 'Marangog Baller'}
-            </button>
-            {/* Purok Badge */}
-            <button
-              type="button"
-              onClick={() => post.profile && onSelectPlayer?.(post.profile)}
-              className="text-[10px] sm:text-xs font-bold bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-1.5 py-0.5 rounded border border-cyan-200 shrink-0 transition-colors cursor-pointer"
-              title="Purok sa Player"
-            >
-              {post.profile?.purok || 'Marangog'}
-            </button>
-          </div>
+        {/* 2. Game Details Strip: Category + Court + Status */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border ${categoryMeta.badgeBg}`}
+          >
+            <CategoryIcon category={post.category} className="w-3.5 h-3.5 shrink-0" />
+            <span>{categoryMeta.label}</span>
+          </span>
 
           {/* Court Name with Pin */}
-          <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200 shrink-0 max-w-full sm:max-w-none">
-            <MapPin className="w-3 h-3 text-[#06B6D4] shrink-0" />
-            <span className="text-[10px] font-bold text-slate-500">Basket Ball Court:</span>
-            <span className="font-semibold text-slate-900 truncate">{post.court_name}</span>
+          <div className="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 max-w-full">
+            <MapPin className="w-3.5 h-3.5 text-[#06B6D4] shrink-0" />
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Basket Ball Court:</span>
+            <span className="font-bold text-slate-900 truncate">{post.court_name}</span>
           </div>
+
+          {post.is_concluded && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+              <Check className="w-3 h-3 text-emerald-500" />
+              Concluded
+            </span>
+          )}
+
+          {/* Players Needed badge */}
+          {post.category === 'Need Player' && post.players_needed > 0 && !post.is_concluded && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-cyan-100 text-cyan-800 border border-cyan-300">
+              <span>Kulang:</span>
+              <span className="bg-[#06B6D4] text-black px-1 rounded text-[10px] font-black">
+                {post.players_needed}
+              </span>
+            </span>
+          )}
         </div>
 
-        {/* Post Message Body */}
+        {/* 3. Post Message Body */}
         <div className="text-slate-800 text-sm leading-relaxed whitespace-pre-wrap font-medium">
           <MentionText text={post.message} players={players} onSelectPlayer={onSelectPlayer} />
         </div>
