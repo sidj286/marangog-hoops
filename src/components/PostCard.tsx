@@ -177,12 +177,12 @@ export const PostCard: React.FC<PostCardProps> = ({
         </div>
 
         {/* Author & Court details */}
-        <div className="flex items-center justify-between gap-2 flex-wrap text-xs pt-0.5">
-          <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+        <div className="flex items-center justify-between gap-2 flex-wrap pt-0.5">
+          <div className="flex items-center gap-2 flex-wrap min-w-0">
             <button
               type="button"
               onClick={() => post.profile && onSelectPlayer?.(post.profile)}
-              className="font-bold text-slate-900 hover:text-[#D97706] hover:underline truncate max-w-[170px] sm:max-w-xs text-left transition-colors cursor-pointer"
+              className="text-sm sm:text-base font-extrabold text-slate-900 hover:text-[#D97706] hover:underline truncate max-w-[200px] sm:max-w-xs text-left transition-colors cursor-pointer"
               title="Tan-awa ang Profile sa Player"
             >
               {post.profile?.display_name || 'Marangog Baller'}
@@ -191,7 +191,7 @@ export const PostCard: React.FC<PostCardProps> = ({
             <button
               type="button"
               onClick={() => post.profile && onSelectPlayer?.(post.profile)}
-              className="text-[10px] font-bold bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-1.5 py-0.2 rounded border border-cyan-200 shrink-0 transition-colors cursor-pointer"
+              className="text-[10px] sm:text-xs font-bold bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-1.5 py-0.5 rounded border border-cyan-200 shrink-0 transition-colors cursor-pointer"
               title="Purok sa Player"
             >
               {post.profile?.purok || 'Marangog'}
