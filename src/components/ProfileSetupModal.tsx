@@ -121,7 +121,7 @@ export const ProfileSetupModal: React.FC = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-[11px] sm:text-xs font-bold text-slate-700">
-                  Residente / Lokasyon <span className="text-[#F59E0B]">*</span>
+                  Lokal / Dayo <span className="text-[#F59E0B]">*</span>
                 </label>
               </div>
 
