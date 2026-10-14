@@ -46,7 +46,7 @@ export const Header: React.FC<HeaderProps> = () => {
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
               <h1 className="text-sm sm:text-base md:text-lg font-black tracking-tight text-[#F3F4F6] flex items-center gap-1 leading-tight">
-                MARANGOG HOOPS
+                MARANGOG DAILY HOOPS
               </h1>
             </div>
             <div className="text-[10px] sm:text-[11px] font-medium text-[#9CA3AF] flex items-center gap-1 sm:gap-1.5 leading-tight">
